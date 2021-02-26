@@ -1,0 +1,231 @@
+extends layout
+
+block content
+  .container-fluid.header-css(role='banner')
+    .row
+      header.col-xl-2.offset-xl-1.col-lg-3.col-md-3.col-sm-12.col-9
+        h3 Grobal News
+      .col-3.nav-btn
+        button#navBtn.btn(type='button')
+          // <span class="nav-icon"></span>
+          img(alt='button' src="data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+      nav#navList.col-xl-5.col-lg-6.col-md-9.col-sm-12.nav-bar(role='navigation')
+        ul.nav
+          li.nav-item.active
+            a(href='index.html') Home
+          li.nav-item
+            a(href='news.html') News
+          li.nav-item
+            a(href='video.html') Videos
+          li.nav-item
+            a(href='images.html') Images
+          li.nav-item
+            a(href='graphs.html') Graphs
+          li.nav-item
+            a(href='aboutUs.html') About Us
+      .search-bar.col-xl-3.col-lg-3(role='search')
+        input(type='text' placeholder='Grobal News')
+        a(href='#')
+          img(src='../images/search.png' alt='search button')
+  main.container-fluid.news-main(role='main')
+  .row
+    .col-lg-7.offset-lg-1.col-md-8
+      h1 News
+      hr
+      each news in list
+        .news-list.container-fluid
+          .row
+            img.col-sm-4(alt='News picture' src=news.picture)
+            .col-sm-8
+              a.news-list-title(href='news/' + news._id)
+                h4 #{news.title}
+              p
+                | #{news.intro}
+                br
+                | Key: 
+                span.key-word USA
+              .news-bottom
+                span.author
+                    | By 
+                    a(href='#') #{news.author}
+                span.date #{news.publicTimeString}
+      .news-list.container-fluid
+        .row
+          img.col-sm-4(alt='News picture' src='../images/news4.jpg')
+          .col-sm-8
+            a.news-list-title(href='https://www.theglobeandmail.com/world/article-governors-implore-trump-not-to-reopen-as-us-coronavirus-deaths-cross/')
+              h4 Governors implore Trump not to reopen as U.S. coronavirus deaths cross 40,000
+            p
+              | Governors in U.S. states hardest hit by the novel coronavirus sparred with President Donald
+              | Trump over his claims they have enough tests 
+              br
+              | Key: 
+              span.key-word
+                | World
+                | News
+            .news-bottom
+              span.author
+                | By 
+                a(href='#') Associated Press
+              span.date Thu, 04/16/2020 - 18:08
+      .news-list.container-fluid
+        .row
+          img.col-md-4(alt='News picture' src='../images/news5.jpg')
+          .col-md-8
+            a.news-list-title(href='https://business.financialpost.com/news/retail-marketing/ontario-doctors-rush-to-test-alternative-to-ventilator-drugs-as-supplies-run-low')
+              h4
+                | Ontario doctors rush to test alternative to COVID-19 ventilator drugs as supplies run
+                | low
+            p
+              | A team of Ontario critical care doctors is rushing to test an alternative strategy for
+              | sedating severely ill COVID-19 patients on ventilators as supplies of the drugs typically
+              | used for the task run low.
+              br
+              | Key: 
+              span.key-word Ontario News 
+            .news-bottom
+              span.author
+                | By 
+                a(href='#') Associated Press
+              span.date Thu, 04/16/2020 - 18:08
+      .news-list.container-fluid
+        .row
+          img.col-md-4(alt='News picture' src='../images/news6.jpg')
+          .col-md-8
+            a.news-list-title(href='https://globalnews.ca/news/6838738/town-of-peace-river-declares-local-state-of-emergency/')
+              h4 Flooding recedes in Peace River, town remains under local state of emergency
+            p
+              | Flooding has receded in the town of Peace River, after it declared a local state of emergency
+              | Saturday evening due to a massive flood in the downtown area.
+              br
+              | Key: 
+              span.key-word Canada News
+            .news-bottom
+              span.author
+                | By 
+                a(href='#') Associated Press
+              span.date Thu, 04/16/2020 - 18:08
+      .news-list.container-fluid
+        .row
+          img.col-md-4(alt='News picture' src='../images/news7.jpg')
+          .col-md-8
+            a.news-list-title(href='https://www.theweathernetwork.com/ca/news/article/squamish-valley-wildfire-holding-steady-but-twice-the-size-of-original-estimate-british-columbia')
+              h4 Evacuation order and alert rescinded for Squamish Valley wildfire
+            p
+              | An evacuation order and alert for properties near a wildfire burning near Squamish has been
+              | lifted.
+              br
+              | Key: 
+              span.key-word Grobal News
+            .news-bottom
+              span.author
+                | By 
+                a(href='#') Associated Press
+              span.date Thu, 04/16/2020 - 18:08
+      .news-list.container-fluid
+        .row
+          img.col-md-4(alt='News picture' src='../images/news8.jpg')
+          .col-md-8
+            a.news-list-title(href='https://winnipegsun.com/news/local-news/three-new-covid-19-cases-identified-in-manitoba-one-patient-released-from-hospital')
+              h4
+                | Public health officials issue Ramadan message as three new COVID-19 cases identified in
+                | Manitoba
+            p
+              | After requesting Manitobans avoid large gatherings for Easter and Passover last weekend,
+              | Manitoba chief public health officer turned his attention to the province&rsquo;s Muslim community
+              | on Saturday with the beginning of the month-long Ramadan celebration next week.
+              br
+              | Key:
+              span.key-word Manitoba Local News
+            .news-bottom
+              span.author
+                | By 
+                a(href='#') Associated Press
+              span.date Thu, 04/16/2020 - 18:08
+      .news-list.container-fluid
+        .row
+          img.col-md-4(alt='News picture' src='../images/news9.jpg')
+          .col-md-8
+            a.news-list-title(href='https://www.cbc.ca/news/world/india-lockdown-covid-1.5534551')
+              h4
+                | India&apos;s COVID-19 lockdown is among the strictest in the world but has yet to slow the
+                | spread
+            p
+              | Phase 2 of India&apos;s lockdown includes some loosening of restrictions, but much of the economy
+              | remains shut down
+              br
+              | Key: 
+              span.key-word USA
+            .news-bottom
+              span.author
+                | By 
+                a(href='#') Associated Press
+              span.date Thu, 04/16/2020 - 18:08
+      .news-list.container-fluid
+        .row
+          img.col-md-4(alt='News picture' src='../images/news10.jpg')
+          .col-md-8
+            a.news-list-title(href='https://www.cbc.ca/news/canada/manitoba/manitoba-coronavirus-covid-19-1.5492496')
+              h4 Waterloo Region up to 487 COVID-19 cases, 159 resolved, 25 deaths
+            p
+              | WATERLOO -- Region of Waterloo Public Health is reporting 487 confirmed cases of COVID-19,
+              | with 159 being resolved and 25 deaths.
+              br
+              | Key: 
+              span.key-word USA
+            .news-bottom
+              span.author
+                | By 
+                a(href='#') Associated Press
+              span.date Thu, 04/16/2020 - 18:08
+      button.btn.btn-primary.btn-lg.btn-block(type='button') Load More
+    .col-lg-3.col-md-4
+      h1 Trending News
+      hr
+      ul.list-inline.list-re
+        li
+          a.news-list-title(href='https://www.regionofwaterloo.ca/en/health-and-wellness/positive-cases-in-waterloo-region.aspx')
+            h5 COVID-19 Cases in Waterloo,Ontario,Canada.
+          .news-bottom
+            span.author
+              | By 
+              a(href='#') Associated Press
+            br
+            span.date Thu, 04/17/2020 - 18:08
+        li
+          a.news-list-title(href='https://vtdigger.org/coronavirus/')
+            h5 Coronavirus news-COVID-19 in Vermont
+          .news-bottom
+            span.author
+              | By 
+              a(href='#') Associated Press
+            br
+            span.date Thu, 04/16/2020 - 18:08
+        li
+          a.news-list-title(href='https://www.nytimes.com/2020/04/17/world/coronavirus-news-updates.html')
+            h5 W.H.O Failed to Tell Syrian Kurds of Their First Coronavirus Death
+          .news-bottom
+            span.author
+              | By 
+              a(href='#') Associated Press
+            br
+            span.date Thu, 04/16/2020 - 18:08
+        li
+          a.news-list-title(href='https://globalnews.ca/news/6837898/coronavirus-world-cruise-disembark/')
+            h5
+              | Passengers on world cruise expected to disembark after spending weeks without docking
+          .news-bottom
+            span.author
+              | By 
+              a(href='#') Associated Press
+            br
+            span.date Thu, 04/16/2020 - 18:08
+        li
+          a.news-list-title(href='https://www.theguardian.com/world/2020/apr/18/coronavirus-glance')
+            h5 Coronavirus Latest:at a glance
+          .news-bottom
+            span.author
+              | By 
+              a(href='#') Associated Press
+            br
+            span.date Thu, 04/16/2020 - 18:08

@@ -1,0 +1,335 @@
+extends layout
+
+block content
+  .container-fluid.header-css(role='banner')
+    .row
+      header.col-xl-2.offset-xl-1.col-lg-3.col-md-3.col-sm-12.col-9
+        h3 Grobal News
+      .col-3.nav-btn
+        button#navBtn.btn(type='button')
+          // <span class="nav-icon"></span>
+          img(alt='button' src="data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+      nav#navList.col-xl-5.col-lg-6.col-md-9.col-sm-12.nav-bar(role='navigation')
+        ul.nav
+          li.nav-item.active
+            a(href='index.html') Home
+          li.nav-item
+            a(href='news.html') News
+          li.nav-item
+            a(href='video.html') Videos
+          li.nav-item
+            a(href='images.html') Images
+          li.nav-item
+            a(href='graphs.html') Graphs
+          li.nav-item
+            a(href='aboutUs.html') About Us
+      .search-bar.col-xl-3.col-lg-3(role='search')
+        input(type='text' placeholder='Grobal News')
+        a(href='#')
+          img(src='../images/search.png' alt='search button')
+  main.container-fluid(role='main')
+  .row
+    section.col-xl-12.container-fluid
+      .row.top-news
+        img.col-xl-12(src='../images/top.jpg' alt='news picture')
+        .top-news-card.col-md-10.offset-md-1
+          a(href='detail.html')
+            h1 Germany Offers to Help Rebuild Fire-Damaged Notre Dame
+            p
+              | Officials suggested that German craftsmen could remake some of the large clerestory
+              | windows located far above eye level and designed to let light and air into the cathedral
+    section.col-md-10.offset-md-1.container-fluid.mtop
+      .row
+        .col-lg-4
+          h2.section-title Headlines
+          hr
+          ul.list-inline.headline-list
+            li.list-inline
+              a(href='detail.html')
+                | German Health Minister Says Coronavirus Now
+                | &apos;Manageable
+            li.list-inline
+              a(href='detail.html')
+                | Asia, Europe Markets Surge on Plans of US
+                | Economy Reopening
+            li.list-inline
+              a(href='detail.html')
+                | FBI Official Says Foreign Hackers Targeting
+                | COVID-19 Research
+            li.list-inline
+              a(href='detail.html')
+                | &apos;Makeshift Morgue&apos; at New Jersey Nursing Home
+                | Sparks Broader Coronavirus Probe
+            li.list-inline
+              a(href='detail.html')
+                | 45-Minute COVID-19 Tests Aid Remote Australian
+                | Aboriginal Communities
+        .col-lg-8.container-fluid
+          h2.section-title Speical News
+          hr
+          .row
+            a.col-lg-6.col-sm-6
+              .card.top-card
+                img.card-img-top(src='../images/news1.jpg' alt='Rescheduled Tour de France Hoping to Make Nation Smile Again')
+                .card-body
+                  h5.card-title
+                    | Rescheduled Tour de France Hoping to Make Nation Smile
+                    | Again
+            a.col-lg-6.col-sm-6
+              .card.top-card
+                img.card-img-top(src='../images/news2.jpg' alt="'E.T.,' 'Bugsy' Cinematographer Allen Daviau Dies at 77")
+                .card-body
+                  h5.card-title
+                    | &apos;E.T.,&apos; &apos;Bugsy&apos; Cinematographer Allen Daviau Dies at 77
+    section.col-md-10.offset-md-1.container-fluid.mtop.index-video-list
+      h2.section-title News
+      hr
+      .row
+        .col-lg-3.col-sm-6
+          h3 Asian
+          hr
+          ul.list-inline.headline-list
+            li.list-inline
+              a(href='videoDetail.html')
+                img.homepagenews.w-100(src='../images/top.jpg' alt='Online Gamers Hone Skills in a Pandemic')
+                |                                 Online Gamers Hone Skills in a Pandemic
+            li.list-inline
+              a(href='detail.html')
+                | German Health Minister Says Coronavirus Now
+                | &apos;Manageable
+            li.list-inline
+              a(href='detail.html')
+                | Asia, Europe Markets Surge on Plans of US
+                | Economy Reopening
+            li.list-inline
+              a(href='detail.html')
+                | FBI Official Says Foreign Hackers Targeting
+                | COVID-19 Research
+            li.list-inline
+              a(href='detail.html')
+                | &apos;Makeshift Morgue&apos; at New Jersey Nursing Home
+                | Sparks Broader Coronavirus Probe
+        .col-lg-3.col-sm-6
+          h3 North America
+          hr
+          ul.list-inline.headline-list
+            li.list-inline
+              a(href='videoDetail.html')
+                img.homepagenews.w-100(src='../images/top.jpg' alt='Online Gamers Hone Skills in a Pandemic')
+                |                                 Online Gamers Hone Skills in a Pandemic
+            li.list-inline
+              a(href='detail.html')
+                | German Health Minister Says Coronavirus Now
+                | &apos;Manageable
+            li.list-inline
+              a(href='detail.html')
+                | Asia, Europe Markets Surge on Plans of US
+                | Economy Reopening
+            li.list-inline
+              a(href='detail.html')
+                | FBI Official Says Foreign Hackers Targeting
+                | COVID-19 Research
+            li.list-inline
+              a(href='detail.html')
+                | &apos;Makeshift Morgue&apos; at New Jersey Nursing Home
+                | Sparks Broader Coronavirus Probe
+        .col-lg-3.col-sm-6
+          h3 Europ
+          hr
+          ul.list-inline.headline-list
+            li.list-inline
+              a(href='videoDetail.html')
+                img.homepagenews.w-100(src='../images/top.jpg' alt='Online Gamers Hone Skills in a Pandemic')
+                |                                 Online Gamers Hone Skills in a Pandemic
+            li.list-inline
+              a(href='detail.html')
+                | German Health Minister Says Coronavirus Now
+                | &apos;Manageable
+            li.list-inline
+              a(href='detail.html')
+                | Asia, Europe Markets Surge on Plans of US
+                | Economy Reopening
+            li.list-inline
+              a(href='detail.html')
+                | FBI Official Says Foreign Hackers Targeting
+                | COVID-19 Research
+            li.list-inline
+              a(href='detail.html')
+                | &apos;Makeshift Morgue&apos; at New Jersey Nursing Home
+                | Sparks Broader Coronavirus Probe
+        .col-lg-3.col-sm-6
+          h3 Africa
+          hr
+          ul.list-inline.headline-list
+            li.list-inline
+              a(href='videoDetail.html')
+                img.homepagenews.w-100(src='../images/top.jpg' alt='Online Gamers Hone Skills in a Pandemic')
+                |                                 Online Gamers Hone Skills in a Pandemic
+            li.list-inline
+              a(href='detail.html')
+                | German Health Minister Says Coronavirus Now
+                | &apos;Manageable
+            li.list-inline
+              a(href='detail.html')
+                | Asia, Europe Markets Surge on Plans of US
+                | Economy Reopening
+            li.list-inline
+              a(href='detail.html')
+                | FBI Official Says Foreign Hackers Targeting
+                | COVID-19 Research
+            li.list-inline
+              a(href='detail.html')
+                | &apos;Makeshift Morgue&apos; at New Jersey Nursing Home
+                | Sparks Broader Coronavirus Probe
+        .col-lg-3.col-sm-6
+          h3 South America
+          hr
+          ul.list-inline.headline-list
+            li.list-inline
+              a(href='videoDetail.html')
+                img.homepagenews.w-100(src='../images/top.jpg' alt='Online Gamers Hone Skills in a Pandemic')
+                |                                 Online Gamers Hone Skills in a Pandemic
+            li.list-inline
+              a(href='detail.html')
+                | German Health Minister Says Coronavirus Now
+                | &apos;Manageable
+            li.list-inline
+              a(href='detail.html')
+                | Asia, Europe Markets Surge on Plans of US
+                | Economy Reopening
+            li.list-inline
+              a(href='detail.html')
+                | FBI Official Says Foreign Hackers Targeting
+                | COVID-19 Research
+            li.list-inline
+              a(href='detail.html')
+                | &apos;Makeshift Morgue&apos; at New Jersey Nursing Home
+                | Sparks Broader Coronavirus Probe
+    section.col-md-10.offset-md-1.container-fluid.mtop.index-video-list
+      h2.section-title News Video
+      hr
+      .row
+        .col-lg-3.col-sm-6
+          h3 South America
+          hr
+          ul.list-inline.headline-list
+            li.list-inline
+              a(href='videoDetail.html')
+                img.homepagenews.w-100(src='../images/video10.webp' alt='Online Gamers Hone Skills in a Pandemic')
+                |                                 Online Gamers Hone Skills in a Pandemic
+            li.list-inline
+              a(href='detail.html')
+                | German Health Minister Says Coronavirus Now
+                | &apos;Manageable
+            li.list-inline
+              a(href='detail.html')
+                | Asia, Europe Markets Surge on Plans of US
+                | Economy Reopening
+            li.list-inline
+              a(href='detail.html')
+                | FBI Official Says Foreign Hackers Targeting
+                | COVID-19 Research
+            li.list-inline
+              a(href='detail.html')
+                | &apos;Makeshift Morgue&apos; at New Jersey Nursing Home
+                | Sparks Broader Coronavirus Probe
+        .col-lg-3.col-sm-6
+          h3 Africa
+          hr
+          ul.list-inline.headline-list
+            li.list-inline
+              a(href='videoDetail.html')
+                img.homepagenews.w-100(src='../images/video3.webp' alt='Online Gamers Hone Skills in a Pandemic')
+                |                                 Online Gamers Hone Skills in a Pandemic
+            li.list-inline
+              a(href='detail.html')
+                | German Health Minister Says Coronavirus Now
+                | &apos;Manageable
+            li.list-inline
+              a(href='detail.html')
+                | Asia, Europe Markets Surge on Plans of US
+                | Economy Reopening
+            li.list-inline
+              a(href='detail.html')
+                | FBI Official Says Foreign Hackers Targeting
+                | COVID-19 Research
+            li.list-inline
+              a(href='detail.html')
+                | &apos;Makeshift Morgue&apos; at New Jersey Nursing Home
+                | Sparks Broader Coronavirus Probe
+        .col-lg-3.col-sm-6
+          h3 Europe
+          hr
+          ul.list-inline.headline-list
+            li.list-inline
+              a(href='videoDetail.html')
+                img.homepagenews.w-100(src='../images/video4.webp' alt='Online Gamers Hone Skills in a Pandemic')
+                |                                 Online Gamers Hone Skills in a Pandemic
+            li.list-inline
+              a(href='detail.html')
+                | German Health Minister Says Coronavirus Now
+                | &apos;Manageable
+            li.list-inline
+              a(href='detail.html')
+                | Asia, Europe Markets Surge on Plans of US
+                | Economy Reopening
+            li.list-inline
+              a(href='detail.html')
+                | FBI Official Says Foreign Hackers Targeting
+                | COVID-19 Research
+            li.list-inline
+              a(href='detail.html')
+                | &apos;Makeshift Morgue&apos; at New Jersey Nursing Home
+                | Sparks Broader Coronavirus Probe
+        .col-lg-3.col-sm-6
+          h3 Asian
+          hr
+          ul.list-inline.headline-list
+            li.list-inline
+              a(href='videoDetail.html')
+                img.homepagenews.w-100(src='../images/video1.webp' alt='Online Gamers Hone Skills in a Pandemic')
+                |                                 Online Gamers Hone Skills in a Pandemic
+            li.list-inline
+              a(href='detail.html')
+                | German Health Minister Says Coronavirus Now
+                | &apos;Manageable
+            li.list-inline
+              a(href='detail.html')
+                | Asia, Europe Markets Surge on Plans of US
+                | Economy Reopening
+            li.list-inline
+              a(href='detail.html')
+                | FBI Official Says Foreign Hackers Targeting
+                | COVID-19 Research
+            li.list-inline
+              a(href='detail.html')
+                | &apos;Makeshift Morgue&apos; at New Jersey Nursing Home
+                | Sparks Broader Coronavirus Probe
+    section.col-md-10.offset-md-1.container-fluid.mtop.blog
+      .row
+        .col-xl-9.container-fluid
+          h2.section-title Latest news from our blog
+          hr
+          .row
+            .col-sm-4
+              a(href='#')
+                h5 Introducing about our website
+                p 16 April 2020
+            .col-sm-4
+              a(href='#')
+                h5 The latest update of our website
+                p 16 April 2020
+            .col-sm-4
+              a(href='#')
+                h5 How to join us
+                p 16 April 2020
+        .col-xl-3.container-fluid
+          h2.section-title Speical Blog
+          hr
+          .row
+            .col-xl-12
+              a(href='#')
+                h5 Even it is a hard time, we are still here with you
+                p 16 April 2020
+
+  
