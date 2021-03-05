@@ -1,7 +1,57 @@
 (() => {
     login();
     signOut();
+    createCate();
 })();
+
+function deleteCate(cid) {
+    
+    fetch("http://localhost:3000/admin/category/" + cid, {
+        method: 'DELETE',
+    })
+    .then((res) => {return res.json();})
+    .then((result) => {
+        alert(result.message);
+        if(result.code == 200) {
+            
+            window.location.reload();
+        }
+    });
+
+}
+
+function createCate() {
+    let createBtn = document.querySelector("#cateCreateBtn");
+    
+    if (createBtn) {
+        
+        createBtn.onclick = () => {
+            let name = document.querySelector("#inputCategoryName");
+            let actived = document.querySelector("#inputCategoryActived");
+            let level = document.querySelector("#inputLevel");
+            let data = {
+                name: name.value,
+                actived: actived.value,
+                level: level.value
+            }
+            fetch("http://localhost:3000/admin/category/create", {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then((res) => {return res.json();})
+            .then((result) => {
+                if(result.code == 200) {
+                    alert(result.message);
+                    window.location.href = "http://localhost:3000/admin/category";
+                } else {
+                    alert(result.message);
+                }
+            });
+        };
+    }
+    
+}
 
 function signOut() {
     let logoutBtn = document.querySelector("#signOut");

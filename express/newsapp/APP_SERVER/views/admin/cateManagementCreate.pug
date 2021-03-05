@@ -4,14 +4,14 @@ block content
   .container-fluid.header-css(role="banner")
     .row
       header.col-xl-2.offset-xl-1.col-lg-3.col-md-3.col-sm-12.col-9
-        h3 Grobal News  
+        h3 Grobal News
       .col-3.nav-btn
         button#navBtn.btn(type="button")
           // <span class="nav-icon"></span>
           img(alt="button" src="data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
       nav#navList.col-xl-5.col-lg-6.col-md-9.col-sm-12.nav-bar(role="navigation")
         ul.nav
-          li.nav-item
+          li.nav-item.active
             a(href="index.html") Home
           li.nav-item
             a(href="news.html") News
@@ -24,52 +24,36 @@ block content
           li.nav-item
             a(href="aboutUs.html") About Us
       .d-flex.col-xl-3.col-lg-3(role="search")
-        a#signOut.align-self-center.ml-auto.btn.btn-outline-secondary Sign out
+        a.align-self-center.ml-auto.btn.btn-outline-secondary Sign out
   .row(id="admin_main")
     .col-3(id="admin_nav")
       nav.nav.flex-column
-        a.nav-link.active.text-center(href="index.html") Overview
+        a.nav-link.text-center(href="index.html") Overview
         a.nav-link.text-center(href="newsManagement.html") News Management
         a.nav-link.text-center(href="videoManagement.html") Videos Management
         a.nav-link.text-center(href="picManagement.html") Pictures Management
-        a.nav-link.text-center(href="http://localhost:3000/admin/category") Categories Management
+        a.nav-link.active.text-center(href="http://localhost:3000/admin/category") Categories Management
         a.nav-link.text-center(href="tagsManagement.html") Tags Management
         a.nav-link.text-center(href="crawler.html") Crawler Rules
     .col-9
       nav(aria-label="breadcrumb")
-        ol.breadcrumb
-          li.breadcrumb-item
-            a(href="#") Admin
-          li.breadcrumb-item.active Overviews
+          ol.breadcrumb
+            li.breadcrumb-item
+              a(href="#") Admin
+            li.breadcrumb-item Categories Management
+            li.breadcrumb-item.active Categories Createment
       hr
-      .row
-        .col-sm-4
-          .card.overview-card
-            .card-body
-              h5.card-title Total News
-              p.card-text.h3 2031
-        .col-sm-4.overview-card
-          .card
-            .card-body
-              h5.card-title Total Videos
-              p.card-text.h3 131
-        .col-sm-4.overview-card
-          .card
-            .card-body
-              h5.card-title Total Pictures
-              p.card-text.h3 1313
-        .col-sm-4.overview-card
-          .card
-            .card-body
-              h5.card-title Today News
-              p.card-text.h3 1313
-        .col-sm-4.overview-card
-          .card
-            .card-body
-              h5.card-title Today Videos
-              p.card-text.h3 13
-        .col-sm-4.overview-card
-          .card
-            .card-body
-              h5.card-title Today Pictures
-              p.card-text.h3 313
+      
+      .row.mb-3
+        label.col-sm-2.col-form-label(for="inputCategoryName") Category Name:
+        .col-sm-10
+          input#inputCategoryName.form-control(type="text", value=category.name)
+      .row.mb-3
+        label.col-sm-2.col-form-label(for="inputCategoryActived") Actived:
+        .col-sm-10
+          input#inputCategoryActived.form-control(type="text", value=category.actived)
+      .row.mb-3
+        label.col-sm-2.col-form-label(for="inputLevel") Level:
+        .col-sm-10
+          input#inputLevel.form-control(type="text", value=category.level)
+      button#cateCreateBtn.btn.btn-primary(type="submit") Submit
