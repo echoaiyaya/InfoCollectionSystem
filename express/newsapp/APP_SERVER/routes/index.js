@@ -13,4 +13,6 @@ router.get('/', homeList.getNVP);
 router.get('/news', newsList.getNews);
 router.get('/news/:newsid', newsList.getSingleNews);
 
+
+
 module.exports = router;
