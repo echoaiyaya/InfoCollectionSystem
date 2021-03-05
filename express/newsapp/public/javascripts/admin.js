@@ -24,18 +24,25 @@ function createCate() {
     let createBtn = document.querySelector("#cateCreateBtn");
     
     if (createBtn) {
-        
         createBtn.onclick = () => {
             let name = document.querySelector("#inputCategoryName");
             let actived = document.querySelector("#inputCategoryActived");
             let level = document.querySelector("#inputLevel");
+            let id = createBtn.getAttribute("cid");
+            let url = "http://localhost:3000/admin/category/create";
+            let method = "POST";
+            if (id) {
+                console.log(1);
+                url = "http://localhost:3000/admin/category/" + id;
+                method = "PUT";
+            }
             let data = {
                 name: name.value,
                 actived: actived.value,
                 level: level.value
             }
-            fetch("http://localhost:3000/admin/category/create", {
-                method: 'POST',
+            fetch(url, {
+                method: method,
                 body: JSON.stringify(data),
                 headers: new Headers({'Content-Type': 'application/json'})
             })

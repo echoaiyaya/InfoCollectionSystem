@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const adminCtrl = require('../controllers/admin.js');
+const cateCtrl = require('../controllers/category.js');
 const { route } = require('./index.js');
 router.get('/',adminCtrl.checkSignIn, adminCtrl.adminIndex);
 router.route('/login')
@@ -10,15 +11,15 @@ router.route('/login')
 
 router.get('/signout', adminCtrl.signOut);
 
-router.get('/category',adminCtrl.checkSignIn, adminCtrl.categoryPage);
+router.get('/category',adminCtrl.checkSignIn, cateCtrl.categoryPage);
 
 router.route('/category/create')
-      .get(adminCtrl.checkSignIn, adminCtrl.categoryCreatePage)
-      .post(adminCtrl.checkSignIn, adminCtrl.categoryCreate);
+      .get(adminCtrl.checkSignIn, cateCtrl.categoryCreatePage)
+      .post(adminCtrl.checkSignIn, cateCtrl.categoryCreate);
 
 router.route('/category/:cid')
-      .get(adminCtrl.getSingleCate)
-      .put(adminCtrl.updateCate)
-      .delete(adminCtrl.deleteCate);
+      .get(cateCtrl.getSingleCate)
+      .put(cateCtrl.updateCate)
+      .delete(cateCtrl.deleteCate);
 
 module.exports = router;
