@@ -48,11 +48,11 @@ block content
           label.col-sm-2.col-form-label(for='inputTagName') Label Name:
           .col-sm-10
             input#inputTagName.tagsform-control(type='text', value = tag.name)
-            img(onclick='startDictation1()' src='https://i.imgur.com/cHidSVu.gif')
+            img(onclick='startDictation(this)',src='https://i.imgur.com/cHidSVu.gif')
         .row.mb-3
           label.col-sm-2.col-form-label(for='inputTagActived') Actived:
           .col-sm-10
             input#inputTagActived.tagsform-control(type='text', value=tag.actived)
-            img(onclick='startDictation2()' src='https://i.imgur.com/cHidSVu.gif')
+            img(onclick='startDictation(this)',src='https://i.imgur.com/cHidSVu.gif')
         button#tagCreateBtn.btn.btn-primary(type='submit',tid=tag._id) Submit
   script(src="/javascripts/voice.js")
