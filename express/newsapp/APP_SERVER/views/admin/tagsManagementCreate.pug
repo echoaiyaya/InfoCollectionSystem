@@ -1,6 +1,40 @@
-extend admin_layout 
+extend admin_layout
 
 block content
+  script.
+    function startDictation() {
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+    recognition.start();
+    recognition.onresult = function (e) {
+    document.getElementById('inputTagName').value = e.results[0][0].transcript;
+    recognition.stop();
+    };
+    recognition.onerror = function(e) {
+    recognition.stop();
+    }
+    }
+    }
+  script.
+    function startDictation() {
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+    recognition.start();
+    recognition.onresult = function (e) {
+    document.getElementById('inputTagActived').value = e.results[0][0].transcript;
+    recognition.stop();
+    };
+    recognition.onerror = function(e) {
+    recognition.stop();
+    }
+    }
+    }
   .container-fluid.header-css(role='banner')
     .row
       header.col-xl-2.offset-xl-1.col-lg-3.col-md-3.col-sm-12.col-9
@@ -48,8 +82,11 @@ block content
           label.col-sm-2.col-form-label(for='inputTagName') Label Name:
           .col-sm-10
             input#inputTagName.tagsform-control(type='text', value = tag.name)
+            img(onclick='startDictation()' src='https://i.imgur.com/cHidSVu.gif')
         .row.mb-3
           label.col-sm-2.col-form-label(for='inputTagActived') Actived:
           .col-sm-10
             input#inputTagActived.tagsform-control(type='text', value=tag.actived)
+            img(onclick='startDictation()' src='https://i.imgur.com/cHidSVu.gif')
         button#tagCreateBtn.btn.btn-primary(type='submit',tid=tag._id) Submit
+  
