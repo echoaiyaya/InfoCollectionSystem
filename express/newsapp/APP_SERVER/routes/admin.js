@@ -3,6 +3,7 @@ var router = express.Router();
 
 const adminCtrl = require('../controllers/admin.js');
 const cateCtrl = require('../controllers/category.js');
+const tagCtrl = require('../controllers/tags.js');
 const { route } = require('./index.js');
 router.get('/',adminCtrl.checkSignIn, adminCtrl.adminIndex);
 router.route('/login')
@@ -21,5 +22,18 @@ router.route('/category/:cid')
       .get(cateCtrl.getSingleCate)
       .put(cateCtrl.updateCate)
       .delete(cateCtrl.deleteCate);
+
+
+
+router.get('/tag',adminCtrl.checkSignIn, tagCtrl.tagPage);
+
+router.route('/tag/create')
+      .get(adminCtrl.checkSignIn, tagCtrl.tagCreatePage)
+      .post(adminCtrl.checkSignIn, tagCtrl.tagCreate);
+
+router.route('/tag/:tid')
+      .get(tagCtrl.getSingleTag)
+      .put(tagCtrl.updateTag)
+      .delete(tagCtrl.deleteTag);
 
 module.exports = router;
