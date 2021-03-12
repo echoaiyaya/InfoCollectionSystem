@@ -4,6 +4,7 @@ var router = express.Router();
 const adminCtrl = require('../controllers/admin.js');
 const cateCtrl = require('../controllers/category.js');
 const newsCtrl = require('../controllers/news.js');
+const tagCtrl = require('../controllers/tags.js');
 const { route } = require('./index.js');
 router.get('/',adminCtrl.checkSignIn, adminCtrl.adminIndex);
 router.route('/login')
@@ -26,12 +27,24 @@ router.route('/category/:cid')
 router.get('/news',adminCtrl.checkSignIn, newsCtrl.aNewsPage);
 
 router.route('/news/create')
-      .get(adminCtrl.checkSignIn, newsCtrl.aNewsCreatePage)
+      .get( newsCtrl.aNewsCreatePage)
       .post(adminCtrl.checkSignIn, newsCtrl.aNewsCreate);
 
-router.route('/news/:cid')
+router.route('/news/:nid')
       .get(newsCtrl.getSingleNews)
       .put(newsCtrl.updateNews)
       .delete(newsCtrl.deleteNews);
+
+
+router.get('/tag',adminCtrl.checkSignIn, tagCtrl.tagPage);
+
+router.route('/tag/create')
+      .get(adminCtrl.checkSignIn, tagCtrl.tagCreatePage)
+      .post(adminCtrl.checkSignIn, tagCtrl.tagCreate);
+
+router.route('/tag/:tid')
+      .get(tagCtrl.getSingleTag)
+      .put(tagCtrl.updateTag)
+      .delete(tagCtrl.deleteTag);
 
 module.exports = router;

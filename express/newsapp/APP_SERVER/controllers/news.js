@@ -1,6 +1,30 @@
 const mongoose = require('mongoose');
 const news = mongoose.model('news');
 const categories = mongoose.model('categories');
+const tags = mongoose.model('tags');
+const priorities =  [
+    {
+    value:4,
+    name: 'regular'
+    },
+    {
+    value:0,
+    name: 'Carousel'
+    },
+    {
+    value:1,
+    name: 'headline'
+    },
+    {
+    value:2,
+    name: 'speical'
+    },
+    {
+    value:3,
+    name: 'home page'
+    },
+      
+  ];
 
 
 
@@ -13,31 +37,46 @@ const aNewsCreatePage = (req, res, next) => {
       content: '',
       picture: '',
       priority: '',
+      priorities: priorities,
       actived: '',
-      categories: '',
+      categoryId: '',
       tags: '',
       publicTime: '',
       insertTIme: '',
       _id: ''
   }
 
-  categories.find({actived: 'true'})
+  categories.find({actived: true})
       .exec((err, categoriesData) => {
           aNews.categories = categoriesData;
+          tags.find({actived: true})
+            .exec((err, tagsData) => {
+                aNews.allTags = tagsData
+                console.log(aNews);
+                res.render("admin/newsManagementCreate", {aNews: aNews});
+            });
       });
-  res.render("admin/newsManagementCreate", {aNews: aNews});
+  
+  
+  
 }
 
 const aNewsCreate = (req, res, next) => {
-  if (!req.body.name || !req.body.level || !req.body.actived) {
+  if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.categoryId || !req.body.tags|| !req.body.priority || !req.body.intro || !req.body.content) {
       return res
           .status(400)
           .json({ "code": 400, message: "miss params" });
   }
   news.create({
-      name: req.body.name,
-      level: req.body.level,
-      actived: req.body.actived
+      title: req.body.title,
+      actived: req.body.actived,
+      author: req.body.author,
+      link:req.body.link,
+      categoryId:req.body.categoryId,
+      tags:req.body.tags,
+      priority:req.body.priority,
+      intro:req.body.intro,
+      content:req.body.content
   }, (err, newsData) => {
       if (err) {
           res
@@ -62,79 +101,94 @@ const aNewsPage = (req, res, next) => {
 }
 
 const getSingleNews = (req, res, next) => {
-  if (!req.params.cid) {
+  if (!req.params.nid) {
       res
           .status(404)
           .json({
               "code": 400,
-              "message": "Not found, bookid is required"
+              "message": "Not found, newsId is required"
           });
       return;
   }
-  news.findById(req.params.cid)
+  news.findById(req.params.nid)
       .lean()
       .exec((err, newsData) => {
           if (err) {
               console.log(err);
               return res.status(404).json(err)
           }
-          newsData.actived = String(newsData.actived);
-          console.log(newsData);
-          res.render("admin/newsManagementCreate", { aNews: newsData });
+          categories.find({actived: true})
+            .exec((err, categoriesData) => {
+                newsData.categories = categoriesData;
+                tags.find({actived: true})
+                    .exec((err, tagsData) => {
+                        newsData.allTags = tagsData;
+                        newsData.priorities = priorities;
+                        console.log(newsData);
+                        res.render("admin/newsManagementCreate", {aNews: newsData});
+                    });
+            });
+          //res.render("admin/newsManagementCreate", { aNews: newsData });
       });
 }
 
 const updateNews = (req, res, next) => {
-  if (!req.body.name || !req.body.level || !req.body.actived) {
-      return res
-          .status(400)
-          .json({ "code": 400, message: "miss params" });
-  }
-  news.findById(req.params.cid)
-      .exec((err, news) => {
-          if (!news) {
-              res
-                  .status(404)
-                  .json({
-                      "code": 400,
-                      "message": "cid not found"
-                  });
-              return;
-          } else if (err) {
-              res
-                  .status(400)
-                  .json({
-                      "code": 400,
-                      "message": err
-                  });
-              return;
-          }
-          news.name = req.body.name;
-          news.actived = req.body.actived;
-          news.level = req.body.level;
-          news.save((err, aNewsDate) => {
-              if (err) {
-                  res
-                      .status(404)
-                      .json({
-                          "code": 400,
-                          "message": err
-                      });
-              } else {
-                  res
-                      .status(200)
-                      .json({
-                          "code": 200,
-                          "message": "update successfully"
-                      })
-              }
-          });
+    if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.categoryId || !req.body.tags|| !req.body.priority || !req.body.intro || !req.body.content) {
+        return res
+            .status(400)
+            .json({ "code": 400, message: "miss params" });
+    }
+    news.findById(req.params.nid)
+        .exec((err, news) => {
+            if (!news) {
+                res
+                    .status(404)
+                    .json({
+                        "code": 400,
+                        "message": "nid not found"
+                    });
+                return;
+            } else if (err) {
+                res
+                    .status(400)
+                    .json({
+                        "code": 400,
+                        "message": err
+                    });
+                return;
+            }
+            news.title = req.body.title,
+            news.actived=  req.body.actived,
+            news.author=  req.body.author,
+            news.link= req.body.link,
+            news.categoryId= req.body.categoryId,
+            news.tags= req.body.tags,
+            news.priority= req.body.priority,
+            news.intro= req.body.intro,
+            news.content= req.body.content
+            news.save((err, aNewsDate) => {
+                if (err) {
+                    res
+                        .status(404)
+                        .json({
+                            "code": 400,
+                            "message": err
+                        });
+                } else {
+                    res
+                        .status(200)
+                        .json({
+                            "code": 200,
+                            "message": "update successfully"
+                        })
+                }
+            });
 
-      });
+        });
 }
 
 const deleteNews = (req, res, next) => {
-  if (!req.params.cid) {
+  if (!req.params.nid) {
       res
           .status(404)
           .json({
@@ -144,7 +198,7 @@ const deleteNews = (req, res, next) => {
       return;
   }
   news
-  .findByIdAndRemove(req.params.cid)
+  .findByIdAndRemove(req.params.nid)
   .exec((err, newsData) => {
       if (err) {
           res

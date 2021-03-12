@@ -25,12 +25,12 @@ const newsSchema = new mongoose.Schema({
 	picture : {
 			type : String
 	},
-	priority: {
+	priority: [{
 			type: Number,
 			required: true,
 			'default': 4
 			// 0 scroll, 1 headline, 2 speical, 3 home page, 4 regular
-	},
+	}],
 	actived: {
 			type: Boolean,
 			required: true,
@@ -38,12 +38,10 @@ const newsSchema = new mongoose.Schema({
 	},
 	publicTime : {
 		type : Date,
-		required : true,
 		'default' : Date.now
 	},
 	insertTime : {
 		type : Date,
-		required : true,
 		'default' : Date.now
 	},
 	categoryId : {type: Schema.Types.ObjectId, ref: 'categories'},

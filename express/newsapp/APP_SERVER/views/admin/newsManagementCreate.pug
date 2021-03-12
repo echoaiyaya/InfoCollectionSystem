@@ -45,28 +45,78 @@ block content
       hr
       
       .form-group
-        label(for='newsTitle') News Title:
-        input#newsTitle.form-control(type='text')
+        label(for='newsTitle') Title:
+        input#newsTitle.form-control(type='text', value=aNews.title)
       .form-group
         label(for='newsAuthor') Author:
-        input#newsAuthor.form-control(type='text')
+        input#newsAuthor.form-control(type='text', value=aNews.author)
       .form-group
         label(for='newsLink') picture link:
-        input#newsLink.form-control(type='text')
+        input#newsLink.form-control(type='text', , value=aNews.link)
       .form-group
         label(for='newsCategory') Category:
         select#newsCategory.form-control
-          option(selected='') Choose...
-          option Asian
-          option North America
+          if aNews.categoryId == ''
+            option(selected='') Choose...
+          each c, k in aNews.categories
+
+            if aNews.categoryId == c._id
+              option(value=c._id, selected) #{c.name}
+            else 
+              option(value=c._id) #{c.name}
       .form-group
-        label(for='exampleFormControlSelect2') Tags:
-        select#exampleFormControlSelect2.form-control(multiple='')
-          option sports
-          option life
-          option world
-          option programme
+        label(for='newsTags') Tags:
+        select#newsTags.form-control(multiple='')
+          if aNews.tags != ''
+            each t in aNews.allTags
+              - var tresult = false
+              each gt in aNews.tags
+                if (gt == t._id.toString())
+                  - tresult = true
+              if tresult
+                option.otag(value=t._id, selected) #{t.name}
+              else 
+                option.otag(value=t._id) #{t.name}
+          else
+            each t in aNews.allTags
+              option.otag(value=t._id) #{t.name}
+      .form-group
+        label(for='newsPriority') Priority:
+        select#newsPriority.form-control(multiple='')
+          if aNews.priority != ''
+            each ps in aNews.priorities
+              - var presult = false
+              each p in aNews.priority
+                if p == ps.value
+                  - presult = true
+              if presult
+                option.op(value=ps.value, selected) #{ps.name}
+              else 
+                option.op(value=ps.value) #{ps.name}  
+          else
+            each ps in aNews.priorities
+              if ps.value == 4
+                option.op(value=4, selected) #{ps.name}
+              else 
+                option.op(value=ps.value) #{ps.name}
+      .form-group
+        label(for='newsActived') Actived:
+        select#newsActived.form-control
+          if aNews.actived
+            case aNews.actived
+              when true
+                option(value='true', checked) true
+                option(value='false') false
+              when false
+                option(value='true') true
+                option(value='false', checked) false
+          else      
+            option(value='true') true
+            option(value='false') false
+      .form-group
+        label(for='newsIntro') intro
+        textarea#newsIntro.form-control(rows='2', value=aNews.intro) #{aNews.intro}
       .form-group
         label(for='newsContent') Content
-        textarea#newsContent.form-control(rows='5')
-      button#newsCreateBtn.btn.btn-primary(type='submit') Submit
+        textarea#newsContent.form-control(rows='5',value=aNews.content) #{aNews.content}
+      button#newsCreateBtn.btn.btn-primary(type='submit',nid=aNews._id) Submit
