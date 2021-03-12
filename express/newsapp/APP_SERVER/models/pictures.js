@@ -32,14 +32,10 @@ const picturesSchema = new mongoose.Schema({
 		required : true,
 		'default' : Date.now
 	},
-    categoryId : Schema.Types.ObjectId,
-    Tags : [tagsSchema]
+	categoryId : {type: Schema.Types.ObjectId, ref: 'categories'},
+  tags : [{type: Schema.Types.ObjectId, ref: 'tags'}]
 });
 
-const tagsSchema = new mongoose.Schema({
-    _id : false,
-    tagsId : Schema.Types.ObjectId,
-});
 
 
 const pictures = mongoose.model('pictures', picturesSchema);
