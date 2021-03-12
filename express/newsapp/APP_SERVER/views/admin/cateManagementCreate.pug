@@ -1,6 +1,57 @@
 extend admin_layout 
 
-block content 
+block content
+  script.
+    function startDictation() {
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+    recognition.start();
+    recognition.onresult = function (e) {
+    document.getElementById('inputCategoryName').value = e.results[0][0].transcript;
+    recognition.stop();
+    };
+    recognition.onerror = function(e) {
+    recognition.stop();
+    }
+    }
+    }
+  script.
+    function startDictation() {
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+    recognition.start();
+    recognition.onresult = function (e) {
+    document.getElementById('inputCategoryActived').value = e.results[0][0].transcript;
+    recognition.stop();
+    };
+    recognition.onerror = function(e) {
+    recognition.stop();
+    }
+    }
+    }
+    script.
+    function startDictation() {
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+    recognition.start();
+    recognition.onresult = function (e) {
+    document.getElementById('inputLevel').value = e.results[0][0].transcript;
+    recognition.stop();
+    };
+    recognition.onerror = function(e) {
+    recognition.stop();
+    }
+    }
+    }
   .container-fluid.header-css(role="banner")
     .row
       header.col-xl-2.offset-xl-1.col-lg-3.col-md-3.col-sm-12.col-9
@@ -48,12 +99,16 @@ block content
         label.col-sm-2.col-form-label(for="inputCategoryName") Category Name:
         .col-sm-10
           input#inputCategoryName.form-control(type="text", value=category.name)
+          img(onclick='startDictation(this)',src='https://i.imgur.com/cHidSVu.gif')
       .row.mb-3
         label.col-sm-2.col-form-label(for="inputCategoryActived") Actived:
         .col-sm-10
           input#inputCategoryActived.form-control(type="text", value=category.actived)
+          img(onclick='startDictation(this)',src='https://i.imgur.com/cHidSVu.gif')
       .row.mb-3
         label.col-sm-2.col-form-label(for="inputLevel") Level:
         .col-sm-10
           input#inputLevel.form-control(type="text", value=category.level)
+          img(onclick='startDictation(this)',src='https://i.imgur.com/cHidSVu.gif')
       button#cateCreateBtn.btn.btn-primary(type="submit", cid=category._id) Submit
+      script(src="/javascripts/voice.js")
