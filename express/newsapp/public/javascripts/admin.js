@@ -2,6 +2,7 @@
     login();
     signOut();
     createCate();
+    createTag();
 })();
 
 function deleteCate(cid) {
@@ -59,6 +60,68 @@ function createCate() {
     }
     
 }
+
+
+function deleteTag(tid) {
+    
+    fetch("http://localhost:3000/admin/tag/" + tid, {
+        method: 'DELETE',
+    })
+    .then((res) => {return res.json();})
+    .then((result) => {
+        alert(result.message);
+        if(result.code == 200) {
+            
+            window.location.reload();
+        }
+    });
+
+}
+
+function createTag() {
+    console.log(3);
+    let createBtn = document.querySelector("#tagCreateBtn");
+    
+    if (createBtn) {
+        console.log(4);
+        createBtn.onclick = () => {
+            console.log(2);
+            let name = document.querySelector("#inputTagName");
+            let actived = document.querySelector("#inputTagActived");
+            // let level = document.querySelector("#inputLevel");
+            let id = createBtn.getAttribute("tid");
+            let url = "http://localhost:3000/admin/tag/create";
+            let method = "POST";
+            if (id) {
+                console.log(1);
+                url = "http://localhost:3000/admin/tag/" + id;
+                method = "PUT";
+            }
+            let data = {
+                name: name.value,
+                actived: actived.value
+                
+            }
+            fetch(url, {
+                method: method,
+                body: JSON.stringify(data),
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then((res) => {return res.json();})
+            .then((result) => {
+                if(result.code == 200) {
+                    alert(result.message);
+                    window.location.href = "http://localhost:3000/admin/tag";
+                } else {
+                    alert(result.message);
+                }
+            });
+        };
+    }
+    
+}
+
+
 
 function signOut() {
     let logoutBtn = document.querySelector("#signOut");
