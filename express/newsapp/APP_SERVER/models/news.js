@@ -41,7 +41,7 @@ const newsSchema = new mongoose.Schema({
 		required : true,
 		'default' : Date.now
 	},
-		insertTime : {
+	insertTime : {
 		type : Date,
 		required : true,
 		'default' : Date.now

@@ -9,9 +9,7 @@ var router = express.Router();
 const newsList = require('../controllers/news');
 const homeList = require('../controllers/index');
 
-router.get('/', homeList.getNVP);
-router.get('/news', newsList.getNews);
-router.get('/news/:newsid', newsList.getSingleNews);
+
 
 
 

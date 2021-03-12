@@ -3,6 +3,7 @@ var router = express.Router();
 
 const adminCtrl = require('../controllers/admin.js');
 const cateCtrl = require('../controllers/category.js');
+const newsCtrl = require('../controllers/news.js');
 const { route } = require('./index.js');
 router.get('/',adminCtrl.checkSignIn, adminCtrl.adminIndex);
 router.route('/login')
@@ -21,5 +22,16 @@ router.route('/category/:cid')
       .get(cateCtrl.getSingleCate)
       .put(cateCtrl.updateCate)
       .delete(cateCtrl.deleteCate);
+
+router.get('/news',adminCtrl.checkSignIn, newsCtrl.aNewsPage);
+
+router.route('/news/create')
+      .get(adminCtrl.checkSignIn, newsCtrl.aNewsCreatePage)
+      .post(adminCtrl.checkSignIn, newsCtrl.aNewsCreate);
+
+router.route('/news/:cid')
+      .get(newsCtrl.getSingleNews)
+      .put(newsCtrl.updateNews)
+      .delete(newsCtrl.deleteNews);
 
 module.exports = router;

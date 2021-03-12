@@ -24,6 +24,8 @@ const signOut = (req, res, next) => {
         req.session.destroy(() => {
             res.status(200).json({ "code": 200, "message": "log out success" });
         });
+    } else {
+        res.status(200).json({ "code": 200, "message": "log out error" });
     }
 }
 
