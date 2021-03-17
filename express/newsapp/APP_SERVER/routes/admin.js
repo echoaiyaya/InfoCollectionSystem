@@ -5,6 +5,7 @@ const adminCtrl = require('../controllers/admin.js');
 const cateCtrl = require('../controllers/category.js');
 const newsCtrl = require('../controllers/news.js');
 const tagCtrl = require('../controllers/tags.js');
+const videosCtrl = require('../controllers/videos.js');
 const { route } = require('./index.js');
 router.get('/',adminCtrl.checkSignIn, adminCtrl.adminIndex);
 router.route('/login')
@@ -46,5 +47,18 @@ router.route('/tag/:tid')
       .get(tagCtrl.getSingleTag)
       .put(tagCtrl.updateTag)
       .delete(tagCtrl.deleteTag);
+
+router.get('/videos',adminCtrl.checkSignIn, videosCtrl.aVideosPage);
+
+router.route('/videos/create')
+      .get( videosCtrl.aVideosCreatePage)
+      .post(adminCtrl.checkSignIn, videosCtrl.aVideosCreate);
+      
+router.route('/videos/:vid')
+      .get(videosCtrl.getSingleVideos)
+      .put(videosCtrl.updateVideos)
+      .delete(videosCtrl.deleteVideos);
+      
+      
 
 module.exports = router;

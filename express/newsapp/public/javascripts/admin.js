@@ -203,6 +203,85 @@ function createNews() {
 
 
 
+function deleteVideos(vid) {
+    
+    fetch("http://localhost:3000/admin/videos/" + vid, {
+        method: 'DELETE',
+    })
+    .then((res) => {return res.json();})
+    .then((result) => {
+        alert(result.message);
+        if(result.code == 200) {
+            
+            window.location.reload();
+        }
+    });
+
+}
+
+function createVideos() {
+    let createBtn = document.querySelector("#videosCreateBtn");
+    
+    if (createBtn) {
+        createBtn.onclick = () => {
+            //let tags = [];
+            //let priority = [];
+            let title = document.querySelector("#videosTitle");
+            let author = document.querySelector("#videosAuthor");
+            let link = document.querySelector("#videosLink");
+            //let categoryId = document.querySelector("#newsCategory");
+            //let tagsSelected = document.querySelectorAll(".otag:checked");
+            // tagsSelected.forEach((v) => {
+            //     tags.push(v.value);
+            // });
+            // let pSelected = document.querySelectorAll(".op:checked");
+            // pSelected.forEach((v) => {
+            //     priority.push(Number(v.value));
+            // });
+            let actived = document.querySelector("#videosActived");
+            let intro = document.querySelector("#videosIntro");
+            //let content = document.querySelector("#newsContent");
+            
+
+            let id = createBtn.getAttribute("vid");
+            let url = "http://localhost:3000/admin/videos/create";
+            let method = "POST";
+            if (id) {
+                console.log(1);
+                url = "http://localhost:3000/admin/videos/" + id;
+                method = "PUT";
+            }
+            let data = {
+                title: title.value,
+                actived: actived.value,
+                author: author.value,
+                link: link.value,
+                //categoryId: categoryId.value,
+                //tags: tags,
+                //priority: priority,
+                intro: intro.value
+                //content: content.value
+            }
+            fetch(url, {
+                method: method,
+                body: JSON.stringify(data),
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then((res) => {return res.json();})
+            .then((result) => {
+                if(result.code == 200) {
+                    alert(result.message);
+                    window.location.href = "http://localhost:3000/admin/videos";
+                } else {
+                    alert(result.message);
+                }
+            });
+        };
+    }
+    
+}
+
+
 function signOut() {
     let logoutBtn = document.querySelector("#signOut");
     if (logoutBtn) {
