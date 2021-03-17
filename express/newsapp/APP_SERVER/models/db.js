@@ -16,3 +16,4 @@ mongoose.connection.on('disconnected', () => {
 require('./news');
 require('./categories');
 require('./tags');
+require('./videos');
