@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const picturesSchema = new mongoose.Schema({
 	title : {
@@ -32,8 +33,8 @@ const picturesSchema = new mongoose.Schema({
 		required : true,
 		'default' : Date.now
 	},
-	categoryId : {type: Schema.Types.ObjectId, ref: 'categories'},
-  tags : [{type: Schema.Types.ObjectId, ref: 'tags'}]
+	//categoryId : {type: Schema.Types.ObjectId, ref: 'categories'},
+  //tags : [{type: Schema.Types.ObjectId, ref: 'tags'}]
 });
 
 
