@@ -1,57 +1,6 @@
 extend admin_layout 
 
 block content
-  script.
-    function startDictation() {
-    if (window.hasOwnProperty('webkitSpeechRecognition')) {
-    var recognition = new webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = "en-US";
-    recognition.start();
-    recognition.onresult = function (e) {
-    document.getElementById('inputCategoryName').value = e.results[0][0].transcript;
-    recognition.stop();
-    };
-    recognition.onerror = function(e) {
-    recognition.stop();
-    }
-    }
-    }
-  script.
-    function startDictation() {
-    if (window.hasOwnProperty('webkitSpeechRecognition')) {
-    var recognition = new webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = "en-US";
-    recognition.start();
-    recognition.onresult = function (e) {
-    document.getElementById('inputCategoryActived').value = e.results[0][0].transcript;
-    recognition.stop();
-    };
-    recognition.onerror = function(e) {
-    recognition.stop();
-    }
-    }
-    }
-    script.
-    function startDictation() {
-    if (window.hasOwnProperty('webkitSpeechRecognition')) {
-    var recognition = new webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = "en-US";
-    recognition.start();
-    recognition.onresult = function (e) {
-    document.getElementById('inputLevel').value = e.results[0][0].transcript;
-    recognition.stop();
-    };
-    recognition.onerror = function(e) {
-    recognition.stop();
-    }
-    }
-    }
   .container-fluid.header-css(role="banner")
     .row
       header.col-xl-2.offset-xl-1.col-lg-3.col-md-3.col-sm-12.col-9

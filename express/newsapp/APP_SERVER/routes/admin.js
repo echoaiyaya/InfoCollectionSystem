@@ -6,6 +6,7 @@ const cateCtrl = require('../controllers/category.js');
 const newsCtrl = require('../controllers/news.js');
 const tagCtrl = require('../controllers/tags.js');
 const videosCtrl = require('../controllers/videos.js');
+const picturesCtrl = require('../controllers/pictures.js');
 const { route } = require('./index.js');
 router.get('/',adminCtrl.checkSignIn, adminCtrl.adminIndex);
 router.route('/login')
@@ -58,6 +59,17 @@ router.route('/videos/:vid')
       .get(videosCtrl.getSingleVideos)
       .put(videosCtrl.updateVideos)
       .delete(videosCtrl.deleteVideos);
+
+router.get('/pictures',adminCtrl.checkSignIn, picturesCtrl.aPicturesPage);
+
+router.route('/pictures/create')
+      .get(picturesCtrl.aPicturesCreatePage)
+      .post(adminCtrl.checkSignIn, picturesCtrl.aPicturesCreate);
+
+router.route('/pictures/:pid')
+      .get(picturesCtrl.getSinglePictures)
+      .put(picturesCtrl.updatePictures)
+      .delete(picturesCtrl.deletePictures);
       
       
 
