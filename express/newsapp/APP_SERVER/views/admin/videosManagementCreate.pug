@@ -55,18 +55,19 @@ block content
         input#videosLink.form-control(type='text', , value=aVideos.link)
       .form-group
         label(for='pictureLink') picture link:
-        input#pictureLink.form-control(type='text', , value=aVideos.picturelink)
+        input#pictureLink.form-control(type='text', , value=aVideos.picture)
       .form-group
         label(for='videosActived') Actived:
         select#videosActived.form-control
-          if aVideos.actived
+          if aVideos.hasActived
             case aVideos.actived
-              when true
+              when 'true'
                 option(value='true', checked) true
                 option(value='false') false
-              when false
-                option(value='true') true
+              when 'false'
                 option(value='false', checked) false
+                option(value='true') true
+                
           else      
             option(value='true') true
             option(value='false') false

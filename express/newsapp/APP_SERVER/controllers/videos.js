@@ -70,6 +70,7 @@ const getSingleVideos = (req, res, next) => {
               return res.status(404).json(err)
           }
           videosData.actived = String(videosData.actived);
+          videosData.hasActived = true;
           console.log(videosData);
           res.render("admin/videosManagementCreate", {aVideos: videosData});
       });
