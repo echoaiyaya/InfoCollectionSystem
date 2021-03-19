@@ -18,12 +18,15 @@ const videosSchema = new mongoose.Schema({
 		type : String,
 		required : true
 	},
+		picture : {
+			type : String
+	},
     actived: {
         type: Boolean,
         required: true,
         'default': false
     },
-	publicTime : {
+		publicTime : {
 		type : Date,
 		required : true,
 		'default' : Date.now
