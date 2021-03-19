@@ -40,45 +40,37 @@ block content
         ol.breadcrumb
           li.breadcrumb-item
             a(href='#') Admin
-          li.breadcrumb-item.active News Management
+          li.breadcrumb-item Videos Management
+          li.breadcrumb-item.active Videos Create
       hr
-      button.btn.btn-primary.mb-2(onclick="window.location.href='http://localhost:3000/admin/news/create'") Create New News Data
-      table.table
-        thead.thead-dark
-          tr
-            th(scope='col') #
-            th(scope='col') title
-            th(scope='col') author
-            th(scope='col') category
-            th(scope='col') tags
-            th(scope='col') publicTime
-            th(scope='col') insertTime
-            th(scope='col') Operation
-        tbody
-          each c, key in news
-            tr
-              th(scope="row") #{key + 1}
-              td #{c.title}
-              td #{c.author}
-              td #{c.categoryId.name}
-              td 
-                each t, key in c.tags
-                  | #{t.name},
-              td #{c.publicTime.toDateString()}
-              td #{c.insertTime.toDateString()}
-              td
-                a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/news/" + c._id) edit
-                a.btn.btn-sm.btn-danger(onclick="deleteNews('"+ c._id + "')") delete
-          
-      //- nav(aria-label='Page navigation example')
-      //-   ul.pagination.justify-content-end
-      //-     li.page-item.disabled
-      //-       a.page-link(href='#' tabindex='-1' aria-disabled='true') Previous
-      //-     li.page-item
-      //-       a.page-link(href='#') 1
-      //-     li.page-item
-      //-       a.page-link(href='#') 2
-      //-     li.page-item
-      //-       a.page-link(href='#') 3
-      //-     li.page-item
-      //-       a.page-link(href='#') Next
+      
+      .form-group
+        label(for='videosTitle') Title:
+        input#videosTitle.form-control(type='text', value=aVideos.title)
+      .form-group
+        label(for='videosAuthor') Author:
+        input#videosAuthor.form-control(type='text', value=aVideos.author)
+      .form-group
+        label(for='videosLink') link:
+        input#videosLink.form-control(type='text', , value=aVideos.link)
+      .form-group
+        label(for='pictureLink') picture link:
+        input#pictureLink.form-control(type='text', , value=aVideos.picturelink)
+      .form-group
+        label(for='videosActived') Actived:
+        select#videosActived.form-control
+          if aVideos.actived
+            case aVideos.actived
+              when true
+                option(value='true', checked) true
+                option(value='false') false
+              when false
+                option(value='true') true
+                option(value='false', checked) false
+          else      
+            option(value='true') true
+            option(value='false') false
+      .form-group
+        label(for='videosIntro') intro
+        textarea#videosIntro.form-control(rows='2', value=aVideos.intro) #{aVideos.intro}
+      button#videosCreateBtn.btn.btn-primary(type='submit',vid= aVideos._id) Submit

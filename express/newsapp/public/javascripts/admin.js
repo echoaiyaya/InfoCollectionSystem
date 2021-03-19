@@ -4,6 +4,7 @@
     createCate();
     createTag();
     createNews();
+    createVideos();
 })();
 
 function deleteCate(cid) {
@@ -201,6 +202,72 @@ function createNews() {
     
 }
 
+
+
+function deleteVideos(vid) {
+    
+    fetch("http://localhost:3000/admin/videos/" + vid, {
+        method: 'DELETE',
+    })
+    .then((res) => {return res.json();})
+    .then((result) => {
+        alert(result.message);
+        if(result.code == 200) {
+            
+            window.location.reload();
+        }
+    });
+
+}
+
+function createVideos() {
+    let createBtn = document.querySelector("#videosCreateBtn");
+    
+    if (createBtn) {
+        createBtn.onclick = () => {
+            //let tags = [];
+            //let priority = [];
+            let title = document.querySelector("#videosTitle");
+            let author = document.querySelector("#videosAuthor");
+            let link = document.querySelector("#videosLink");
+            let picture = document.querySelector("#pictureLink");
+            let actived = document.querySelector("#videosActived");
+            let intro = document.querySelector("#videosIntro");         
+            let id = createBtn.getAttribute("vid");
+            let url = "http://localhost:3000/admin/videos/create";
+            let method = "POST";
+            if (id) {
+                console.log(1);
+                url = "http://localhost:3000/admin/videos/" + id;
+                method = "PUT";
+            }
+            let data = {
+                title: title.value,
+                actived: actived.value,
+                author: author.value,
+                link: link.value,
+                picture: picture.value,
+                intro: intro.value
+                
+            }
+            fetch(url, {
+                method: method,
+                body: JSON.stringify(data),
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then((res) => {return res.json();})
+            .then((result) => {
+                if(result.code == 200) {
+                    alert(result.message);
+                    window.location.href = "http://localhost:3000/admin/videos";
+                } else {
+                    alert(result.message);
+                }
+            });
+        };
+    }
+    
+}
 
 
 function signOut() {
