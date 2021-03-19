@@ -4,7 +4,9 @@
     createCate();
     createTag();
     createNews();
+    capstone
     createPictures();
+    createVideos();
 })();
 
 function deleteCate(cid) {
@@ -230,20 +232,9 @@ function createVideos() {
             let title = document.querySelector("#videosTitle");
             let author = document.querySelector("#videosAuthor");
             let link = document.querySelector("#videosLink");
-            //let categoryId = document.querySelector("#newsCategory");
-            //let tagsSelected = document.querySelectorAll(".otag:checked");
-            // tagsSelected.forEach((v) => {
-            //     tags.push(v.value);
-            // });
-            // let pSelected = document.querySelectorAll(".op:checked");
-            // pSelected.forEach((v) => {
-            //     priority.push(Number(v.value));
-            // });
+            let picture = document.querySelector("#pictureLink");
             let actived = document.querySelector("#videosActived");
-            let intro = document.querySelector("#videosIntro");
-            //let content = document.querySelector("#newsContent");
-            
-
+            let intro = document.querySelector("#videosIntro");         
             let id = createBtn.getAttribute("vid");
             let url = "http://localhost:3000/admin/videos/create";
             let method = "POST";
@@ -257,11 +248,9 @@ function createVideos() {
                 actived: actived.value,
                 author: author.value,
                 link: link.value,
-                //categoryId: categoryId.value,
-                //tags: tags,
-                //priority: priority,
+                picture: picture.value,
                 intro: intro.value
-                //content: content.value
+                
             }
             fetch(url, {
                 method: method,
