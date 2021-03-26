@@ -221,7 +221,7 @@ function deleteVideos(vid) {
 
 function createVideos() {
     let createBtn = document.querySelector("#videosCreateBtn");
-    
+    console.log(1)
     if (createBtn) {
         createBtn.onclick = () => {
             //let tags = [];

@@ -10,7 +10,10 @@ const newsList = require('../controllers/news');
 const homeList = require('../controllers/index');
 
 
+router.get('/',homeList.getNVP);
 
+router.get('/news', newsList.usersNewsPage);
+router.get('/news/:nid', newsList.getUserSingleNews);
 
 
 module.exports = router;
