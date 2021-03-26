@@ -1,0 +1,108 @@
+extend admin_layout 
+
+block content
+  .container-fluid.header-css(role="banner")
+    .row
+      header.col-xl-2.offset-xl-1.col-lg-3.col-md-3.col-sm-12.col-9
+        h3 Grobal News
+      .col-3.nav-btn
+        button#navBtn.btn(type="button")
+          // <span class="nav-icon"></span>
+          img(alt="button" src="data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+      nav#navList.col-xl-5.col-lg-6.col-md-9.col-sm-12.nav-bar(role="navigation")
+        ul.nav
+          li.nav-item.active
+            a(href="index.html") Home
+          li.nav-item
+            a(href="spiders.html") News
+          li.nav-item
+            a(href="video.html") Videos
+          li.nav-item
+            a(href="images.html") Images
+          li.nav-item
+            a(href="graphs.html") Graphs
+          li.nav-item
+            a(href="aboutUs.html") About Us
+      .d-flex.col-xl-3.col-lg-3(role="search")
+        a.align-self-center.ml-auto.btn.btn-outline-secondary Sign out
+  .row(id="admin_main")
+    .col-3(id="admin_nav")
+      nav.nav.flex-column
+        a.nav-link.text-center(href="index.html") Overview
+        a.nav-link.active.text-center(href="spidersManagement.html") News Management
+        a.nav-link.text-center(href="videoManagement.html") Videos Management
+        a.nav-link.text-center(href="picManagement.html") Pictures Management
+        a.nav-link.text-center(href="cateManagement.html") Categories Management
+        a.nav-link.text-center(href="tagsManagement.html") Tags Management
+        a.nav-link.text-center(href="crawler.html") Crawler Rules
+    .col-9
+      nav(aria-label="breadcrumb")
+        ol.breadcrumb
+          li.breadcrumb-item
+            a(href="#") Admin
+          li.breadcrumb-item Spiders Management
+          li.breadcrumb-item.active Spider Create
+      hr
+      form
+        .form-group
+          label(for="spidersName") Spider Name:
+          input#spidersName.form-control(type="text", value=spider.name)
+        .form-group
+          label(for="spidersTargetName") Target Name:
+          input#spidersTargetName.form-control(type="text", value=spider.targetName)
+        .form-group
+          label(for="spidersFrequency") Frequency(Minutes):
+          input#spidersFrequency.form-control(type="number", value=spider.frequency)
+        .form-group
+          label(for="spidersTime") Start Time:
+          input#spidersTime.form-control(type="datetime-local", value=spider.date)
+        .form-group
+          label(for="spidersActived") Actived:
+          select#spidersActived.form-control
+            if spider.hasActive == 'true'
+              case spider.active
+                when true
+                  option(value='true', checked) true
+                  option(value='false') false
+                when false
+                  option(value='false', checked) false
+                  option(value='true') true
+            else      
+              option(value='false') false
+              option(value='true') true
+              
+        .form-group
+          label(for="spidersCategory") Category:
+          select#spidersCategory.form-control
+            if spider.categoryId == ''
+              option(selected='') Choose...
+            each cate, k in spider.categories
+              if spider.categoryId == cate._id
+                option(value=cate._id, selected) #{cate.name}
+              else 
+                option(value=cate._id) #{cate.name}
+        .form-group
+          label(for="spidersLimit") Limit:
+          input#spidersLimit.form-control(type="number", value=spider.limit)
+        .form-group
+          label(for="spidersUrl") Start Url:
+          input#spidersUrl.form-control(type="text", value=spider.start_url)
+        .form-group
+          label(for="spidersLS") Links Selector:
+          input#spidersLS.form-control(type="text", value=spider.linksSelector)
+        .form-group
+          label(for="spidersTS") Title Selector:
+          input#spidersTS.form-control(type="text", value=spider.titleSelector)
+        .form-group
+          label(for="spidersPS") Picture Selector:
+          input#spidersPS.form-control(type="text", value=spider.pictureSelector)
+        .form-group
+          label(for="spidersPTS") Public Time Selector:
+          input#spidersPTS.form-control(type="text", value=spider.publicTimeSelector)
+        .form-group
+          label(for="spidersAS") Author Selector:
+          input#spidersAS.form-control(type="text", value=spider.authorSelector)
+        .form-group
+          label(for="spidersCS") Content Selector:
+          input#spidersCS.form-control(type="text", value=spider.contentSelector)
+        button#spiderCreateBtn.btn.btn-primary(type="submit") Submit

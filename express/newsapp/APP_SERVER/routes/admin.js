@@ -7,6 +7,7 @@ const newsCtrl = require('../controllers/news.js');
 const tagCtrl = require('../controllers/tags.js');
 const videosCtrl = require('../controllers/videos.js');
 const picturesCtrl = require('../controllers/pictures.js');
+const spiderCtrl = require('../controllers/spider.js');
 const { route } = require('./index.js');
 router.get('/',adminCtrl.checkSignIn, adminCtrl.adminIndex);
 router.route('/login')
@@ -70,7 +71,20 @@ router.route('/pictures/:pid')
       .get(picturesCtrl.getSinglePictures)
       .put(picturesCtrl.updatePictures)
       .delete(picturesCtrl.deletePictures);
-      
-      
+
+
+router.get('/spider', spiderCtrl.spiderPage);
+
+router.route('/spider/create')
+      .get( spiderCtrl.spiderCreatePage)
+      .post( spiderCtrl.spiderCreate);
+
+router.route('/spider/run/:sid')
+      .get(spiderCtrl.runSpider);
+
+router.route('/spider/:sid')
+      .get(spiderCtrl.getSingleSpider)
+      .put(spiderCtrl.updateSpider)
+      .delete(spiderCtrl.deleteSpider);
 
 module.exports = router;

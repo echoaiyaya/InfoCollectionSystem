@@ -4,10 +4,80 @@
     createCate();
     createTag();
     createNews();
-    capstone
+    createSpider();
     createPictures();
     createVideos();
 })();
+
+function deleteSpider(sid) {
+    
+    fetch("http://localhost:3000/admin/spider/" + sid, {
+        method: 'DELETE',
+    })
+    .then((res) => {return res.json();})
+    .then((result) => {
+        if(result.code == 200) {
+            
+            window.location.reload();
+        }
+    });
+
+}
+
+function runSpider(sid) {
+    
+    fetch("http://localhost:3000/admin/spider/run/" + sid, {
+        method: 'GET',
+    })
+    .then((res) => {return res.json();})
+    .then((result) => {
+        if(result.code == 200) {
+            
+            window.location.reload();
+        }
+    });
+
+}
+
+function createSpider() {
+    let createBtn = document.querySelector("#spiderCreateBtn");
+    
+    if (createBtn) {
+        createBtn.onclick = () => {
+            let name = document.querySelector("#inputCategoryName");
+            let actived = document.querySelector("#inputCategoryActived");
+            let level = document.querySelector("#inputLevel");
+            let id = createBtn.getAttribute("cid");
+            let url = "http://localhost:3000/admin/category/create";
+            let method = "POST";
+            if (id) {
+                console.log(1);
+                url = "http://localhost:3000/admin/category/" + id;
+                method = "PUT";
+            }
+            let data = {
+                name: name.value,
+                actived: actived.value,
+                level: level.value
+            }
+            fetch(url, {
+                method: method,
+                body: JSON.stringify(data),
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then((res) => {return res.json();})
+            .then((result) => {
+                if(result.code == 200) {
+                    alert(result.message);
+                    window.location.href = "http://localhost:3000/admin/category";
+                } else {
+                    //alert(result.message);
+                }
+            });
+        };
+    }
+    
+}
 
 function deleteCate(cid) {
     
