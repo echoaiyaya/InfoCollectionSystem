@@ -53,70 +53,25 @@ block content
       .form-group
         label(for='videosLink') link:
         input#videosLink.form-control(type='text', , value=aVideos.link)
-      //- .form-group
-      //-   label(for='newsCategory') Category:
-      //-   select#newsCategory.form-control
-      //-     if aNews.categoryId == ''
-      //-       option(selected='') Choose...
-      //-     each c, k in aNews.categories
-
-      //-       if aNews.categoryId == c._id
-      //-         option(value=c._id, selected) #{c.name}
-      //-       else 
-      //-         option(value=c._id) #{c.name}
-      //- .form-group
-      //-   label(for='newsTags') Tags:
-      //-   select#newsTags.form-control(multiple='')
-      //-     if aNews.tags != ''
-      //-       each t in aNews.allTags
-      //-         - var tresult = false
-      //-         each gt in aNews.tags
-      //-           if (gt == t._id.toString())
-      //-             - tresult = true
-      //-         if tresult
-      //-           option.otag(value=t._id, selected) #{t.name}
-      //-         else 
-      //-           option.otag(value=t._id) #{t.name}
-      //-     else
-      //-       each t in aNews.allTags
-      //-         option.otag(value=t._id) #{t.name}
-      //- .form-group
-      //-   label(for='newsPriority') Priority:
-      //-   select#newsPriority.form-control(multiple='')
-      //-     if aNews.priority != ''
-      //-       each ps in aNews.priorities
-      //-         - var presult = false
-      //-         each p in aNews.priority
-      //-           if p == ps.value
-      //-             - presult = true
-      //-         if presult
-      //-           option.op(value=ps.value, selected) #{ps.name}
-      //-         else 
-      //-           option.op(value=ps.value) #{ps.name}  
-      //-     else
-      //-       each ps in aNews.priorities
-      //-         if ps.value == 4
-      //-           option.op(value=4, selected) #{ps.name}
-      //-         else 
-      //-           option.op(value=ps.value) #{ps.name}
+      .form-group
+        label(for='pictureLink') picture link:
+        input#pictureLink.form-control(type='text', , value=aVideos.picture)
       .form-group
         label(for='videosActived') Actived:
         select#videosActived.form-control
-          if aVideos.actived
+          if aVideos.hasActived
             case aVideos.actived
-              when true
+              when 'true'
                 option(value='true', checked) true
                 option(value='false') false
-              when false
-                option(value='true') true
+              when 'false'
                 option(value='false', checked) false
+                option(value='true') true
+                
           else      
             option(value='true') true
             option(value='false') false
       .form-group
         label(for='videosIntro') intro
         textarea#videosIntro.form-control(rows='2', value=aVideos.intro) #{aVideos.intro}
-      //- .form-group
-      //-   label(for='newsContent') Content
-      //-   textarea#newsContent.form-control(rows='5',value=aNews.content) #{aNews.content}
       button#videosCreateBtn.btn.btn-primary(type='submit',vid= aVideos._id) Submit

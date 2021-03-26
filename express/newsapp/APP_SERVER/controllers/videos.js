@@ -1,34 +1,5 @@
 const mongoose = require('mongoose');
-// const news = mongoose.model('news');
-// const categories = mongoose.model('categories');
-// const tags = mongoose.model('tags');
 const videos = mongoose.model('videos');
-//var videos = require('../models/videos.js');
-// const priorities =  [
-//     {
-//     value:4,
-//     name: 'regular'
-//     },
-//     {
-//     value:0,
-//     name: 'Carousel'
-//     },
-//     {
-//     value:1,
-//     name: 'headline'
-//     },
-//     {
-//     value:2,
-//     name: 'speical'
-//     },
-//     {
-//     value:3,
-//     name: 'home page'
-//     },
-      
-//   ];
-
-
 
 const aVideosCreatePage = (req, res, next) => {
   let aVideos = {
@@ -36,27 +7,17 @@ const aVideosCreatePage = (req, res, next) => {
       author: '',
       intro: '',
       link: '',
-      content: '',
+      picture: '',
       actived: '',
       publicTime: '',
       insertTIme: '',
       _id: ''
   }
-
-  // categories.find({actived: true})
-  //     .exec((err, categoriesData) => {
-  //         aVideos.categories = categoriesData;
-  //         tags.find({actived: true})
-  //           .exec((err, tagsData) => {
-  //               aNews.allTags = tagsData
-  //               console.log(aVideos);
-                res.render("admin/videosManagementCreate", {aVideos: aVideos});
-      
-  
+  res.render("admin/videosManagementCreate", {aVideos: aVideos}); 
 }
 
 const aVideosCreate = (req, res, next) => {
-  if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.intro ) {
+  if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.intro || !req.body.picture ) {
       return res
           .status(400)
           .json({ "code": 400, message: "miss params" });
@@ -65,8 +26,9 @@ const aVideosCreate = (req, res, next) => {
       title: req.body.title,
       actived: req.body.actived,
       author: req.body.author,
-      link:req.body.link,
-      intro:req.body.intro
+      link: req.body.link,
+      picture: req.body.picture,
+      intro: req.body.intro
   }, (err, videosData) => {
       if (err) {
           res
@@ -91,7 +53,7 @@ const aVideosPage = (req, res, next) => {
 }
 
 const getSingleVideos = (req, res, next) => {
-  if (!req.params.nid) {
+  if (!req.params.vid) {
       res
           .status(404)
           .json({
@@ -108,22 +70,14 @@ const getSingleVideos = (req, res, next) => {
               return res.status(404).json(err)
           }
           videosData.actived = String(videosData.actived);
-          // categories.find({actived: true})
-          //   .exec((err, categoriesData) => {
-          //       videosData.categories = categoriesData;
-          //       tags.find({actived: true})
-          //           .exec((err, tagsData) => {
-          //               videosData.allTags = tagsData;
-          //               videosData.priorities = priorities;
+          videosData.hasActived = true;
           console.log(videosData);
           res.render("admin/videosManagementCreate", {aVideos: videosData});
-          
-          //res.render("admin/newsManagementCreate", { aNews: newsData });
       });
 }
 
 const updateVideos = (req, res, next) => {
-    if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.intro) {
+    if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.picture || !req.body.intro) {
         return res
             .status(400)
             .json({ "code": 400, message: "miss params" });
@@ -151,11 +105,8 @@ const updateVideos = (req, res, next) => {
             videos.actived=  req.body.actived,
             videos.author=  req.body.author,
             videos.link= req.body.link,
-            // news.categoryId= req.body.categoryId,
-            // news.tags= req.body.tags,
-            // news.priority= req.body.priority,
-            videos.intro= req.body.intro;
-            //news.content= req.body.content
+            videos.picture= req.body.picture,            
+            videos.intro= req.body.intro
             videos.save((err, aVideosDate) => {
                 if (err) {
                     res

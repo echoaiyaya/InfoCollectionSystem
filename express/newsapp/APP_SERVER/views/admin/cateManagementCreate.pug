@@ -1,6 +1,6 @@
 extend admin_layout 
 
-block content 
+block content
   .container-fluid.header-css(role="banner")
     .row
       header.col-xl-2.offset-xl-1.col-lg-3.col-md-3.col-sm-12.col-9
@@ -48,12 +48,16 @@ block content
         label.col-sm-2.col-form-label(for="inputCategoryName") Category Name:
         .col-sm-10
           input#inputCategoryName.form-control(type="text", value=category.name)
+          img(onclick='startDictation(this)',src='https://i.imgur.com/cHidSVu.gif')
       .row.mb-3
         label.col-sm-2.col-form-label(for="inputCategoryActived") Actived:
         .col-sm-10
           input#inputCategoryActived.form-control(type="text", value=category.actived)
+          img(onclick='startDictation(this)',src='https://i.imgur.com/cHidSVu.gif')
       .row.mb-3
         label.col-sm-2.col-form-label(for="inputLevel") Level:
         .col-sm-10
           input#inputLevel.form-control(type="text", value=category.level)
+          img(onclick='startDictation(this)',src='https://i.imgur.com/cHidSVu.gif')
       button#cateCreateBtn.btn.btn-primary(type="submit", cid=category._id) Submit
+      script(src="/javascripts/voice.js")

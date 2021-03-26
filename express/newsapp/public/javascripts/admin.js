@@ -4,6 +4,9 @@
     createCate();
     createTag();
     createNews();
+    capstone
+    createPictures();
+    createVideos();
 })();
 
 function deleteCate(cid) {
@@ -229,6 +232,70 @@ function createVideos() {
             let title = document.querySelector("#videosTitle");
             let author = document.querySelector("#videosAuthor");
             let link = document.querySelector("#videosLink");
+            let picture = document.querySelector("#pictureLink");
+            let actived = document.querySelector("#videosActived");
+            let intro = document.querySelector("#videosIntro");         
+            let id = createBtn.getAttribute("vid");
+            let url = "http://localhost:3000/admin/videos/create";
+            let method = "POST";
+            if (id) {
+                console.log(1);
+                url = "http://localhost:3000/admin/videos/" + id;
+                method = "PUT";
+            }
+            let data = {
+                title: title.value,
+                actived: actived.value,
+                author: author.value,
+                link: link.value,
+                picture: picture.value,
+                intro: intro.value
+                
+            }
+            fetch(url, {
+                method: method,
+                body: JSON.stringify(data),
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then((res) => {return res.json();})
+            .then((result) => {
+                if(result.code == 200) {
+                    alert(result.message);
+                    window.location.href = "http://localhost:3000/admin/videos";
+                } else {
+                    alert(result.message);
+                }
+            });
+        };
+    }
+    
+}
+function deletePictures(pid) {
+    
+    fetch("http://localhost:3000/admin/pictures/" + pid, {
+        method: 'DELETE',
+    })
+    .then((res) => {return res.json();})
+    .then((result) => {
+        alert(result.message);
+        if(result.code == 200) {
+            
+            window.location.reload();
+        }
+    });
+
+}
+
+function createPictures() {
+    let createBtn = document.querySelector("#picturesCreateBtn");
+    
+    if (createBtn) {
+        createBtn.onclick = () => {
+            //let tags = [];
+            //let priority = [];
+            let title = document.querySelector("#picturesTitle");
+            let author = document.querySelector("#picturesAuthor");
+            let link = document.querySelector("#picturesLink");
             //let categoryId = document.querySelector("#newsCategory");
             //let tagsSelected = document.querySelectorAll(".otag:checked");
             // tagsSelected.forEach((v) => {
@@ -238,17 +305,17 @@ function createVideos() {
             // pSelected.forEach((v) => {
             //     priority.push(Number(v.value));
             // });
-            let actived = document.querySelector("#videosActived");
-            let intro = document.querySelector("#videosIntro");
+            let actived = document.querySelector("#picturesActived");
+            let intro = document.querySelector("#picturesIntro");
             //let content = document.querySelector("#newsContent");
             
 
-            let id = createBtn.getAttribute("vid");
-            let url = "http://localhost:3000/admin/videos/create";
+            let id = createBtn.getAttribute("pid");
+            let url = "http://localhost:3000/admin/pictures/create";
             let method = "POST";
             if (id) {
                 console.log(1);
-                url = "http://localhost:3000/admin/videos/" + id;
+                url = "http://localhost:3000/admin/pictures/" + id;
                 method = "PUT";
             }
             let data = {
@@ -271,7 +338,7 @@ function createVideos() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/videos";
+                    window.location.href = "http://localhost:3000/admin/pictures";
                 } else {
                     alert(result.message);
                 }
@@ -280,7 +347,6 @@ function createVideos() {
     }
     
 }
-
 
 function signOut() {
     let logoutBtn = document.querySelector("#signOut");

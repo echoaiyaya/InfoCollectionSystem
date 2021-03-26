@@ -30,8 +30,8 @@ block content
       nav.nav.flex-column
         a.nav-link.text-center(href='index.html') Overview
         a.nav-link.text-center(href='http://localhost:3000/admin/news') News Management
-        a.nav-link.active.text-center(href='http://localhost:3000/admin/videos') Videos Management
-        a.nav-link.text-center(href='picManagement.html') Pictures Management
+        a.nav-link.text-center(href='http://localhost:3000/admin/videos') Videos Management
+        a.nav-link.active.text-center(href='http://localhost:3000/admin/pictures') Pictures Management
         a.nav-link.text-center(href="http://localhost:3000/admin/category") Categories Management
         a.nav-link.text-center(href='tagsManagement.html') Tags Management
         a.nav-link.text-center(href='crawler.html') Crawler Rules
@@ -40,33 +40,38 @@ block content
         ol.breadcrumb
           li.breadcrumb-item
             a(href='#') Admin
-          li.breadcrumb-item.active Videos Management
+          li.breadcrumb-item Pictures Management
+          li.breadcrumb-item.active Pictures Create
       hr
-      button.btn.btn-primary.mb-2(onclick="window.location.href='http://localhost:3000/admin/videos/create'") Create New News Data
-      table.table
-        thead.thead-dark
-          tr
-            th(scope='col') #
-            th(scope='col') title
-            th(scope='col') author
-            th(scope='col') intro 
-            th(scope='col') link
-            th(scope='col') actived
-            th(scope='col') Public Time
-            th(scope='col') Insert Time
-            th(scope='col') Operation
-        tbody
-          each c, key in videos
-            tr
-              th(scope="row") #{key + 1}
-              td #{c.title}
-              td #{c.author}
-              td #{c.intro}
-              td #{c.link}
-              td #{c.actived}
-              td #{c.publicTime.toDateString()}
-              td #{c.insertTime.toDateString()}
-              td
-                a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/videos/" + c._id) edit
-                a.btn.btn-sm.btn-danger(onclick="deleteVideos('"+ c._id + "')") delete
-          
+      
+      .form-group
+        label(for='picturesTitle') Title:
+        input#picturesTitle.form-control(type='text', value=aPictures.title)
+      .form-group
+        label(for='picturesAuthor') Author:
+        input#picturesAuthor.form-control(type='text', value=aPictures.author)
+      .form-group
+        label(for='pictiuresLink') link:
+        input#picturesLink.form-control(type='text', , value=aPictures.link)
+      .form-group
+        label(for='picturesActived') Actived:
+        select#picturesActived.form-control
+          if aPictures.actived
+            case aPictures.actived
+              when 'true'
+                option(value='true', checked) true
+                option(value='false') false
+              when 'false'
+                option(value='false', checked) false
+                option(value='true') true
+                
+          else      
+            option(value='true') true
+            option(value='false') false
+      .form-group
+        label(for='picturesIntro') intro
+        textarea#picturesIntro.form-control(rows='2', value=aPictures.intro) #{aPictures.intro}
+      //- .form-group
+      //-   label(for='newsContent') Content
+      //-   textarea#newsContent.form-control(rows='5',value=aNews.content) #{aNews.content}
+      button#picturesCreateBtn.btn.btn-primary(type='submit',pid= aPictures._id) Submit
