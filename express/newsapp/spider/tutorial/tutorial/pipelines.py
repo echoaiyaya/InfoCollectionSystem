@@ -16,29 +16,59 @@ class TutorialPipeline:
         if (client == ""):
             client = pymongo.MongoClient('mongodb+srv://admin:1234567890@cluster0.dsauy.mongodb.net/globalnews?retryWrites=true&w=majority')
             self.mydb = client["globalnews"]
-            self.mycol = self.mydb["news"]
+            self.ruleCol = self.mydb["spiders"]
+            
             print("connect 1 time")
         else:
             print("1 time")
 
     def process_item(self, item, spider):
-        data = {
-            "title": item["title"],
-            "intro": item["intro"],
-            "picture": item["picture"],
-            "content": item["content"],
-            "active": False,
-            "tags": [],
-            "priority":[4],
-            "author": item["author"],
-            "categoryId": item["categoryId"],
-            "link": item["link"],
-            "publicTime": item["publicTime"],
-            "insertTime": parser.parse(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
-
-        }
-        self.mycol.insert_one(data)
+        rule = self.ruleCol.find_one({"_id": item['getId']})
+        spiderType = rule["type"]
+        if spiderType == 1:
+            mycol = self.mydb["news"]
+            data = {
+                "title": item["title"],
+                "intro": item["intro"],
+                "picture": item["picture"],
+                "content": item["content"],
+                "active": False,
+                "tags": [],
+                "priority":[4],
+                "author": item["author"],
+                "categoryId": item["categoryId"],
+                "link": item["link"],
+                "publicTime": item["publicTime"],
+                "insertTime": parser.parse(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+            }
+        elif spiderType == 2:
+            mycol = self.mydb["pictures"]
+            data = {
+                "title": item["title"],
+                "picture": item["picture"],
+                "intro": item["content"],
+                "author": item["author"],
+                "active": False,
+                "link": item["link"],
+                "publicTime": item["publicTime"],
+                "insertTime": parser.parse(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+            }
+        elif spiderType == 3:
+            mycol = self.mydb["videos"]
+            data = {
+                "title": item["title"],
+                "intro": item["intro"],
+                "picture": item["picture"],
+                "intro": item["content"],
+                "author": item["author"],
+                "active": False,
+                "link": item["link"],
+                "publicTime": item["publicTime"],
+                "insertTime": parser.parse(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+            }
+        mycol.insert_one(data)
         return item
 
     def close_spider(self, spider):
+        # mycol.close()
         pass

@@ -43,66 +43,86 @@ block content
           li.breadcrumb-item Spiders Management
           li.breadcrumb-item.active Spider Create
       hr
-      form
-        .form-group
-          label(for="spidersName") Spider Name:
-          input#spidersName.form-control(type="text", value=spider.name)
-        .form-group
-          label(for="spidersTargetName") Target Name:
-          input#spidersTargetName.form-control(type="text", value=spider.targetName)
-        .form-group
-          label(for="spidersFrequency") Frequency(Minutes):
-          input#spidersFrequency.form-control(type="number", value=spider.frequency)
-        .form-group
-          label(for="spidersTime") Start Time:
-          input#spidersTime.form-control(type="datetime-local", value=spider.date)
-        .form-group
-          label(for="spidersActived") Actived:
-          select#spidersActived.form-control
-            if spider.hasActive == 'true'
-              case spider.active
-                when true
-                  option(value='true', checked) true
-                  option(value='false') false
-                when false
-                  option(value='false', checked) false
-                  option(value='true') true
-            else      
-              option(value='false') false
-              option(value='true') true
-              
-        .form-group
-          label(for="spidersCategory") Category:
-          select#spidersCategory.form-control
-            if spider.categoryId == ''
-              option(selected='') Choose...
-            each cate, k in spider.categories
-              if spider.categoryId == cate._id
-                option(value=cate._id, selected) #{cate.name}
-              else 
-                option(value=cate._id) #{cate.name}
-        .form-group
-          label(for="spidersLimit") Limit:
-          input#spidersLimit.form-control(type="number", value=spider.limit)
-        .form-group
-          label(for="spidersUrl") Start Url:
-          input#spidersUrl.form-control(type="text", value=spider.start_url)
-        .form-group
-          label(for="spidersLS") Links Selector:
-          input#spidersLS.form-control(type="text", value=spider.linksSelector)
-        .form-group
-          label(for="spidersTS") Title Selector:
-          input#spidersTS.form-control(type="text", value=spider.titleSelector)
-        .form-group
-          label(for="spidersPS") Picture Selector:
-          input#spidersPS.form-control(type="text", value=spider.pictureSelector)
-        .form-group
-          label(for="spidersPTS") Public Time Selector:
-          input#spidersPTS.form-control(type="text", value=spider.publicTimeSelector)
-        .form-group
-          label(for="spidersAS") Author Selector:
-          input#spidersAS.form-control(type="text", value=spider.authorSelector)
-        .form-group
-          label(for="spidersCS") Content Selector:
-          input#spidersCS.form-control(type="text", value=spider.contentSelector)
-        button#spiderCreateBtn.btn.btn-primary(type="submit") Submit
+      .form-group
+        label(for="spidersName") Spider Name:
+        input#spidersName.form-control(type="text", value=spider.name)
+      .form-group
+        label(for="spidersType") Spider Type: #{spider.type}
+        select#spidersType.form-control
+          if spider.type
+            case spider.type
+              when 1
+                option(value=1, checked) News
+                option(value=2) Picture 
+                option(value=3) Videos
+              when 2
+                option(value=2, checked) Picture
+                option(value=1) News
+                option(value=3) Videos
+              when 3
+                option(value=3, checked) Videos
+                option(value=2) Picture
+                option(value=1) News
+          else      
+            option(value=1) News
+            option(value=2) Pictures
+            option(value=3) Videos
+      .form-group
+        label(for="spidersTargetName") Target Name:
+        input#spidersTargetName.form-control(type="text", value=spider.targetName)
+      .form-group
+        label(for="spidersFrequency") Frequency(hours):
+        input#spidersFrequency.form-control(type="number", value=spider.frequency)
+      .form-group
+        label(for="spidersTime") Start Time:
+        input#spidersTime.form-control(type="datetime-local", value=spider.date)
+      .form-group
+        label(for="spidersActived") Actived:
+        select#spidersActived.form-control
+          if spider.hasActive == 'true'
+            case spider.active
+              when true
+                option(value='true', checked) true
+                option(value='false') false
+              when false
+                option(value='false', checked) false
+                option(value='true') true
+          else      
+            option(value='false') false
+            option(value='true') true
+            
+      .form-group
+        label(for="spidersCategory") Category:
+        select#spidersCategory.form-control
+          if spider.categoryId == ''
+            option(selected='') Choose...
+          each cate, k in spider.categories
+            if spider.categoryId == cate._id
+              option(value=cate._id, selected) #{cate.name}
+            else 
+              option(value=cate._id) #{cate.name}
+      .form-group
+        label(for="spidersLimit") Limit:
+        input#spidersLimit.form-control(type="number", value=spider.limit)
+      .form-group
+        label(for="spidersUrl") Start Url:
+        input#spidersUrl.form-control(type="text", value=spider.start_url)
+      .form-group
+        label(for="spidersLS") Links Selector:
+        input#spidersLS.form-control(type="text", value=spider.linksSelector)
+      .form-group
+        label(for="spidersTS") Title Selector:
+        input#spidersTS.form-control(type="text", value=spider.titleSelector)
+      .form-group
+        label(for="spidersPS") Picture Selector:
+        input#spidersPS.form-control(type="text", value=spider.pictureSelector)
+      .form-group
+        label(for="spidersPTS") Public Time Selector:
+        input#spidersPTS.form-control(type="text", value=spider.publicTimeSelector)
+      .form-group
+        label(for="spidersAS") Author Selector:
+        input#spidersAS.form-control(type="text", value=spider.authorSelector)
+      .form-group
+        label(for="spidersCS") Content Selector:
+        input#spidersCS.form-control(type="text", value=spider.contentSelector)
+      button#spiderCreateBtn.btn.btn-primary(type="submit", sid=spider._id) Submit

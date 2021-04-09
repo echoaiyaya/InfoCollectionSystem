@@ -3,6 +3,8 @@ const spiders = mongoose.model('spiders');
 const categories = mongoose.model('categories');
 var path = require('path');
 const { exec } = require('child_process');
+const cron = require('node-cron');
+const allTask = {};
 
 const spiderCreatePage = (req, res, next) => {
   let spider = {
@@ -20,7 +22,8 @@ const spiderCreatePage = (req, res, next) => {
       publicTimeSelector: '',
       authorSelector: '',
       contentSelector: '',
-      limit: 0
+      limit: 0,
+      type: ''
 
   }
   categories.find({actived: true})
@@ -32,30 +35,35 @@ const spiderCreatePage = (req, res, next) => {
 }
 
 const spiderCreate = (req, res, next) => {
-  if (!req.body.name || !req.body.level || !req.body.actived) {
+  if (!req.body.name || !req.body.actived) {
       return res
           .status(400)
           .json({ "code": 400, message: "miss params" });
   }
   spiders.create({
-      name: res.body.name,
-      active: res.body.active,
-      startTime: res.body.startTime,
-      frequency: res.body.frequency,
-      start_url: res.body.start_url,
-      linksSelector: res.body.linksSelector,
-      titleSelector: res.body.titleSelector,
-      pictureSelector: res.body.pictureSelector,
-      publicTimeSelector: res.body.publicTimeSelector,
-      authorSelector: res.body.authorSelector,
-      contentSelector: res.body.contentSelector,
-      limit: res.body.limit
+      name: req.body.name,
+      active: req.body.actived,
+      startTime: req.body.startTime,
+      targetName: req.body.targetName,
+      frequency: req.body.frequency,
+      categoryId: req.body.categoryId,
+      start_url: req.body.start_url,
+      linksSelector: req.body.linksSelector,
+      titleSelector: req.body.titleSelector,
+      pictureSelector: req.body.pictureSelector,
+      publicTimeSelector: req.body.publicTimeSelector,
+      authorSelector: req.body.authorSelector,
+      contentSelector: req.body.contentSelector,
+      limit: req.body.limit,
+      type: req.body.type
   }, (err, spidersData) => {
       if (err) {
           res
               .status(400)
               .json({ "code": 400, "message": err });
       } else {
+          let i = scheduleSpider();
+          i.start();
           res
               .status(201)
               .json({ "code": 200, "message": "create successfully" });
@@ -63,10 +71,23 @@ const spiderCreate = (req, res, next) => {
   });
 }
 
+const scheduleSpider = (params) => {
+    return cron.schedule('0,10,20,30,40,50 * * * * *', () => {
+        console.log(params + " is running!");
+    }, {
+        scheduled: false
+    });
+};
+
 const spiderPage = (req, res, next) => {
   spiders.find()
       .exec((err, spidersData) => {
-          res.render('admin/spiderManagement', { title: 'spiders', spiders: spidersData });
+          console.log(spidersData);
+          spidersDataFill = spidersData.map((v) => {
+            v.newStartTime = v.startTime.toISOString();
+            return v;
+          });
+          res.render('admin/spiderManagement', { title: 'spiders', spiders: spidersDataFill });
       });
 }
 
@@ -92,7 +113,7 @@ const getSingleSpider = (req, res, next) => {
               spidersData.categories = categoriesData;
               spidersData.date = spidersData.startTime.toISOString().substr(0,16);
               spidersData.hasActive = 'true';
-              
+              console.log(spidersData);
               res.render("admin/spiderManagementCreate", { spider: spidersData });
             });
           
@@ -100,7 +121,7 @@ const getSingleSpider = (req, res, next) => {
 }
 
 const updateSpider = (req, res, next) => {
-  if (!req.body.name || !req.body.level || !req.body.actived) {
+  if (!req.body.name || !req.body.actived) {
       return res
           .status(400)
           .json({ "code": 400, message: "miss params" });
@@ -124,18 +145,21 @@ const updateSpider = (req, res, next) => {
                   });
               return;
           }
-          spiders.name = res.body.name;
-          spiders.active = res.body.active;
-          spiders.startTime = res.body.startTime;
-          spiders.frequency = res.body.frequency;
-          spiders.start_url = res.body.start_url;
-          spiders.linksSelector = res.body.linksSelector;
-          spiders.titleSelector = res.body.titleSelector;
-          spiders.pictureSelector = res.body.pictureSelector;
-          spiders.publicTimeSelector = res.body.publicTimeSelector;
-          spiders.authorSelector = res.body.authorSelector;
-          spiders.contentSelector = res.body.contentSelector;
-          spiders.limit = res.body.limit;
+            spiders.name = req.body.name;
+            spiders.active = req.body.actived;
+            spiders.startTime = req.body.startTime;
+            spiders.targetName = req.body.targetName;
+            spiders.frequency = req.body.frequency;
+            spiders.categoryId = req.body.categoryId;
+            spiders.start_url = req.body.start_url;
+            spiders.linksSelector = req.body.linksSelector;
+            spiders.titleSelector = req.body.titleSelector;
+            spiders.pictureSelector =req.body.pictureSelector;
+            spiders.publicTimeSelector = req.body.publicTimeSelector;
+            spiders.authorSelector = req.body.authorSelector;
+            spiders.contentSelector =req.body.contentSelector;
+            spiders.limit = req.body.limit;
+            spiders.type = req.body.type;
           spiders.save((err, spiderDate) => {
               if (err) {
                   res
@@ -145,6 +169,16 @@ const updateSpider = (req, res, next) => {
                           "message": err
                       });
               } else {
+                if (!allTask.hasOwnProperty(spiders.name)) {
+                    allTask[spiders.name] = scheduleSpider(req.body.name　+ "");
+                }
+                if (spiders.active == true) {
+                    allTask[spiders.name].start();  
+                } else {
+                    allTask[spiders.name].stop(); 
+                }
+                
+                
                   res
                       .status(200)
                       .json({
@@ -167,6 +201,7 @@ const deleteSpider = (req, res, next) => {
           });
       return;
   }
+  console.log(req.params.sid);
   spiders
   .findByIdAndRemove(req.params.sid)
   .exec((err, spidersData) => {

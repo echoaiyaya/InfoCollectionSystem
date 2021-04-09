@@ -50,7 +50,7 @@ block content
             th(scope="col") name
             th(scope="col") target
             th(scope="col") startTime
-            th(scope="col") frequency
+            th(scope="col") frequency(hours)
             th(scope="col") actived
             th(scope="col") Operation
         tbody
@@ -60,13 +60,13 @@ block content
               td #{c.name}
               td 
                 a(href=c.start_url) #{c.name}
-              td #{c.startTime}
+              td #{c.newStartTime}
               td #{c.frequency}
               td #{c.active}
               td
                 a.btn.btn-sm.btn-primary.mr-2(onclick="runSpider('" + c._id + "')") Run Now
                 a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/spider/" + c._id) edit
-                a.btn.btn-sm.btn-danger(onclick="deleteCate('"+ c._id + "')") delete
+                a.btn.btn-sm.btn-danger(onclick="deleteSpider('"+ c._id + "')") delete
       //- nav(aria-label="Page navigation example")
       //-   ul.pagination.justify-content-end
       //-     li.page-item.disabled

@@ -12,6 +12,11 @@ const spidersSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    type: {
+      type: Number,
+      required: true
+      //1 news, 2 picture, 3 videos
+    },
     name: {
         type: String,
         required: true
