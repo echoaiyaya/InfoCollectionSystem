@@ -51,6 +51,9 @@ block content
         label(for='picturesAuthor') Author:
         input#picturesAuthor.form-control(type='text', value=aPictures.author)
       .form-group
+        label(for='picturesImages') Picture:
+        input#picturesImages.form-control(type='text', value=aPictures.picture)
+      .form-group
         label(for='pictiuresLink') link:
         input#picturesLink.form-control(type='text', , value=aPictures.link)
       .form-group
@@ -71,6 +74,9 @@ block content
       .form-group
         label(for='picturesIntro') intro
         textarea#picturesIntro.form-control(rows='2', value=aPictures.intro) #{aPictures.intro}
+      //- .form-group
+      //-   label(for='picturesContent') Content
+      //-   textarea#picturesContent.form-control(rows='5',value=aPictures.content) #{aPictures.content}
       //- .form-group
       //-   label(for='newsContent') Content
       //-   textarea#newsContent.form-control(rows='5',value=aNews.content) #{aNews.content}
