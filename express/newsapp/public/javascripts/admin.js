@@ -4,10 +4,106 @@
     createCate();
     createTag();
     createNews();
-    // capston
+    createSpider();
     createPictures();
     createVideos();
 })();
+
+function deleteSpider(sid) {
+    
+    fetch("http://localhost:3000/admin/spider/" + sid, {
+        method: 'DELETE',
+    })
+    .then((res) => {return res.json();})
+    .then((result) => {
+        if(result.code == 200) {
+            
+            window.location.reload();
+        }
+    });
+
+}
+
+function runSpider(sid) {
+    
+    fetch("http://localhost:3000/admin/spider/run/" + sid, {
+        method: 'GET',
+    })
+    .then((res) => {return res.json();})
+    .then((result) => {
+        if(result.code == 200) {
+            
+            window.location.reload();
+        }
+    });
+
+}
+
+function createSpider() {
+    let createBtn = document.querySelector("#spiderCreateBtn");
+    
+    if (createBtn) {
+        createBtn.onclick = () => {
+            let name = document.querySelector("#spidersName");
+            let targetName = document.querySelector("#spidersTargetName");
+            let frequency = document.querySelector("#spidersFrequency");
+            let actived = document.querySelector("#spidersActived");
+            let spidersTime = document.querySelector("#spidersTime");
+            let category = document.querySelector("#spidersCategory");
+            let limit = document.querySelector("#spidersLimit");
+            let start_url = document.querySelector("#spidersUrl");
+            let linkS = document.querySelector("#spidersLS");
+            let titleS = document.querySelector("#spidersTS");
+            let publicTimeS = document.querySelector("#spidersPTS");
+            let pictureS = document.querySelector("#spidersPS");
+            let authorS = document.querySelector("#spidersAS");
+            let contentS = document.querySelector("#spidersCS");
+            let type = document.querySelector("#spidersType");
+            let id = createBtn.getAttribute("sid");
+            let url = "http://localhost:3000/admin/spider/create";
+            let method = "POST";
+            if (id) {
+                console.log(1);
+                url = "http://localhost:3000/admin/spider/" + id;
+                method = "PUT";
+            }
+            let data = {
+                name: name.value,
+                start_url: start_url.value,
+                actived: actived.value,
+                targetName: targetName.value,
+                frequency: frequency.value,
+                startTime: spidersTime.value,
+                categoryId: category.value,
+                limit: limit.value,
+                linksSelector: linkS.value,
+                titleSelector: titleS.value,
+                publicTimeSelector: publicTimeS.value,
+                pictureSelector: pictureS.value,
+                authorSelector: authorS.value,
+                contentSelector: contentS.value,
+                type: type.value
+            }
+            //console.log(data);
+            // return;
+            fetch(url, {
+                method: method,
+                body: JSON.stringify(data),
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then((res) => {return res.json();})
+            .then((result) => {
+                if(result.code == 200) {
+                    alert(result.message);
+                    window.location.href = "http://localhost:3000/admin/spider";
+                } else {
+                    alert(result.message);
+                }
+            });
+        };
+    }
+    
+}
 
 function deleteCate(cid) {
     

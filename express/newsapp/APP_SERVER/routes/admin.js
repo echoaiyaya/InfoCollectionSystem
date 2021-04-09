@@ -7,6 +7,7 @@ const newsCtrl = require('../controllers/news.js');
 const tagCtrl = require('../controllers/tags.js');
 const videosCtrl = require('../controllers/videos.js');
 const picturesCtrl = require('../controllers/pictures.js');
+const spiderCtrl = require('../controllers/spider.js');
 const { route } = require('./index.js');
 router.get('/',adminCtrl.checkSignIn, adminCtrl.adminIndex);
 router.route('/login')
@@ -15,7 +16,7 @@ router.route('/login')
 
 router.get('/signout', adminCtrl.signOut);
 
-router.get('/category',adminCtrl.checkSignIn, cateCtrl.categoryPage);
+router.get('/category/data/:page?',adminCtrl.checkSignIn, cateCtrl.categoryPage);
 
 router.route('/category/create')
       .get(adminCtrl.checkSignIn, cateCtrl.categoryCreatePage)
@@ -26,7 +27,7 @@ router.route('/category/:cid')
       .put(cateCtrl.updateCate)
       .delete(cateCtrl.deleteCate);
 
-router.get('/news',adminCtrl.checkSignIn, newsCtrl.aNewsPage);
+router.get('/news/data/:page?', newsCtrl.aNewsPage);
 
 router.route('/news/create')
       .get( newsCtrl.aNewsCreatePage)
@@ -38,7 +39,7 @@ router.route('/news/:nid')
       .delete(newsCtrl.deleteNews);
 
 
-router.get('/tag',adminCtrl.checkSignIn, tagCtrl.tagPage);
+router.get('/tag/data/:page?',adminCtrl.checkSignIn, tagCtrl.tagPage);
 
 router.route('/tag/create')
       .get(adminCtrl.checkSignIn, tagCtrl.tagCreatePage)
@@ -49,7 +50,7 @@ router.route('/tag/:tid')
       .put(tagCtrl.updateTag)
       .delete(tagCtrl.deleteTag);
 
-router.get('/videos',adminCtrl.checkSignIn, videosCtrl.aVideosPage);
+router.get('/videos/data/:page?',videosCtrl.aVideosPage);
 
 router.route('/videos/create')
       .get( videosCtrl.aVideosCreatePage)
@@ -60,7 +61,7 @@ router.route('/videos/:vid')
       .put(videosCtrl.updateVideos)
       .delete(videosCtrl.deleteVideos);
 
-router.get('/pictures',adminCtrl.checkSignIn, picturesCtrl.aPicturesPage);
+router.get('/pictures/data/:page?',adminCtrl.checkSignIn, picturesCtrl.aPicturesPage);
 
 router.route('/pictures/create')
       .get(picturesCtrl.aPicturesCreatePage)
@@ -70,7 +71,20 @@ router.route('/pictures/:pid')
       .get(picturesCtrl.getSinglePictures)
       .put(picturesCtrl.updatePictures)
       .delete(picturesCtrl.deletePictures);
-      
-      
+
+
+router.get('/spider/data/:page?', spiderCtrl.spiderPage);
+
+router.route('/spider/create')
+      .get( spiderCtrl.spiderCreatePage)
+      .post( spiderCtrl.spiderCreate);
+
+router.route('/spider/run/:sid')
+      .get(spiderCtrl.runSpider);
+
+router.route('/spider/:sid')
+      .get(spiderCtrl.getSingleSpider)
+      .put(spiderCtrl.updateSpider)
+      .delete(spiderCtrl.deleteSpider);
 
 module.exports = router;

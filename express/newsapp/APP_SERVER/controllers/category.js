@@ -36,10 +36,16 @@ const categoryCreate = (req, res, next) => {
 }
 
 const categoryPage = (req, res, next) => {
-  categories.find()
-      .exec((err, categoriesData) => {
-          res.render('admin/cateManagement', { title: 'categories', categories: categoriesData });
-      });
+    categories.count({}, function(err, count) {
+        categories.find()
+        .skip((req.params.page - 1) * 5)
+        .limit(5)
+        .exec((err, categoriesData) => {
+            maxPage = Math.ceil(count / 5);
+            res.render('admin/cateManagement', { title: 'categories', categories: categoriesData, maxPage: maxPage });
+        });
+    });
+  
 }
 
 const getSingleCate = (req, res, next) => {

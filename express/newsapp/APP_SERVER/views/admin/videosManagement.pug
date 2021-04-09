@@ -28,13 +28,13 @@ block content
   #admin_main.row
     #admin_nav.col-3
       nav.nav.flex-column
-        a.nav-link.text-center(href='index.html') Overview
-        a.nav-link.text-center(href='http://localhost:3000/admin/news') News Management
-        a.nav-link.active.text-center(href='http://localhost:3000/admin/videos') Videos Management
-        a.nav-link.text-center(href='picManagement.html') Pictures Management
-        a.nav-link.text-center(href="http://localhost:3000/admin/category") Categories Management
-        a.nav-link.text-center(href='tagsManagement.html') Tags Management
-        a.nav-link.text-center(href='crawler.html') Crawler Rules
+        a.nav-link.text-center(href="/admin") Overview
+        a.nav-link.text-center(href="http://localhost:3000/admin/news/data") News Management
+        a.nav-link.active.text-center(href="http://localhost:3000/admin/videos/data") Videos Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/pictures/data") Pictures Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/category/data") Categories Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/tag/data") Tags Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/spider/data") Crawler Rules
     .col-9
       nav(aria-label='breadcrumb')
         ol.breadcrumb
@@ -42,7 +42,7 @@ block content
             a(href='#') Admin
           li.breadcrumb-item.active Videos Management
       hr
-      button.btn.btn-primary.mb-2(onclick="window.location.href='http://localhost:3000/admin/videos/create'") Create New News Data
+      button.btn.btn-primary.mb-2(onclick="window.location.href='http://localhost:3000/admin/videos/create'") Create New Video Data
       table.table
         thead.thead-dark
           tr
@@ -69,4 +69,9 @@ block content
               td
                 a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/videos/" + c._id) edit
                 a.btn.btn-sm.btn-danger(onclick="deleteVideos('"+ c._id + "')") delete
-          
+      nav(aria-label='Page navigation example')
+        ul.pagination.justify-content-end
+          - var n = 1;
+          while n <= maxPage
+            li.page-item
+              a.page-link(href='http://localhost:3000/admin/videos/data/' + n) #{n++}  

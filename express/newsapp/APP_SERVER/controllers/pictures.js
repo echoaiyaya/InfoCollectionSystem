@@ -83,13 +83,19 @@ const aPicturesCreate = (req, res, next) => {
 }
 
 const aPicturesPage = (req, res, next) => {
-  pictures.find()
-      //.populate('categoryId')
-      //.populate('tags')
-      .exec((err, picturesData) => {
-         // console.log(videosData[0].tags);
-          res.render('admin/picturesManagement', { title: 'pictures', pictures: picturesData });
-      });
+    pictures.count({}, function(err, count) {
+        pictures.find()
+        //.populate('categoryId')
+        //.populate('tags')
+        .skip((req.params.page - 1) * 5)
+        .limit(5)
+        .exec((err, picturesData) => {
+            // console.log(videosData[0].tags);
+            maxPage = Math.ceil(count / 5);
+            res.render('admin/picturesManagement', { title: 'pictures', pictures: picturesData, maxPage: maxPage });
+        });
+    });
+  
 }
 
 const usersPicturesPage = (req, res, next) => {

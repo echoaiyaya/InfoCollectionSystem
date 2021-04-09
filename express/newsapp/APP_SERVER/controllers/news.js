@@ -91,13 +91,20 @@ const aNewsCreate = (req, res, next) => {
 }
 
 const aNewsPage = (req, res, next) => {
-  news.find()
+
+  news.count({}, (err, num) => {
+    news.find()
+      .skip((req.params.page-1) * 5)
+      .limit(5)
       .populate('categoryId')
       .populate('tags')
       .exec((err, newsData) => {
-          console.log(newsData[0].tags);
-          res.render('admin/newsManagement', { title: 'news', news: newsData });
+          //console.log(newsData);
+          maxPage = Math.ceil(num / 5);
+          res.render('admin/newsManagement', { title: 'news', news: newsData, maxPage: maxPage });
       });
+  });
+  
 }
 
 const usersNewsPage = (req, res, next) => {
