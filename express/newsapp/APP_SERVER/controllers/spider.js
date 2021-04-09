@@ -80,15 +80,20 @@ const scheduleSpider = (params) => {
 };
 
 const spiderPage = (req, res, next) => {
-  spiders.find()
-      .exec((err, spidersData) => {
-          console.log(spidersData);
-          spidersDataFill = spidersData.map((v) => {
-            v.newStartTime = v.startTime.toISOString();
-            return v;
-          });
-          res.render('admin/spiderManagement', { title: 'spiders', spiders: spidersDataFill });
-      });
+    categories.count({}, function(err, count) {
+        spiders.find()
+        .skip((req.params.page - 1) * 5)
+        .limit(5)
+        .exec((err, spidersData) => {
+            maxPage = Math.ceil(count / 5);
+            spidersDataFill = spidersData.map((v) => {
+                v.newStartTime = v.startTime.toISOString();
+                return v;
+            });
+            res.render('admin/spiderManagement', { title: 'spiders', spiders: spidersDataFill, maxPage: maxPage });
+        });
+    });
+  
 }
 
 const getSingleSpider = (req, res, next) => {

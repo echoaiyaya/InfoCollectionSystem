@@ -28,13 +28,13 @@ block content
   #admin_main.row
     #admin_nav.col-3
       nav.nav.flex-column
-        a.nav-link.text-center(href='index.html') Overview
-        a.nav-link.active.text-center(href='http://localhost:3000/admin/news') News Management
-        a.nav-link.text-center(href='http://localhost:3000/admin/videos') Videos Management
-        a.nav-link.text-center(href='picManagement.html') Pictures Management
-        a.nav-link.text-center(href="http://localhost:3000/admin/category") Categories Management
-        a.nav-link.text-center(href='tagsManagement.html') Tags Management
-        a.nav-link.text-center(href='crawler.html') Crawler Rules
+        a.nav-link.text-center(href="/admin") Overview
+        a.nav-link.active.text-center(href="http://localhost:3000/admin/news/data") News Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/videos/data") Videos Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/pictures/data") Pictures Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/category/data") Categories Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/tag/data") Tags Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/spider/data") Crawler Rules
     .col-9
       nav(aria-label='breadcrumb')
         ol.breadcrumb
@@ -70,15 +70,10 @@ block content
                 a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/news/" + c._id) edit
                 a.btn.btn-sm.btn-danger(onclick="deleteNews('"+ c._id + "')") delete
           
-      //- nav(aria-label='Page navigation example')
-      //-   ul.pagination.justify-content-end
-      //-     li.page-item.disabled
-      //-       a.page-link(href='#' tabindex='-1' aria-disabled='true') Previous
-      //-     li.page-item
-      //-       a.page-link(href='#') 1
-      //-     li.page-item
-      //-       a.page-link(href='#') 2
-      //-     li.page-item
-      //-       a.page-link(href='#') 3
-      //-     li.page-item
-      //-       a.page-link(href='#') Next
+      nav(aria-label='Page navigation example')
+        ul.pagination.justify-content-end
+          - var n = 1;
+          while n <= maxPage
+            li.page-item
+              a.page-link(href='http://localhost:3000/admin/news/data/' + n) #{n++}
+                

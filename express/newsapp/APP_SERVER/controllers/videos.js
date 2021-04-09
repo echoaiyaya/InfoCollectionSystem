@@ -43,13 +43,19 @@ const aVideosCreate = (req, res, next) => {
 }
 
 const aVideosPage = (req, res, next) => {
-  videos.find()
-      //.populate('categoryId')
-      //.populate('tags')
-      .exec((err, videosData) => {
-         // console.log(videosData[0].tags);
-          res.render('admin/videosManagement', { title: 'videos', videos: videosData });
-      });
+  videos.count({}, function(err, count) {
+    videos.find()
+    .skip((req.params.page - 1) * 5)
+    .limit(5)
+    //.populate('categoryId')
+    //.populate('tags')
+    .exec((err, videosData) => {
+       // console.log(videosData[0].tags);
+        maxPage = Math.ceil(count / 5);
+        res.render('admin/videosManagement', { title: 'videos', videos: videosData, maxPage: maxPage });
+    });
+  });
+  
 }
 
 const getSingleVideos = (req, res, next) => {

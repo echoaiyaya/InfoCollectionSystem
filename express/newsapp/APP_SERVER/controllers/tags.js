@@ -34,10 +34,16 @@ const tagCreate = (req, res, next) => {
 }
 
 const tagPage = (req, res, next) => {
-  tags.find()
-      .exec((err, tagsData) => {
-          res.render('admin/tagsManagement', { title: 'tags', tags: tagsData });
-      });
+    tags.count({}, function(err, count) {
+        tags.find()
+        .skip((req.params.page - 1) * 5)
+        .limit(5)
+        .exec((err, tagsData) => {
+            maxPage = Math.ceil(count / 5);
+            res.render('admin/tagsManagement', { title: 'tags', tags: tagsData, maxPage: maxPage });
+        });
+    });
+  
 }
 
 const getSingleTag = (req, res, next) => {
