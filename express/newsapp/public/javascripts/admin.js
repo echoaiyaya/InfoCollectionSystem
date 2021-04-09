@@ -391,6 +391,7 @@ function createPictures() {
             //let priority = [];
             let title = document.querySelector("#picturesTitle");
             let author = document.querySelector("#picturesAuthor");
+            let picture = document.querySelector("#picturesImages");
             let link = document.querySelector("#picturesLink");
             //let categoryId = document.querySelector("#newsCategory");
             //let tagsSelected = document.querySelectorAll(".otag:checked");
@@ -403,7 +404,7 @@ function createPictures() {
             // });
             let actived = document.querySelector("#picturesActived");
             let intro = document.querySelector("#picturesIntro");
-            //let content = document.querySelector("#newsContent");
+           // let content = document.querySelector("#picturesContent");
             
 
             let id = createBtn.getAttribute("pid");
@@ -419,10 +420,11 @@ function createPictures() {
                 actived: actived.value,
                 author: author.value,
                 link: link.value,
+                picture: picture.value,
                 //categoryId: categoryId.value,
                 //tags: tags,
                 //priority: priority,
-                intro: intro.value
+                intro: intro.value,
                 //content: content.value
             }
             fetch(url, {

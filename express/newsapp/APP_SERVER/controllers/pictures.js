@@ -36,10 +36,10 @@ const aPicturesCreatePage = (req, res, next) => {
       author: '',
       intro: '',
       link: '',
-      content: '',
       actived: '',
       publicTime: '',
       insertTIme: '',
+      picture: '',
       _id: ''
   }
 
@@ -56,7 +56,7 @@ const aPicturesCreatePage = (req, res, next) => {
 }
 
 const aPicturesCreate = (req, res, next) => {
-  if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.intro ) {
+  if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.intro || !req.body.picture) {
       return res
           .status(400)
           .json({ "code": 400, message: "miss params" });
@@ -66,7 +66,9 @@ const aPicturesCreate = (req, res, next) => {
       actived: req.body.actived,
       author: req.body.author,
       link:req.body.link,
+      picture:req.body.picture,
       intro:req.body.intro
+      
   }, (err, picturesData) => {
       if (err) {
           res
@@ -95,6 +97,13 @@ const aPicturesPage = (req, res, next) => {
     });
   
 }
+
+const usersPicturesPage = (req, res, next) => {
+    pictures.find()
+            .exec((err, picturesData) =>{
+                res.render('pictures', {title: 'pictures', list: picturesData});
+            });
+  }
 
 const getSinglePictures = (req, res, next) => {
   if (!req.params.pid) {
@@ -128,8 +137,29 @@ const getSinglePictures = (req, res, next) => {
       });
 }
 
+const getUserSinglePictures = (req, res, next) => {
+    if (!req.params.pid) {
+        res
+            .status(404)
+            .json({
+                "code":400,
+                "message": "Not found, picturesID is required"
+            });
+        return;
+    }
+    pictures.findById(req.params.pid)
+            .lean()
+            .exec((err, picturesData) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(404).json(err)
+                }
+                res.render("picturesDetail", {article: picturesData});
+            });
+}
+
 const updatePictures = (req, res, next) => {
-    if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.intro) {
+    if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.intro || !req.body.picture ) {
         return res
             .status(400)
             .json({ "code": 400, message: "miss params" });
@@ -157,10 +187,13 @@ const updatePictures = (req, res, next) => {
             pictures.actived=  req.body.actived,
             pictures.author=  req.body.author,
             pictures.link= req.body.link,
+            pictures.intro= req.body.intro,
+            pictures.picture= req.body.picture,
+           //pictures.content= req.body.content
             // news.categoryId= req.body.categoryId,
             // news.tags= req.body.tags,
             // news.priority= req.body.priority,
-            pictures.intro= req.body.intro;
+            //pictures.intro= req.body.intro
             //news.content= req.body.content
             pictures.save((err, aPicturesDate) => {
                 if (err) {
@@ -220,6 +253,8 @@ module.exports = {
   aPicturesCreate,
   aPicturesPage,
   aPicturesCreatePage,
+  usersPicturesPage,
+  getUserSinglePictures,
   getSinglePictures,
   updatePictures,
   deletePictures
