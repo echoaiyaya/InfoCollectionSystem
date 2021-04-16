@@ -424,7 +424,7 @@ function createPictures() {
                 //categoryId: categoryId.value,
                 //tags: tags,
                 //priority: priority,
-                intro: intro.value
+                intro: intro.value,
                 //content: content.value
             }
             fetch(url, {

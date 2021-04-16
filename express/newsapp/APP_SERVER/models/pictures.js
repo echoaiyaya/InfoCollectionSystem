@@ -10,6 +10,10 @@ const picturesSchema = new mongoose.Schema({
 		type : String,
 		required : true
 	},
+	picture :{
+		type: String,
+		required:true
+	},
     intro : {
 		type : String,
 		required : true
