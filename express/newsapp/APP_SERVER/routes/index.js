@@ -12,8 +12,8 @@ const homeList = require('../controllers/index');
 
 router.get('/',homeList.getNVP);
 
-router.get('/news', newsList.usersNewsPage);
-router.get('/news/:nid', newsList.getUserSingleNews);
+router.get('/news/list/:page?', newsList.usersNewsPage);
+router.get('/news/detail/:nid', newsList.getUserSingleNews);
 
 
 module.exports = router;

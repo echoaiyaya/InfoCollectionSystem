@@ -108,13 +108,19 @@ const aNewsPage = (req, res, next) => {
 }
 
 const usersNewsPage = (req, res, next) => {
-    news.find()
+    news.count({}, (err, num) => {
+        news.find()
+        .skip((req.params.page-1) * 5)
+        .limit(5)
         .populate('categoryId')
         .populate('tags')
         .exec((err, newsData) => {
             console.log(newsData[0].tags);
-            res.render('news', { title: 'news', list: newsData });
+            maxPage = Math.ceil(num / 5);
+            res.render('news', { title: 'news', list: newsData, maxPage: maxPage });
         });
+    });
+    
   }
 
 const getSingleNews = (req, res, next) => {

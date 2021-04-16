@@ -33,6 +33,9 @@ const picturesSchema = new mongoose.Schema({
 		required : true,
 		'default' : Date.now
 	},
+	picture: {
+		type: String,
+	}
 	//categoryId : {type: Schema.Types.ObjectId, ref: 'categories'},
   //tags : [{type: Schema.Types.ObjectId, ref: 'tags'}]
 });

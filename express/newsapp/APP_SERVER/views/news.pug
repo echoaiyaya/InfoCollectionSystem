@@ -13,7 +13,7 @@ block content
           li.nav-item
             a(href='index.html') Home
           li.nav-item.active
-            a(href='news.html') News
+            a(href='') News
           li.nav-item
             a(href='video.html') Videos
           li.nav-item
@@ -36,10 +36,10 @@ block content
           .row
             img.col-sm-4(alt='News picture' src=news.picture)
             .col-sm-8
-              a.news-list-title(href='news/' + news._id)
+              a.news-list-title(href='/news/detail/' + news._id)
                 h4 #{news.title}
               p
-                | !{news.intro}
+                | !{news.intro.substr(0,200)}
                 br
                 | Key: 
                 span.key-word USA
@@ -48,7 +48,12 @@ block content
                     | By 
                     a(href='#') #{news.author}
                 span.date #{news.publicTimeString}
-      button.btn.btn-primary.btn-lg.btn-block(type='button') Load More
+      nav(aria-label='Page navigation example')
+        ul.pagination.justify-content-end
+          - var n = 1;
+          while n <= maxPage
+            li.page-item
+              a.page-link(href='http://localhost:3000/news/list/' + n) #{n++}
     .col-lg-3.col-md-4
       h1 Trending News
       hr

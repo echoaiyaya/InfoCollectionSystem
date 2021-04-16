@@ -66,7 +66,8 @@ const aPicturesCreate = (req, res, next) => {
       actived: req.body.actived,
       author: req.body.author,
       link:req.body.link,
-      intro:req.body.intro
+      intro:req.body.intro,
+      picture: req.body.picutre
   }, (err, picturesData) => {
       if (err) {
           res
@@ -153,14 +154,15 @@ const updatePictures = (req, res, next) => {
                     });
                 return;
             }
-            pictures.title = req.body.title,
-            pictures.actived=  req.body.actived,
-            pictures.author=  req.body.author,
-            pictures.link= req.body.link,
+            pictures.title = req.body.title;
+            pictures.actived=  req.body.actived;
+            pictures.author=  req.body.author;
+            pictures.link= req.body.link;
             // news.categoryId= req.body.categoryId,
             // news.tags= req.body.tags,
             // news.priority= req.body.priority,
             pictures.intro= req.body.intro;
+            pictures.picture = req.body.picutre;
             //news.content= req.body.content
             pictures.save((err, aPicturesDate) => {
                 if (err) {

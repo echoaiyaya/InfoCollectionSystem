@@ -95,7 +95,7 @@ function createSpider() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/spider";
+                    window.location.href = "http://localhost:3000/admin/spider/data";
                 } else {
                     alert(result.message);
                 }
@@ -151,7 +151,7 @@ function createCate() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/category";
+                    window.location.href = "http://localhost:3000/admin/category/data";
                 } else {
                     alert(result.message);
                 }
@@ -211,7 +211,7 @@ function createTag() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/tag";
+                    window.location.href = "http://localhost:3000/admin/tag/data";
                 } else {
                     alert(result.message);
                 }
@@ -290,7 +290,7 @@ function createNews() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/news";
+                    window.location.href = "http://localhost:3000/admin/news/data";
                 } else {
                     alert(result.message);
                 }
@@ -357,7 +357,7 @@ function createVideos() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/videos";
+                    window.location.href = "http://localhost:3000/admin/videos/data";
                 } else {
                     alert(result.message);
                 }
@@ -403,6 +403,7 @@ function createPictures() {
             // });
             let actived = document.querySelector("#picturesActived");
             let intro = document.querySelector("#picturesIntro");
+            let pic = document.querySelector("#pictiuresPic")
             //let content = document.querySelector("#newsContent");
             
 
@@ -419,6 +420,7 @@ function createPictures() {
                 actived: actived.value,
                 author: author.value,
                 link: link.value,
+                picutre: pic.value,
                 //categoryId: categoryId.value,
                 //tags: tags,
                 //priority: priority,
@@ -434,7 +436,7 @@ function createPictures() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/pictures";
+                    window.location.href = "http://localhost:3000/admin/pictures/data";
                 } else {
                     alert(result.message);
                 }

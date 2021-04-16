@@ -6,7 +6,6 @@ const spidersSchema = new mongoose.Schema({
         type: Date,
         required: true,
         'default': Date.now
-        //0 top categories, 1 subcategories
     },
     targetName: {
       type: String,
