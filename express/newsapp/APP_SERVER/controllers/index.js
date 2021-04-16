@@ -4,6 +4,12 @@ const news = mongoose.model('news');
 const pictures = mongoose.model('pictures');
 const categories = mongoose.model('categories');
 
+const aboutusPage = function(req,res,next){
+    res.render('aboutus',{});
+}
+const feedbackSubmit = function(req,res,next){
+    res.render('feedbacksubmit',{});
+}
 
 //get simple news videos pictures
 const getNVP = function (req, res, next) {
@@ -67,5 +73,7 @@ const getNVP = function (req, res, next) {
 };
 
 module.exports = {
-    getNVP
+    getNVP,
+    aboutusPage,
+    feedbackSubmit
 }
