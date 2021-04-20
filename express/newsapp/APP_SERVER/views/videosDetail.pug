@@ -15,9 +15,9 @@ block content
             a(href='/') Home
           li.nav-item
             a(href='/news/list') News
-          li.nav-item
-            a(href='/videos/list') Videos
           li.nav-item.active
+            a(href='/videos/list') Videos
+          li.nav-item
             a(href='/pictures/list') Images
           li.nav-item
             a(href='/aboutus') About Us
@@ -28,19 +28,18 @@ block content
   article.container-fluid.news-main(role='main')
     .row
       .col-lg-10.offset-lg-1
-        h1= article.title
+        h1= video.title
         .pictures-bottom
             p
-            | By #{article.author}
+            | By #{video.author}
             br
-            | #{article.publicTimeString}
+            | #{video.publicTimeString}
       .col-lg-10.offset-lg-1.container-fluid
         .row
           .col-md-8
             figure.figure
-                img.figure-img.img-fluid.rounded.detail-img(src=article.picture alt='A generic square placeholder image with rounded corners in a figure.')
+                | !{video.picture}
                 figcaption.figure-caption
                 
             p
-                //| #{article.picture}
-                | #{article.intro}
+                | #{video.intro}

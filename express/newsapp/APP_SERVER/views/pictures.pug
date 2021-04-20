@@ -11,44 +11,41 @@ block content
       nav#navList.col-xl-5.col-lg-6.col-md-9.col-sm-12.nav-bar(role='navigation')
         ul.nav
           li.nav-item
-            a(href='http://localhost:3000') Home
+            a(href='/') Home
           li.nav-item
-            a(href='http://localhost:3000/news') News
+            a(href='/news/list') News
           li.nav-item
-            a(href='http://localhost:3000/videos') Videos
+            a(href='/videos/list') Videos
           li.nav-item.active
-            a(href='http://localhost:3000/pictures') Images
+            a(href='/pictures/list') Images
           li.nav-item
-            a(href='graphs.html') Graphs
-          li.nav-item
-            a(href='aboutUs.html') About Us
-          li.nav-item
-            a(href='search.html') Search
+            a(href='/aboutus') About Us
       .search-bar.col-xl-3.col-lg-3(role='search')
         input(type='text' placeholder='Grobal News')
         a(href='#')
           img(src='../images/search.png' alt='search button')
   main.container-fluid.news-main(role='main')
-  .row
-    .col-lg-7.offset-lg-1.col-md-8
-    .album.py-5.bg-light
-      .container
-        .row.row-cols-1.row-cols-sm-2.row-cols-md-3.g-3
-          each pictures in list 
-            .pictures-list.container-fluid
-              .row
-                img.col-sm-4(alt='News picture'  href='pictures.title' src=pictures.picture width='auto' height= '100' )
-                .col-sm-8
-                  a.pictures-list-title(href='pictures/' + pictures._id)
-                    h4 #{pictures.title}
-                  p
-                    | !{pictures.intro}
-                    br
-                    | Key: 
-                    span.key-word USA
-                  .pictures-bottom
-                    span.author
-                        | By 
-                        a(href='#') #{pictures.author}
-                    span.date #{pictures.publicTimeString}  
-                       
+    .row
+      .col-lg-10.offset-lg-1.col-md-8
+         .album.py-5.bg-light
+          .container
+            .row.row-cols-1.row-cols-sm-2.row-cols-md-3.g-3
+              each pictures in list 
+                .pictures-list.container-fluid
+                  .row
+                    img.col-sm-4(alt='ops, missing' src=pictures.picture width='auto' height= '100' )
+                    .col-sm-8
+                      a.pictures-list-title(href='/pictures/detail/' + pictures._id)
+                        h4 #{pictures.title}
+                      p
+                      .pictures-bottom
+                        span.author
+                            | By 
+                            a(href='#') #{pictures.author}
+                        span.date #{pictures.publicTimeString}
+              nav(aria-label='Page navigation example')
+                ul.pagination.justify-content-end
+                  - var n = 1;
+                  while n <= maxPage
+                    li.page-item
+                      a.page-link(href='http://localhost:3000/pictures/list/' + n) #{n++}

@@ -1,5 +1,4 @@
 extends layout
-
 block content
   .container-fluid.header-css(role='banner')
     .row
@@ -15,9 +14,9 @@ block content
             a(href='/') Home
           li.nav-item
             a(href='/news/list') News
-          li.nav-item
-            a(href='/videos/list') Videos
           li.nav-item.active
+            a(href='/videos/list') Videos
+          li.nav-item
             a(href='/pictures/list') Images
           li.nav-item
             a(href='/aboutus') About Us
@@ -25,22 +24,27 @@ block content
         input(type='text' placeholder='Grobal News')
         a(href='#')
           img(src='../images/search.png' alt='search button')
-  article.container-fluid.news-main(role='main')
-    .row
-      .col-lg-10.offset-lg-1
-        h1= article.title
-        .pictures-bottom
-            p
-            | By #{article.author}
-            br
-            | #{article.publicTimeString}
-      .col-lg-10.offset-lg-1.container-fluid
-        .row
-          .col-md-8
-            figure.figure
-                img.figure-img.img-fluid.rounded.detail-img(src=article.picture alt='A generic square placeholder image with rounded corners in a figure.')
-                figcaption.figure-caption
-                
-            p
-                //| #{article.picture}
-                | #{article.intro}
+  main.container-fluid.news-main(role='main')
+  .row
+    .col-lg-7.offset-lg-1.col-md-8
+      h1 Videos
+      hr
+      each video in list
+        .news-list.container-fluid
+          .row
+            .col-sm-8
+              a.news-list-title(href='/videos/detail/' + video._id)
+                h4 #{video.title}
+              p
+                | !{video.intro.substr(0,200)}
+              .news-bottom
+                span.author
+                    | By 
+                    a(href='#') #{video.author}
+                span.date #{video.publicTimeString}
+      nav(aria-label='Page navigation example')
+        ul.pagination.justify-content-end
+          - var n = 1;
+          while n <= maxPage
+            li.page-item
+              a.page-link(href='http://localhost:3000/videos/list/' + n) #{n++}

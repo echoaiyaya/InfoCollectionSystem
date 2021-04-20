@@ -98,10 +98,16 @@ const aPicturesPage = (req, res, next) => {
 }
 
 const usersPicturesPage = (req, res, next) => {
-    pictures.find()
+    pictures.count({}, (err, num) => {
+        pictures.find()
+        .skip((req.params.page-1) * 10)
+        .limit(10)
         .exec((err, picturesData) => {
-            res.render('pictures', { title: 'pictures', list: picturesData });
+            maxPage = Math.ceil(num / 10);
+            res.render('pictures', { title: 'pictures', list: picturesData, maxPage: maxPage });
         });
+    });
+    
 }
 
 const getSinglePictures = (req, res, next) => {
