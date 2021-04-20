@@ -4,7 +4,7 @@
     createCate();
     createTag();
     createNews();
-    capstone
+    //capstone
     createPictures();
     createVideos();
 })();

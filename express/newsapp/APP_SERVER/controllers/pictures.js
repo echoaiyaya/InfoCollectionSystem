@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 // const news = mongoose.model('news');
-// const categories = mongoose.model('categories');
-// const tags = mongoose.model('tags');
+const categories = mongoose.model('categories');
+const tags = mongoose.model('tags');
 const pictures = mongoose.model('pictures');
-//var videos = require('../models/videos.js');
 // const priorities =  [
 //     {
 //     value:4,
@@ -82,13 +81,23 @@ const aPicturesCreate = (req, res, next) => {
 
 const aPicturesPage = (req, res, next) => {
   pictures.find()
-      //.populate('categoryId')
-      //.populate('tags')
+      .populate('categoryId')
+      .populate('tags')
       .exec((err, picturesData) => {
-         // console.log(videosData[0].tags);
+          console.log(picturesData[0].tags);
           res.render('admin/picturesManagement', { title: 'pictures', pictures: picturesData });
       });
 }
+
+const usersPicturesPage = (req, res, next) => {
+    pictures.find()
+        .populate('categoryId')
+        .populate('tags')
+        .exec((err, picturesData) => {
+            console.log(picturesData[0].tags);
+            res.render('pictures', { title: 'pictures', list: picturesData });
+        });
+  }
 
 const getSinglePictures = (req, res, next) => {
   if (!req.params.pid) {
@@ -121,6 +130,38 @@ const getSinglePictures = (req, res, next) => {
           //res.render("admin/newsManagementCreate", { aNews: newsData });
       });
 }
+
+const getUserSinglePictures = (req, res, next) => {
+    if (!req.params.pid) {
+        res
+            .status(404)
+            .json({
+                "code": 400,
+                "message": "Not found, picturesId is required"
+            });
+        return;
+    }
+    pictures.findById(req.params.pid)
+        .lean()
+        .exec((err, picturesData) => {
+            if (err) {
+                console.log(err);
+                return res.status(404).json(err)
+            }
+            categories.find({actived: true})
+              .exec((err, categoriesData) => {
+                  picturesData.categories = categoriesData;
+                  tags.find({actived: true})
+                      .exec((err, tagsData) => {
+                          picturesData.allTags = tagsData;
+                          picturesData.priorities = priorities;
+                          console.log(picturesData);
+                          res.render("picturesDetail", {article: picturesData});
+                      });
+              });
+            //res.render("admin/newsManagementCreate", { aNews: newsData });
+        });
+  }
 
 const updatePictures = (req, res, next) => {
     if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.intro) {
@@ -216,5 +257,7 @@ module.exports = {
   aPicturesCreatePage,
   getSinglePictures,
   updatePictures,
-  deletePictures
+  deletePictures,
+  usersPicturesPage,
+  getUserSinglePictures
 }
