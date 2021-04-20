@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const news = mongoose.model('news');
 // const videos = mongoose.model('videos');
-// const pictures = mongoose.model('pictures');
+const pictures = mongoose.model('pictures');
 const categories = mongoose.model('categories');
+
 
 //get simple news videos pictures
 const getNVP = function (req, res, next) {
