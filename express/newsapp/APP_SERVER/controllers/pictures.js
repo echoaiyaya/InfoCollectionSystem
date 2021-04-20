@@ -109,16 +109,6 @@ const usersPicturesPage = (req, res, next) => {
     
 }
 
-const usersPicturesPage = (req, res, next) => {
-    pictures.find()
-        .populate('categoryId')
-        .populate('tags')
-        .exec((err, picturesData) => {
-            console.log(picturesData[0].tags);
-            res.render('pictures', { title: 'pictures', list: picturesData });
-        });
-  }
-
 const getSinglePictures = (req, res, next) => {
     if (!req.params.pid) {
         res
@@ -171,39 +161,6 @@ const getUserSinglePictures = (req, res, next) => {
             res.render("picturesDetail", { article: picturesData });
         });
 }
-
-const getUserSinglePictures = (req, res, next) => {
-    if (!req.params.pid) {
-        res
-            .status(404)
-            .json({
-                "code": 400,
-                "message": "Not found, picturesId is required"
-            });
-        return;
-    }
-    pictures.findById(req.params.pid)
-        .lean()
-        .exec((err, picturesData) => {
-            if (err) {
-                console.log(err);
-                return res.status(404).json(err)
-            }
-            categories.find({actived: true})
-              .exec((err, categoriesData) => {
-                  picturesData.categories = categoriesData;
-                  tags.find({actived: true})
-                      .exec((err, tagsData) => {
-                          picturesData.allTags = tagsData;
-                          picturesData.priorities = priorities;
-                          console.log(picturesData);
-                          res.render("picturesDetail", {article: picturesData});
-                      });
-              });
-            //res.render("admin/newsManagementCreate", { aNews: newsData });
-        });
-  }
-
 const updatePictures = (req, res, next) => {
     if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.intro || !req.body.picture) {
         return res

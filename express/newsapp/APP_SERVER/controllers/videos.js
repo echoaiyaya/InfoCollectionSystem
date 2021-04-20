@@ -60,15 +60,6 @@ const aVideosPage = (req, res, next) => {
   
 }
 
-const usersVideosPage = (req, res, next) => {
-    videos.find()
-        .populate('categoryId')
-        .populate('tags')
-        .exec((err, videosData) => {
-            console.log(videosData[0].tags);
-            res.render('videos', { title: 'videos', list: videosData });
-        });
-  }
 
 const getSingleVideos = (req, res, next) => {
   if (!req.params.vid) {
@@ -94,26 +85,26 @@ const getSingleVideos = (req, res, next) => {
       });
 }
 
-const getUserSingleVideos = (req, res, next) => {
-    if (!req.params.vid) {
-        res
-            .status(404)
-            .json({
-                "code": 400,
-                "message": "Not found, videosId is required"
-            });
-        return;
-    }
-    videos.findById(req.params.vid)
-          .lean()
-          .exec((err, videosData) => {
-              if (err) {
-                  console.log(err);
-                  return res.status(404).json(err)
-                }
-                res.render("videosDetail", {article: videosData});
-            });
-}              
+// const getUserSingleVideos = (req, res, next) => {
+//     if (!req.params.vid) {
+//         res
+//             .status(404)
+//             .json({
+//                 "code": 400,
+//                 "message": "Not found, videosId is required"
+//             });
+//         return;
+//     }
+//     videos.findById(req.params.vid)
+//           .lean()
+//           .exec((err, videosData) => {
+//               if (err) {
+//                   console.log(err);
+//                   return res.status(404).json(err)
+//                 }
+//                 res.render("videosDetail", {article: videosData});
+//             });
+// }              
 
 const updateVideos = (req, res, next) => {
     if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.picture || !req.body.intro) {
