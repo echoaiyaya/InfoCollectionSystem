@@ -47,21 +47,57 @@ const getNVP = function (req, res, next) {
             cData.forEach((e) => {
                 let subNews = {};
                 subNews.title = e.name;
-                let result = async function(callback) {
-                    await new Promise((res, rej) => {
-                        news.find({ categoryId: e._id })
+                
+                (async () => {
+                    return await new Promise((res, rej) => {
+                        news.find({ priority: 3,categoryId: e._id, actived: true })
+                        .select('_id title author')
                         .limit(5)
-                        .then((err, newsData) => {
-                            
-                            callback(newsData);
+                        .exec((err, newsData) => {
+                            res(newsData);
+                            subNews.content = newsData;
+                            subArray.push(subNews);
                         });
-                    }) 
-                };
-               
-                subNews.content = result;
-                subArray.push(subNews);
+                    });
+                })();
+                console.log(subNews);
+                
+                
             });
-            console.log(subArray);
+            (async () => {
+                return await new Promise((res, rej) => {
+                    news.find({ priority: 0, actived: true })
+                    .select('_id title author')
+                    .limit(1)
+                    .exec((err, newsData) => {
+                        res(newsData);
+                        scrollNews = newsData;
+                    });
+                });
+            })();
+            (async () => {
+                return await new Promise((res, rej) => {
+                    news.find({ priority: 1, actived: true })
+                    .select('_id title author')
+                    .limit(5)
+                    .exec((err, newsData) => {
+                        res(newsData);
+                        headLineNews = newsData;
+                    });
+                });
+            })();
+            (async () => {
+                return await new Promise((res, rej) => {
+                    news.find({ priority: 2, actived: true })
+                    .select('_id title author picture')
+                    .limit(2)
+                    .exec((err, newsData) => {
+                        res(newsData);
+                        headLineNews = newsData;
+                    });
+                });
+            })();
+            setTimeout((v)=> {console.log(subArray)}, 1000);
 
         });
     // res.render('index', { scrollNews: scrollNews, headLineNews: headLineNews, speicalNews: speicalNews, subNews: subNews });
