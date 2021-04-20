@@ -5,24 +5,25 @@ var router = express.Router();
 // router.get('/', function(req, res, next) {
 //   res.render('index', { title: 'Express' });
 // });
-const picturesList = require('../controllers/pictures');
+const pictureslist = require('../controllers/pictures');
+const videoslist = require('../controllers/videos');
 const newsList = require('../controllers/news');
 const homeList = require('../controllers/index');
 const videosList = require('../controllers/videos');
 
-
 router.get('/',homeList.getNVP);
 
-router.get('/news', newsList.usersNewsPage);
-router.get('/news/:nid', newsList.getUserSingleNews);
-router.get('/pictures', picturesList.usersPicturesPage);
-router.get('/pictures/:pid', picturesList.getUserSinglePictures);
-router.get('/videos', videosList.usersVideosPage);
-router.get('/videos/:vid', videosList.getUserSingleVideos);
-
 // router.post('/donation', homeList.donationPage);
- router.get('/submitDonation', homeList.submitDonation);
+router.get('/submitDonation', homeList.submitDonation);
 
+router.get('/news/list/:page?', newsList.usersNewsPage);
+router.get('/news/detail/:nid', newsList.getUserSingleNews);
+router.get('/pictures/list/:page?', pictureslist.usersPicturesPage);
+router.get('/pictures/detail/:pid', pictureslist.getUserSinglePictures);
+router.get('/videos/list/:page?', videoslist.usersVideosPage);
+router.get('/videos/detail/:vid', videoslist.getUserSingleVideos);
+router.get('/aboutus', homeList.aboutusPage);
+router.get('/feedbacksubmit', homeList.feedbackSubmit);
 
 
 module.exports = router;

@@ -10,6 +10,10 @@ const picturesSchema = new mongoose.Schema({
 		type : String,
 		required : true
 	},
+	picture :{
+		type: String,
+		required:true
+	},
     intro : {
 		type : String,
 		required : true
@@ -33,6 +37,9 @@ const picturesSchema = new mongoose.Schema({
 		required : true,
 		'default' : Date.now
 	},
+	picture: {
+		type: String,
+	}
 	//categoryId : {type: Schema.Types.ObjectId, ref: 'categories'},
   //tags : [{type: Schema.Types.ObjectId, ref: 'tags'}]
 });

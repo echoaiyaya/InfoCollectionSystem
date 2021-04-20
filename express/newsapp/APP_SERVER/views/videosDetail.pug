@@ -13,16 +13,14 @@ block content
         ul.nav
           li.nav-item
             a(href='/') Home
+          li.nav-item
+            a(href='/news/list') News
           li.nav-item.active
-            a(href='/news') News
+            a(href='/videos/list') Videos
           li.nav-item
-            a(href='/videos') Videos
-          li.nav-item
-            a(href='/pictures') Images
+            a(href='/pictures/list') Images
           li.nav-item
             a(href='/aboutus') About Us
-          li.nav-item
-            a(href='/submitDonation') Donate
       .search-bar.col-xl-3.col-lg-3(role='search')
         input(type='text' placeholder='Grobal News')
         a(href='#')
@@ -30,69 +28,18 @@ block content
   article.container-fluid.news-main(role='main')
     .row
       .col-lg-10.offset-lg-1
-        h1= article.title
-        .videos-bottom
+        h1= video.title
+        .pictures-bottom
             p
-            | By #{article.author}
+            | By #{video.author}
             br
-            | #{article.publicTimeString}
+            | #{video.publicTimeString}
       .col-lg-10.offset-lg-1.container-fluid
         .row
           .col-md-8
             figure.figure
-                // img.figure-img.img-fluid.rounded.detail-img(src=article.video  alt='A generic square placeholder image with rounded corners in a figure.')
-                iframe(type='text/html' width='640' height='390' src=article.link frameborder='0')
+                | !{video.picture}
                 figcaption.figure-caption
-            p 
-                |#{article.intro}
-
-     
-          .col-md-4
-            h1 Trending News 
-            hr
-            ul.list-inline.list-re
-              li
-                a.news-list-title(href='https://www.regionofwaterloo.ca/en/health-and-wellness/positive-cases-in-waterloo-region.aspx')
-                    h5 COVID-19 Cases in Waterloo,Ontario,Canada.
-                .news-bottom
-                    span.author
-                    | By 
-                    a(href='#') Associated Press
-                    br
-                    span.date Thu, 04/16/2020 - 18:08
-              li
-                a.news-list-title(href='https://vtdigger.org/coronavirus/')
-                    h5 Coronavirus news-COVID-19 in Vermont
-                .news-bottom
-                    span.author
-                    | By 
-                    a(href='#') Associated Press
-                    br
-                    span.date Thu, 04/16/2020 - 18:08
-              li
-                a.news-list-title(href='https://www.nytimes.com/2020/04/17/world/coronavirus-news-updates.html')
-                    h5 W.H.O Failed to Tell Syrian Kurds of Their First Coronavirus Death
-                .news-bottom
-                    span.author
-                    | By 
-                    a(href='#') Associated Press
-                    br
-                    span.date Thu, 04/16/2020 - 18:08
-              li
-                a.news-list-title(href='detail.html')
-                    h5 Scientists Enthralled by Biggest Star Explosion Ever Observed
-                .news-bottom
-                    span.author
-                    | By 
-                    a(href='#') Associated Press
-                    br
-                    span.date Thu, 04/16/2020 - 18:08
-              li
-                a.news-list-title(href='https://www.theguardian.com/world/2020/apr/18/coronavirus-glance')
-                    h5 Coronavirus Latest:at a glance
-                .news-bottom
-                    span.author
-                    | By 
-                    a(href='#') Associated Press
-                    br
-                    span.date Thu, 04/16/2020 - 18:08
+                
+            p
+                | #{video.intro}

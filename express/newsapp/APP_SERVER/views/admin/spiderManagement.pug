@@ -1,0 +1,51 @@
+extend admin_layout_login
+
+block content
+  .row(id="admin_main")
+    .col-3(id="admin_nav")
+      nav.nav.flex-column
+        a.nav-link.text-center(href="/admin") Overview
+        a.nav-link.text-center(href="http://localhost:3000/admin/news/data") News Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/videos/data") Videos Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/pictures/data") Pictures Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/category/data") Categories Management
+        a.nav-link.text-center(href="http://localhost:3000/admin/tag/data") Tags Management
+        a.nav-link.active.text-center(href="http://localhost:3000/admin/spider/data") Crawler Rules
+    .col-9
+      nav(aria-label="breadcrumb")
+        ol.breadcrumb
+          li.breadcrumb-item
+            a(href="#") Admin
+          li.breadcrumb-item.active News Management
+      hr
+      button.btn.btn-primary.mb-2(onclick="window.location.href='http://localhost:3000/admin/spider/create'") Create New Spider
+      table.table
+        thead.thead-dark
+          tr
+            th(scope="col") #
+            th(scope="col") name
+            th(scope="col") target
+            th(scope="col") startTime
+            th(scope="col") frequency(minutes)
+            th(scope="col") actived
+            th(scope="col") Operation
+        tbody
+          each c, key in spiders
+            tr
+              th(scope="row") #{key + 1}
+              td #{c.name}
+              td 
+                a(href=c.start_url) #{c.name}
+              td #{c.newStartTime}
+              td #{c.frequency}
+              td #{c.active}
+              td
+                a.btn.btn-sm.btn-primary.mr-2(onclick="runSpider('" + c._id + "')") Run Now
+                a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/spider/" + c._id) edit
+                a.btn.btn-sm.btn-danger(onclick="deleteSpider('"+ c._id + "')") delete
+      nav(aria-label='Page navigation example')
+        ul.pagination.justify-content-end
+          - var n = 1;
+          while n <= maxPage
+            li.page-item
+              a.page-link(href='http://localhost:3000/admin/spider/data/' + n) #{n++}

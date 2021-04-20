@@ -10,6 +10,13 @@ const categories = mongoose.model('categories');
 const submitDonation = function(req, res, next) {
     res.render('submit', {});
 }
+const aboutusPage = function(req,res,next){
+    res.render('aboutus',{});
+}
+const feedbackSubmit = function(req,res,next){
+    res.render('feedbacksubmit',{});
+}
+
 //get simple news videos pictures
 const getNVP = function (req, res, next) {
     let scrollNews
@@ -75,4 +82,6 @@ module.exports = {
     getNVP,
     // donationPage,
     submitDonation,
+    aboutusPage,
+    feedbackSubmit
 }

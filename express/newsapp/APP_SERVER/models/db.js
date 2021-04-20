@@ -18,3 +18,4 @@ require('./categories');
 require('./tags');
 require('./videos');
 require('./pictures');
+require('./spiders');

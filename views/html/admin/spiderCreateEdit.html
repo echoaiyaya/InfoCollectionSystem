@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grobal News-Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Corben" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/index.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/javascript.util/0.12.12/javascript.util.min.js"></script>
+</head>
+
+<body>
+    <div role="banner" class="container-fluid header-css">
+        <div class="row">
+            <header class="col-xl-2 offset-xl-1 col-lg-3 col-md-3 col-sm-12 col-9">
+                <h3>Grobal News</h3>
+            </header>
+            <div class="col-3 nav-btn">
+                <button class="btn" type="button" id="navBtn">
+                    <!-- <span class="nav-icon"></span> -->
+                    <img alt="button"
+                        src="data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e">
+                </button>
+            </div>
+
+            <nav role="navigation" class="col-xl-5 col-lg-6 col-md-9 col-sm-12 nav-bar" id="navList">
+                <ul class="nav">
+                    <li class="nav-item active">
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="spiders.html">News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="video.html">Videos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="images.html">Images</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="graphs.html">Graphs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="aboutUs.html">About Us</a>
+                    </li>
+
+                </ul>
+            </nav>
+            <div role="search" class="d-flex col-xl-3 col-lg-3">
+
+                <a class="align-self-center ml-auto btn btn-outline-secondary">Sign out</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="admin_main">
+        <div class="col-3" id="admin_nav">
+            <nav class="nav flex-column">
+                <a class="nav-link  text-center" href="index.html">Overview</a>
+                <a class="nav-link active text-center" href="spidersManagement.html">News Management</a>
+                <a class="nav-link text-center" href="videoManagement.html">Videos Management</a>
+                <a class="nav-link text-center" href="picManagement.html">Pictures Management</a>
+                <a class="nav-link text-center" href="cateManagement.html">Categories Management</a>
+                <a class="nav-link text-center" href="tagsManagement.html">Tags Management</a>
+                <a class="nav-link text-center" href="crawler.html">Crawler Rules</a>
+            </nav>
+        </div>
+        <div class="col-9">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                    <li class="breadcrumb-item">Spiders Management</li>
+                    <li class="breadcrumb-item active">Spider Create</li>
+                </ol>
+            </nav>
+            <hr>
+
+            <form>
+                <div class="form-group">
+                    <label for="spidersName">Spider Name:</label>
+                    <input type="text" class="form-control" id="spidersName">
+                </div>
+                <div class="form-group">
+                    <label for="spidersTargetName">Target Name:</label>
+                    <input type="text" class="form-control" id="spidersTargetName">
+                </div>
+                <div class="form-group">
+                    <label for="spidersFrequency">Frequency(Day):</label>
+                    <input type="number" class="form-control" id="spidersFrequency">
+                </div>
+                <div class="form-group">
+                    <label for="spidersTime">Start Time:</label>
+                    <input type="datetime-local" class="form-control" id="spidersTime">
+                </div>
+                <div class="form-group">
+                    <label for="spidersActived">Actived:</label>
+                    <select id="spidersActived" class="form-control">
+                        <option>False</option>
+                        <option>True</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="spidersCategory">Category:</label>
+                    <select id="spidersCategory" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>Asian</option>
+                        <option>North America</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="spidersLimit">Limit:</label>
+                    <input type="number" class="form-control" id="spidersLimit">
+                </div>
+                <div class="form-group">
+                    <label for="spidersUrl">Start Url:</label>
+                    <input type="text" class="form-control" id="spidersUrl">
+                </div>
+                <div class="form-group">
+                    <label for="spidersLS">Links Selector:</label>
+                    <input type="text" class="form-control" id="spidersLS">
+                </div>
+                <div class="form-group">
+                    <label for="spidersTS">Title Selector:</label>
+                    <input type="text" class="form-control" id="spidersTS">
+                </div>
+                <div class="form-group">
+                    <label for="spidersPS">Picture Selector:</label>
+                    <input type="text" class="form-control" id="spidersPS">
+                </div>
+                <div class="form-group">
+                    <label for="spidersPTS">Public Time Selector:</label>
+                    <input type="text" class="form-control" id="spidersPTS">
+                </div>
+                <div class="form-group">
+                    <label for="spidersAS">Author Selector:</label>
+                    <input type="text" class="form-control" id="spidersAS">
+                </div>
+                <div class="form-group">
+                    <label for="spidersCS">Content Selector:</label>
+                    <input type="text" class="form-control" id="spidersCS">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
