@@ -47,18 +47,17 @@ const getNVP = function (req, res, next) {
             cData.forEach((e) => {
                 let subNews = {};
                 subNews.title = e.name;
-                let result = async function() {
+                let result = async function(callback) {
                     await new Promise((res, rej) => {
                         news.find({ categoryId: e._id })
                         .limit(5)
                         .then((err, newsData) => {
                             
-                            res(newsData);
+                            callback(newsData);
                         });
                     }) 
                 };
                
-                console.log(i);
                 subNews.content = result;
                 subArray.push(subNews);
             });
