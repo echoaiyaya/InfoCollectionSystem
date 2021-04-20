@@ -4,6 +4,12 @@ const news = mongoose.model('news');
 const pictures = mongoose.model('pictures');
 const categories = mongoose.model('categories');
 
+// const donationPage = function(req, res, next) {
+//     res.render('donation', {});
+// }
+const submitDonation = function(req, res, next) {
+    res.render('submit', {});
+}
 const aboutusPage = function(req,res,next){
     res.render('aboutus',{});
 }
@@ -74,6 +80,8 @@ const getNVP = function (req, res, next) {
 
 module.exports = {
     getNVP,
+    // donationPage,
+    submitDonation,
     aboutusPage,
     feedbackSubmit
 }

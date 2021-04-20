@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 // const news = mongoose.model('news');
-// const categories = mongoose.model('categories');
-// const tags = mongoose.model('tags');
+const categories = mongoose.model('categories');
+const tags = mongoose.model('tags');
 const pictures = mongoose.model('pictures');
-//var videos = require('../models/videos.js');
 // const priorities =  [
 //     {
 //     value:4,
@@ -162,7 +161,6 @@ const getUserSinglePictures = (req, res, next) => {
             res.render("picturesDetail", { article: picturesData });
         });
 }
-
 const updatePictures = (req, res, next) => {
     if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.intro || !req.body.picture) {
         return res

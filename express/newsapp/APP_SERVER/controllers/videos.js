@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const videos = mongoose.model('videos');
+const categories = mongoose.model('categories');
+const tags = mongoose.model('tags');
 
 const aVideosCreatePage = (req, res, next) => {
   let aVideos = {
@@ -58,6 +60,7 @@ const aVideosPage = (req, res, next) => {
   
 }
 
+
 const getSingleVideos = (req, res, next) => {
   if (!req.params.vid) {
       res
@@ -81,6 +84,27 @@ const getSingleVideos = (req, res, next) => {
           res.render("admin/videosManagementCreate", {aVideos: videosData});
       });
 }
+
+// const getUserSingleVideos = (req, res, next) => {
+//     if (!req.params.vid) {
+//         res
+//             .status(404)
+//             .json({
+//                 "code": 400,
+//                 "message": "Not found, videosId is required"
+//             });
+//         return;
+//     }
+//     videos.findById(req.params.vid)
+//           .lean()
+//           .exec((err, videosData) => {
+//               if (err) {
+//                   console.log(err);
+//                   return res.status(404).json(err)
+//                 }
+//                 res.render("videosDetail", {article: videosData});
+//             });
+// }              
 
 const updateVideos = (req, res, next) => {
     if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.picture || !req.body.intro) {
