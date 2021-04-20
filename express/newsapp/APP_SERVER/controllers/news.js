@@ -91,14 +91,37 @@ const aNewsCreate = (req, res, next) => {
 }
 
 const aNewsPage = (req, res, next) => {
-  news.find()
+
+  news.count({}, (err, num) => {
+    news.find()
+      .skip((req.params.page-1) * 5)
+      .limit(5)
       .populate('categoryId')
       .populate('tags')
       .exec((err, newsData) => {
-          console.log(newsData[0].tags);
-          res.render('admin/newsManagement', { title: 'news', news: newsData });
+          //console.log(newsData);
+          maxPage = Math.ceil(num / 5);
+          res.render('admin/newsManagement', { title: 'news', news: newsData, maxPage: maxPage });
       });
+  });
+  
 }
+
+const usersNewsPage = (req, res, next) => {
+    news.count({}, (err, num) => {
+        news.find()
+        .skip((req.params.page-1) * 5)
+        .limit(5)
+        .populate('categoryId')
+        .populate('tags')
+        .exec((err, newsData) => {
+            console.log(newsData[0].tags);
+            maxPage = Math.ceil(num / 5);
+            res.render('news', { title: 'news', list: newsData, maxPage: maxPage });
+        });
+    });
+    
+  }
 
 const getSingleNews = (req, res, next) => {
   if (!req.params.nid) {
@@ -131,6 +154,39 @@ const getSingleNews = (req, res, next) => {
           //res.render("admin/newsManagementCreate", { aNews: newsData });
       });
 }
+
+
+const getUserSingleNews = (req, res, next) => {
+    if (!req.params.nid) {
+        res
+            .status(404)
+            .json({
+                "code": 400,
+                "message": "Not found, newsId is required"
+            });
+        return;
+    }
+    news.findById(req.params.nid)
+        .lean()
+        .exec((err, newsData) => {
+            if (err) {
+                console.log(err);
+                return res.status(404).json(err)
+            }
+            categories.find({actived: true})
+              .exec((err, categoriesData) => {
+                  newsData.categories = categoriesData;
+                  tags.find({actived: true})
+                      .exec((err, tagsData) => {
+                          newsData.allTags = tagsData;
+                          newsData.priorities = priorities;
+                          console.log(newsData);
+                          res.render("newsDetail", {article: newsData});
+                      });
+              });
+            //res.render("admin/newsManagementCreate", { aNews: newsData });
+        });
+  }
 
 const updateNews = (req, res, next) => {
     if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.categoryId || !req.body.tags|| !req.body.priority || !req.body.intro || !req.body.content) {
@@ -226,5 +282,7 @@ module.exports = {
   aNewsCreatePage,
   getSingleNews,
   updateNews,
-  deleteNews
+  deleteNews,
+  usersNewsPage,
+  getUserSingleNews
 }

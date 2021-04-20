@@ -43,13 +43,19 @@ const aVideosCreate = (req, res, next) => {
 }
 
 const aVideosPage = (req, res, next) => {
-  videos.find()
-      //.populate('categoryId')
-      //.populate('tags')
-      .exec((err, videosData) => {
-         // console.log(videosData[0].tags);
-          res.render('admin/videosManagement', { title: 'videos', videos: videosData });
-      });
+  videos.count({}, function(err, count) {
+    videos.find()
+    .skip((req.params.page - 1) * 5)
+    .limit(5)
+    //.populate('categoryId')
+    //.populate('tags')
+    .exec((err, videosData) => {
+       // console.log(videosData[0].tags);
+        maxPage = Math.ceil(count / 5);
+        res.render('admin/videosManagement', { title: 'videos', videos: videosData, maxPage: maxPage });
+    });
+  });
+  
 }
 
 const getSingleVideos = (req, res, next) => {
@@ -70,6 +76,7 @@ const getSingleVideos = (req, res, next) => {
               return res.status(404).json(err)
           }
           videosData.actived = String(videosData.actived);
+          videosData.hasActived = true;
           console.log(videosData);
           res.render("admin/videosManagementCreate", {aVideos: videosData});
       });
@@ -160,11 +167,49 @@ const deleteVideos = (req, res, next) => {
 
 }
 
+const usersVideosPage = (req, res, next) => {
+    videos.count({}, (err, num) => {
+        videos.find()
+        .skip((req.params.page-1) * 5)
+        .limit(5)
+        .exec((err, videosData) => {
+            console.log(videosData[0].tags);
+            maxPage = Math.ceil(num / 5);
+            res.render('videos', { title: 'videos', list: videosData, maxPage: maxPage });
+        });
+    });
+    
+}
+
+const getUserSingleVideos = (req, res, next) => {
+    if (!req.params.vid) {
+        res
+            .status(404)
+            .json({
+                "code": 400,
+                "message": "Not found, videoId is required"
+            });
+        return;
+    }
+    videos.findById(req.params.vid)
+        .lean()
+        .exec((err, videosData) => {
+            if (err) {
+                console.log(err);
+                return res.status(404).json(err)
+            }
+            res.render("videosDetail", { video: videosData });
+        });
+}
+
+
 module.exports = {
   aVideosCreate,
   aVideosPage,
   aVideosCreatePage,
   getSingleVideos,
   updateVideos,
-  deleteVideos
+  deleteVideos,
+  usersVideosPage,
+  getUserSingleVideos
 }

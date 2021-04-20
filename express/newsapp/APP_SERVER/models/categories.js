@@ -5,7 +5,7 @@ const categoriesSchema = new mongoose.Schema({
         type: Number,
         required: true,
         'default': 0
-        //0 top categories, 1 subcategories
+        //0 news, 1 videos, 2 pictures
     },
     name: {
         type: String,

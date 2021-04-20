@@ -1,3 +1,9 @@
+const mongoose = require('mongoose');
+const videos = mongoose.model('videos');
+const news = mongoose.model('news');
+const pictures = mongoose.model('pictures');
+
+
 const checkLogin = function (req, res, next) {
     let account = "admin";
     let password = "123456";
@@ -45,8 +51,37 @@ const adminLogin = (req, res, next) => {
 }
 
 const adminIndex = (req, res, next) => {
-    res.render('admin/index');
+    let utcTime = new Date();
+    let utcTimeStamp = utcTime.getTime() - (240 * 60000);
+    let currentTime = new Date(utcTimeStamp);
+    let year = currentTime.getFullYear();
+    let date = currentTime.getDate();
+    let month = currentTime.getMonth() + 1;
+    let todayUtcTime = new Date(`${year}-${month}-${date} 00:00:00`);
+    let todayTime = new Date(todayUtcTime.getTime() - 240 * 60000);
+    news.count({}, function (err, newsTotal) {
+        news.count({insertTime: {$gte: todayTime}}, function(err, newsFilter){
+            videos.count({}, function(err, videosTotal) {
+                videos.count({insertTime: {$gte: todayTime}}, function(err, videosFilter){
+                    pictures.count({}, function(err, picTotal) {
+                        pictures.count({insertTime: {$gte: todayTime}}, function(err, picFilter){
+                            if (newsTotal == null) newsTotal = 0;
+                            if (newsFilter == null) newsFilter = 0;
+                            if (videosTotal == null) videosTotal = 0;
+                            if (videosFilter == null) videosFilter = 0;
+                            if (picTotal == null) picTotal = 0;
+                            if (picFilter == null) picFilter = 0;
+                            res.render('admin/index', {newsTotal: newsTotal, newsFilter:newsFilter, videosTotal: videosTotal, videosFilter: videosFilter, picTotal: picTotal, picFilter: picFilter});
+                        })
+                    });
+                })
+            });
+        });
+
+    });
+    
 }
+
 
 
 
@@ -59,5 +94,5 @@ module.exports = {
     checkLogin,
     checkSignIn,
     signOut
-    
+
 }

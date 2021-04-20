@@ -1,40 +1,16 @@
-extend admin_layout
+extend admin_layout_login
 
 block content
-  .container-fluid.header-css(role='banner')
-    .row
-      header.col-xl-2.offset-xl-1.col-lg-3.col-md-3.col-sm-12.col-9
-        h3 Grobal News
-      .col-3.nav-btn
-        button#navBtn.btn(type='button')
-          // <span class="nav-icon"></span>
-          img(alt='button' src="data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
-      nav#navList.col-xl-5.col-lg-6.col-md-9.col-sm-12.nav-bar(role='navigation')
-        ul.nav
-          li.nav-item.active
-            a(href='index.html') Home
-          li.nav-item
-            a(href='news.html') News
-          li.nav-item
-            a(href='video.html') Videos
-          li.nav-item
-            a(href='images.html') Images
-          li.nav-item
-            a(href='graphs.html') Graphs
-          li.nav-item
-            a(href='aboutUs.html') About Us
-      .d-flex.col-xl-3.col-lg-3(role='search')
-        a.align-self-center.ml-auto.btn.btn-outline-secondary Sign out
   #admin_main.row
     #admin_nav.col-3
       nav.nav.flex-column
-        a.nav-link.text-center(href='index.html') Overview
-        a.nav-link.text-center(href='newslistManagement.html') News Management
-        a.nav-link.text-center(href='videoManagement.html') Videos Management
-        a.nav-link.text-center(href='picManagement.html') Pictures Management
-        a.nav-link.text-center(href='cateManagement.html') Categories Management
-        a.nav-link.active.text-center(href="http://localhost:3000/admin/tag") Tags Management
-        a.nav-link.text-center(href='crawler.html') Crawler Rules
+        a.nav-link.text-center(href="/admin") Overview
+        a.nav-link.text-center(href="/admin/news/data") News Management
+        a.nav-link.text-center(href="/admin/videos/data") Videos Management
+        a.nav-link.text-center(href="/admin/pictures/data") Pictures Management
+        a.nav-link.text-center(href="/admin/category/data") Categories Management
+        a.nav-link.active.text-center(href="/admin/tag/data") Tags Management
+        a.nav-link.text-center(href="/admin/spider/data") Crawler Rules
     .col-9
       nav(aria-label="breadcrumb")
           ol.breadcrumb
