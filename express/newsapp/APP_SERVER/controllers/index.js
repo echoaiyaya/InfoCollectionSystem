@@ -4,11 +4,22 @@ const news = mongoose.model('news');
 const pictures = mongoose.model('pictures');
 const categories = mongoose.model('categories');
 
-const aboutusPage = function(req,res,next){
-    res.render('aboutus',{});
+const aboutusPage = function (req, res, next) {
+    res.render('aboutus', {});
 }
-const feedbackSubmit = function(req,res,next){
-    res.render('feedbacksubmit',{});
+const feedbackSubmit = function (req, res, next) {
+    res.render('feedbacksubmit', {});
+}
+
+function getNewsByCategory() {
+    return new Promise(function (resolve, reject) {
+        news.find({ categoryId: e._id })
+            .limit(5)
+            .then((err, newsData) => {
+                
+                resolve(newsData);
+            });
+    });
 }
 
 //get simple news videos pictures
@@ -19,57 +30,37 @@ const getNVP = function (req, res, next) {
         , subNews
         , videos
         , pictures = {};
+    let subArray = new Array();
     //scroll news
-    news.find()
-        .where('priority', 0)
-        .where('actived', true)
-        .select("title intro picture")
-        .exec((err, newsData) => {
-            if (err) return handleError(err);
-            scrollNews = newsData;
-        });
-    //headline news
-    news.find()
-        .where('priority', 1)
-        .where('actived', true)
-        .select("title intro picture")
-        .limit(5)
-        .exec((err, newsData) => {
-            if (err) return handleError(err);
-            headLineNews = newsData;
-        });
-    //special news
-    news.find()
-        .where('priority', 2)
-        .where('actived', true)
-        .select("title intro picture")
-        .limit(2)
-        .exec((err, newsData) => {
-            if (err) return handleError(err);
-            speicalNews = newsData;
-        });
-
     categories.find()
         .where('actived', true)
         .where('level', 1)
-        .select("name")
         .exec((err, cData) => {
             if (err) return handleError(err);
-            let newsArray = new Array();
-            cData.forEach((e) => {
 
-                news.find()
-                    .select('name picture')
-                    .where('categoryId', e._id)
-                    .limit(5)
-                    .exec((err, newsData) => {
-                        newsArray.push(newsData);
-                    });
+            cData.forEach((e) => {
+                let subNews = {};
+                subNews.title = e.name;
+                let result = async function() {
+                    await new Promise((res, rej) => {
+                        news.find({ categoryId: e._id })
+                        .limit(5)
+                        .then((err, newsData) => {
+                            
+                            res(newsData);
+                        });
+                    }) 
+                };
+               
+                console.log(i);
+                subNews.content = result;
+                subArray.push(subNews);
             });
-            subNews = newsArray;
+            console.log(subArray);
+
         });
-    res.render('index', { scrollNews: scrollNews, headLineNews: headLineNews, speicalNews: speicalNews, subNews: subNews });
-    //res.render('index', {title: "hello world"});
+    // res.render('index', { scrollNews: scrollNews, headLineNews: headLineNews, speicalNews: speicalNews, subNews: subNews });
+    res.render('index', { title: "hello world" });
 };
 
 module.exports = {
