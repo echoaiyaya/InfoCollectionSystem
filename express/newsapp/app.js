@@ -4,6 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
+
+var paypal = require('paypal-rest-sdk');
+
+paypal.configure({
+  'mode': 'sandbox', //sandbox or live
+  'client_id': 'AbD7hZKzJu3hLrmbD3tZEOKlgz9GinGHjRD9dVQHJBECCpqouMQQPJyuh1CvlsgY_p1a-r89fByNPAn9',
+  'client_secret': 'EIrnnv4DvJMFuZfquM0peGgmVU4QFshJfTMQNWR0By7yMFy902VnrvrUcRyOFY1NplZo1nrbVoeObpjL'
+});
 require('./APP_SERVER/models/db');
 
 var mongoose = require('mongoose');
@@ -28,6 +36,77 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
+
+app.post('/donation',(req, res) => {
+  console.log(req.body.data_5);
+
+  var create_payment_json = {
+    "intent": "sale",
+    "payer": {
+        "payment_method": "paypal"
+    },
+    "redirect_urls": {
+        "return_url": "http://localhost:3000/success",
+        "cancel_url": "http://localhost:3000/cancel"
+    },
+    "transactions": [{
+      "item_list": {
+          "items": [{
+              "name": "Donation",
+              "sku": "001",
+              "price": req.body.data_5,
+              "currency": "CAD",
+              "quantity": 1
+          }]
+      },
+      "amount": {
+          "currency": "CAD",
+          "total": req.body.data_5
+      },
+      "description": "THANK YOU FOR YOUR DONATION"
+  }]
+
+};
+
+paypal.payment.create(create_payment_json, function (error, payment){
+  if(error){
+    throw error;
+  } else {
+    for(let i = 0;i < payment.links.length;i++){
+      if(payment.links[i].rel === 'approval_url'){
+        res.redirect(payment.links[i].href);
+      }
+    }
+  }
+});
+});
+app.get('/success', (req,res) => {
+  var payerId = req.query.PayerID;
+  var paymentId = req.query.paymentId;
+
+  var execute_payment_json = {
+    "payer_id": payerId,
+    "transactions": [{
+        "amount": {
+            "currency": "CAD",
+            "total": "25.00"
+        }
+    }]
+  };
+  
+  paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+    if (error) {
+        console.log(error.response);
+        throw error;
+    } else {
+        // console.log("Get Payment Response");
+        console.log(JSON.stringify(payment));
+        res.send('/');
+    }
+});
+});
+
+app.get('/cancel', (req, res) => res.send('Cancelled'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

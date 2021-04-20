@@ -9,8 +9,12 @@ const pictureslist = require('../controllers/pictures');
 const videoslist = require('../controllers/videos');
 const newsList = require('../controllers/news');
 const homeList = require('../controllers/index');
+const videosList = require('../controllers/videos');
 
 router.get('/',homeList.getNVP);
+
+// router.post('/donation', homeList.donationPage);
+router.get('/submitDonation', homeList.submitDonation);
 
 router.get('/news/list/:page?', newsList.usersNewsPage);
 router.get('/news/detail/:nid', newsList.getUserSingleNews);
