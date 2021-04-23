@@ -23,13 +23,19 @@ block content
           li.nav-item
             a(href='/submitDonation') Donate
       .search-bar.col-xl-3.col-lg-3(role='search')
-        input(type='text' placeholder='Grobal News')
-        a(href='#')
+        input#searchId(type='text' placeholder='Grobal News')
+        a(onclick="toSearch();")
           img(src='../images/search.png' alt='search button')
   main.container-fluid.news-main(role='main')
   .row
     .col-lg-7.offset-lg-1.col-md-8
-      h1 News
+      h1 
+        a(href="/news/list") News 
+      each c in cates
+        if c._id == cc
+          a.btn.btn-primary #{c.name}
+        else
+          a.btn.btn-outline-primary(href='/news/category/'+c._id) #{c.name}
       hr
       each news in list
         .news-list.container-fluid
@@ -40,67 +46,32 @@ block content
                 h4 #{news.title}
               p
                 | !{news.intro.substr(0,200)}
-                br
-                | Key: 
-                span.key-word USA
               .news-bottom
                 span.author
                     | By 
                     a(href='#') #{news.author}
-                span.date #{news.publicTimeString}
+                span.date 
+                    | #{news.publicTime.toString().substr(0,25)}
       nav(aria-label='Page navigation example')
         ul.pagination.justify-content-end
           - var n = 1;
           while n <= maxPage
             li.page-item
-              a.page-link(href='http://localhost:3000/news/list/' + n) #{n++}
+              if cid == ""
+                a.page-link(href='http://localhost:3000/news/list/' + n) #{n++}
+              else
+                a.page-link(href='http://localhost:3000/news/category/' + cid + '/' + n) #{n++}
     .col-lg-3.col-md-4
       h1 Trending News
       hr
       ul.list-inline.list-re
-        li
-          a.news-list-title(href='https://www.regionofwaterloo.ca/en/health-and-wellness/positive-cases-in-waterloo-region.aspx')
-            h5 COVID-19 Cases in Waterloo,Ontario,Canada.
-          .news-bottom
-            span.author
-              | By 
-              a(href='#') Associated Press
-            br
-            span.date Thu, 04/17/2020 - 18:08
-        li
-          a.news-list-title(href='https://vtdigger.org/coronavirus/')
-            h5 Coronavirus news-COVID-19 in Vermont
-          .news-bottom
-            span.author
-              | By 
-              a(href='#') Associated Press
-            br
-            span.date Thu, 04/16/2020 - 18:08
-        li
-          a.news-list-title(href='https://www.nytimes.com/2020/04/17/world/coronavirus-news-updates.html')
-            h5 W.H.O Failed to Tell Syrian Kurds of Their First Coronavirus Death
-          .news-bottom
-            span.author
-              | By 
-              a(href='#') Associated Press
-            br
-            span.date Thu, 04/16/2020 - 18:08
-        li
-          a.news-list-title(href='https://globalnews.ca/news/6837898/coronavirus-world-cruise-disembark/')
-            h5
-              | Passengers on world cruise expected to disembark after spending weeks without docking
-          .news-bottom
-            span.author
-              | By 
-              a(href='#') Associated Press
-            br
-            span.date Thu, 04/16/2020 - 18:08
-        li
-          a.news-list-title(href='https://www.theguardian.com/world/2020/apr/18/coronavirus-glance')
-            h5 Coronavirus Latest:at a glance
-          .news-bottom
-            span.author
-              | By 
-              a(href='#') Associated Press
-            br
-            span.date Thu, 04/16/2020 - 18:08
+        each t in tNews
+          li
+            a.news-list-title(href='/news/detail/' + t._id)
+              h5 #{t.title}
+            .news-bottom
+              span.author
+                | By #{t.author}
+              br
+              span.date #{Date(t.publicTime).toString().substr(0,15)}
+        

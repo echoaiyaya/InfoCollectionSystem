@@ -1,0 +1,76 @@
+extends layout
+block content
+  .container-fluid.header-css(role='banner')
+    .row
+      header.col-xl-2.offset-xl-1.col-lg-3.col-md-3.col-sm-12.col-9
+        h3 Grobal News
+      .col-3.nav-btn
+        button#navBtn.btn(type='button')
+          // <span class="nav-icon"></span>
+          img(alt='button' src="data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+      nav#navList.col-xl-5.col-lg-6.col-md-9.col-sm-12.nav-bar(role='navigation')
+        ul.nav
+          li.nav-item
+            a(href='/') Home
+          li.nav-item
+            a(href='/news/list') News
+          li.nav-item.active
+            a(href='/videos/list') Videos
+          li.nav-item
+            a(href='/pictures/list') Images
+          li.nav-item
+            a(href='/aboutus') About Us
+          li.nav-item
+            a(href='/submitDonation') Donate
+      .search-bar.col-xl-3.col-lg-3(role='search')
+        input#searchId(type='text' placeholder='Grobal News')
+        a(onclick="toSearch();")
+          img(src='../images/search.png' alt='search button')
+  main.container-fluid.news-main(role='main')
+    .row
+      .col-lg-10.offset-lg-1.col-md-12
+        h1 News
+        hr
+        each news in newsList
+          .news-list.container-fluid
+            .row
+              .col-sm-8
+                a.news-list-title(href='/news/detail/' + news._id)
+                  h4 #{news.title}
+                p
+                  | !{news.intro.substr(0,200)}
+                .news-bottom
+                  span.author
+                      | By 
+                      a(href='#') #{news.author}
+                  span.date #{news.publicTime}
+      .col-lg-10.offset-lg-1.col-md-12
+        h1 Pictures
+        hr
+        each pic in picList
+          .news-list.container-fluid
+            .row
+              .col-sm-8
+                a.news-list-title(href='/pictures/detail/' + pic._id)
+                  h4 #{pic.title}
+                .news-bottom
+                  span.author
+                      | By 
+                      a(href='#') #{pic.author}
+                  span.date #{pic.publicTime}
+      .col-lg-10.offset-lg-1.col-md-12
+        h1 Videos
+        hr
+        each v in vlist
+          .news-list.container-fluid
+            .row
+              .col-sm-8
+                a.news-list-title(href='/videos/detail/' + v._id)
+                  h4 #{v.title}
+                p
+                  | !{v.intro.substr(0,200)}
+                .news-bottom
+                  span.author
+                      | By 
+                      a(href='#') #{v.author}
+                  span.date #{v.publicTime}

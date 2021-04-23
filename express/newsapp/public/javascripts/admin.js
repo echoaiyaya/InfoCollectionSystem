@@ -7,7 +7,77 @@
     createSpider();
     createPictures();
     createVideos();
+    postFeedBack();
 })();
+
+function toSearch() {
+    let search = document.querySelector("#searchId");
+    let content = search.value;
+    console.log(content);
+    if (content == "" || content == 'undefined') {
+        alert('searching empty');
+    } else {
+        window.location.href = "/search/" + content;
+    }
+    
+}
+
+function closethis() {
+    let model = document.querySelector("#feedback-modal");
+    model.style.display = 'none';
+}
+
+function readFeedback(id, comment) {
+    let model = document.querySelector("#feedback-modal");
+    let body = document.querySelector(".modal-body");
+    let changeText = document.querySelector('[fid="'+id+'"]');
+    if (changeText.innerHTML != 'read') {
+        changeText.innerHTML = 'read';
+        changeText.classList.remove("text-danger");
+        fetch("/admin/feedback/read/" + id)
+        .then((res) => {return res.json();})
+        .then((result) => {
+        });
+    } 
+    model.style.display = 'block';
+    body.innerHTML = comment;
+    
+}
+
+function postFeedBack() {
+    console.log(1)
+    let fbBtn = document.querySelector("#fbSubmit");
+    console.log(fbBtn);
+    if (fbBtn) {
+        fbBtn.onclick = () => {
+            let fn = document.querySelector("#first-name");
+            let ln = document.querySelector("#last-name");
+            let email = document.querySelector("#email");
+            let comment = document.querySelector("#comment");
+            let data = {
+                firstName: fn.value,
+                lastName: ln.value,
+                email: email.value,
+                comment: comment.value
+            };
+            fetch("/feedback", {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: new Headers({'Content-Type': 'application/json'})
+            })
+            .then((res) => {return res.json();})
+            .then((result) => {
+                if(result.code == 200) {
+                    alert(result.message);
+                    window.location.href = "/aboutus";
+                } else {
+                    alert(result.message);
+                }
+            });
+        }
+    }
+    
+}
 
 function deleteSpider(sid) {
     
@@ -392,15 +462,6 @@ function createPictures() {
             let title = document.querySelector("#picturesTitle");
             let author = document.querySelector("#picturesAuthor");
             let link = document.querySelector("#picturesLink");
-            //let categoryId = document.querySelector("#newsCategory");
-            //let tagsSelected = document.querySelectorAll(".otag:checked");
-            // tagsSelected.forEach((v) => {
-            //     tags.push(v.value);
-            // });
-            // let pSelected = document.querySelectorAll(".op:checked");
-            // pSelected.forEach((v) => {
-            //     priority.push(Number(v.value));
-            // });
             let actived = document.querySelector("#picturesActived");
             let intro = document.querySelector("#picturesIntro");
             let pic = document.querySelector("#pictiuresPic")

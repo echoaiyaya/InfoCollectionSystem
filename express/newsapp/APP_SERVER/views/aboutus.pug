@@ -23,8 +23,8 @@ block content
           li.nav-item
             a(href='/submitDonation') Donate
       .search-bar.col-xl-3.col-lg-3(role='search')
-        input(type='text' placeholder='Grobal News')
-        a(href='#')
+        input#searchId(type='text' placeholder='Grobal News')
+        a(onclick="toSearch();")
           img(src='../images/search.png' alt='search button')
   main.container-fluid.about-main(role='main')
     .row
@@ -44,7 +44,7 @@ block content
         hr
         .row
           .col-md-6.container-fluid
-            form.row
+            .row
               .col-sm-6.feedback-bot
                 label(for='first-name') First Name
                 input#first-name.form-control(type='text' pattern='[a-zA-z]+' placeholder='First Name' name='first-name')
@@ -62,7 +62,7 @@ block content
             textarea#comment.form-control(aria-label='With textarea' pattern='[a-zA-z]+')
             img(onclick='startDictation(this)',src='https://i.imgur.com/cHidSVu.gif')
           .col-12
-            a.btn.btn-sm.btn-primary(href="/feedbacksubmit") Submit
+            a#fbSubmit.btn.btn-sm.btn-primary Submit
           script(type='text/javascript').
             function startDictation(btnThis) {
               if (window.hasOwnProperty('webkitSpeechRecognition')) {

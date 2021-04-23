@@ -1,0 +1,57 @@
+extend admin_layout_login
+
+block content
+  #admin_main.row
+    #admin_nav.col-3
+      nav.nav.flex-column
+        a.nav-link.text-center(href="/admin") Overview
+        a.nav-link.text-center(href="/admin/news/data") News Management
+        a.nav-link.text-center(href="/admin/videos/data") Videos Management
+        a.nav-link.text-center(href="/admin/pictures/data") Pictures Management
+        a.nav-link.text-center(href="/admin/category/data") Categories Management
+        a.nav-link.text-center(href="/admin/tag/data") Tags Management
+        a.nav-link.text-center(href="/admin/spider/data") Crawler Rules
+        a.nav-link.text-center.active(href="/admin/feedback/data") Feedback
+    .col-9
+      nav(aria-label='breadcrumb')
+        ol.breadcrumb
+          li.breadcrumb-item
+            a(href='#') Admin
+          li.breadcrumb-item.active feedback Management
+      hr
+      table.table
+        thead.thead-dark
+          tr
+            th(scope='col') #
+            th(scope='col') full name
+            th(scope='col') email
+            th(scope='col') status
+            th(scope='col') comment
+        tbody
+          each c, key in feedbacks
+            tr
+              th(scope="row") #{key + 1}
+              td #{c.firstName +" " + c.lastName}
+              td #{c.email}
+              if c.status == true
+                td(fid=c._id) read
+              else 
+                td.text-danger(fid=c._id) New!
+              td
+                a.btn.btn-sm.btn-primary.mr-2(onclick='readFeedback("'+ c._id +'","'+c.comment +'")') Comment
+      nav(aria-label='Page navigation example')
+        ul.pagination.justify-content-end
+          - var n = 1;
+          while n <= maxPage
+            li.page-item
+              a.page-link(href='/admin/feedback/data/' + n) #{n++}
+      .modal#feedback-modal(tabindex='-1')
+        .modal-dialog
+          .modal-content
+            .modal-header
+              h5.modal-title Comment
+            .modal-body
+              p Modal body text goes here.
+            .modal-footer
+              a.btn.btn-secondary(onclick="closethis();") Close
+

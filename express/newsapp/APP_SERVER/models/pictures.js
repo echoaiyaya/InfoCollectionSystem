@@ -7,12 +7,10 @@ const picturesSchema = new mongoose.Schema({
 		required : true
 	},
     author : {
-		type : String,
-		required : true
+		type : String
 	},
 	picture :{
-		type: String,
-		required:true
+		type: String
 	},
     intro : {
 		type : String,
@@ -22,7 +20,7 @@ const picturesSchema = new mongoose.Schema({
 		type : String,
 		required : true
 	},
-    actived: {
+    active: {
         type: Boolean,
         required: true,
         'default': false
@@ -36,9 +34,6 @@ const picturesSchema = new mongoose.Schema({
 		type : Date,
 		required : true,
 		'default' : Date.now
-	},
-	picture: {
-		type: String,
 	}
 	//categoryId : {type: Schema.Types.ObjectId, ref: 'categories'},
   //tags : [{type: Schema.Types.ObjectId, ref: 'tags'}]

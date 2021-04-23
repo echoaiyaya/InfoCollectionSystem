@@ -19,3 +19,4 @@ require('./tags');
 require('./videos');
 require('./pictures');
 require('./spiders');
+require('./feedback');

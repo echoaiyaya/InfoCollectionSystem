@@ -11,6 +11,7 @@ block content
         a.nav-link.text-center(href="/admin/category/data") Categories Management
         a.nav-link.text-center(href="/admin/tag/data") Tags Management
         a.nav-link.text-center(href="/admin/spider/data") Crawler Rules
+        a.nav-link.text-center(href="/admin/feedback/data") Feedback
     .col-9
       nav(aria-label='breadcrumb')
         ol.breadcrumb
@@ -30,22 +31,20 @@ block content
         img(onclick='startDictation(this)',src='https://i.imgur.com/cHidSVu.gif')
       .form-group
         label(for='pictiuresPic') Picture:
-        input#picturesLink.form-control(type='text', , value=aPictures.picture)
+        input#pictiuresPic.form-control(type='text', , value=aPictures.picture)
       .form-group
         label(for='pictiuresLink') link:
         input#picturesLink.form-control(type='text', , value=aPictures.link)
       .form-group
         label(for='picturesActived') Actived:
         select#picturesActived.form-control
-          if aPictures.actived
-            case aPictures.actived
-              when 'true'
-                option(value='true', checked) true
-                option(value='false') false
-              when 'false'
-                option(value='false', checked) false
-                option(value='true') true
-                
+          if aPictures.actived != ''
+            if aPictures.actived == 'true'
+              option(value='true', checked) true
+              option(value='false') false
+            else
+              option(value='false', checked) false
+              option(value='true') true     
           else      
             option(value='true') true
             option(value='false') false

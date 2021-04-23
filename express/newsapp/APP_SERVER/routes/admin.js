@@ -8,6 +8,7 @@ const tagCtrl = require('../controllers/tags.js');
 const videosCtrl = require('../controllers/videos.js');
 const picturesCtrl = require('../controllers/pictures.js');
 const spiderCtrl = require('../controllers/spider.js');
+const fbCtrl = require('../controllers/feedback.js');
 const { route } = require('./index.js');
 router.get('/',adminCtrl.checkSignIn, adminCtrl.adminIndex);
 router.route('/login')
@@ -44,6 +45,9 @@ router.get('/tag/data/:page?',adminCtrl.checkSignIn, tagCtrl.tagPage);
 router.route('/tag/create')
       .get(adminCtrl.checkSignIn, tagCtrl.tagCreatePage)
       .post(adminCtrl.checkSignIn, tagCtrl.tagCreate);
+
+router.get('/feedback/data/:page?',adminCtrl.checkSignIn, fbCtrl.feedbackPage);
+router.get('/feedback/read/:fid', adminCtrl.checkSignIn, fbCtrl.updateFeedback);
 
 router.route('/tag/:tid')
       .get(tagCtrl.getSingleTag)

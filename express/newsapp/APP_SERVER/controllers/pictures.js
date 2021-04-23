@@ -35,7 +35,7 @@ const aPicturesCreatePage = (req, res, next) => {
         author: '',
         intro: '',
         link: '',
-        actived: '',
+        active: '',
         publicTime: '',
         insertTIme: '',
         picture: '',
@@ -62,7 +62,7 @@ const aPicturesCreate = (req, res, next) => {
     }
     pictures.create({
         title: req.body.title,
-        actived: req.body.actived,
+        active: req.body.actived,
         author: req.body.author,
         link: req.body.link,
         intro: req.body.intro,
@@ -126,7 +126,6 @@ const getSinglePictures = (req, res, next) => {
                 console.log(err);
                 return res.status(404).json(err)
             }
-            picturesData.actived = String(picturesData.actived);
             // categories.find({actived: true})
             //   .exec((err, categoriesData) => {
             //       videosData.categories = categoriesData;
@@ -134,6 +133,7 @@ const getSinglePictures = (req, res, next) => {
             //           .exec((err, tagsData) => {
             //               videosData.allTags = tagsData;
             //               videosData.priorities = priorities;
+            picturesData.actived = String(picturesData.active);
             console.log(picturesData);
             res.render("admin/picturesManagementCreate", { aPictures: picturesData });
 
@@ -162,11 +162,6 @@ const getUserSinglePictures = (req, res, next) => {
         });
 }
 const updatePictures = (req, res, next) => {
-    if (!req.body.title || !req.body.actived || !req.body.author || !req.body.link || !req.body.intro || !req.body.picture) {
-        return res
-            .status(400)
-            .json({ "code": 400, message: "miss params" });
-    }
     pictures.findById(req.params.pid)
         .exec((err, pictures) => {
             if (!pictures) {
@@ -187,7 +182,7 @@ const updatePictures = (req, res, next) => {
                 return;
             }
             pictures.title = req.body.title;
-            pictures.actived = req.body.actived;
+            pictures.active = req.body.actived;
             pictures.author = req.body.author;
             pictures.link = req.body.link;
             // news.categoryId= req.body.categoryId,
