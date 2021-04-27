@@ -19,7 +19,7 @@ block content
             a(href="#") Admin
           li.breadcrumb-item.active News Management
       hr
-      button.btn.btn-primary.mb-2(onclick="window.location.href='http://localhost:3000/admin/spider/create'") Create New Spider
+      button.btn.btn-primary.mb-2(onclick="window.location.href='/admin/spider/create'") Create New Spider
       table.table
         thead.thead-dark
           tr
@@ -42,11 +42,11 @@ block content
               td #{c.active}
               td
                 a.btn.btn-sm.btn-primary.mr-2(onclick="runSpider('" + c._id + "')") Run Now
-                a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/spider/" + c._id) edit
+                a.btn.btn-sm.btn-warning.mr-2(href="/admin/spider/" + c._id) edit
                 a.btn.btn-sm.btn-danger(onclick="deleteSpider('"+ c._id + "')") delete
       nav(aria-label='Page navigation example')
         ul.pagination.justify-content-end
           - var n = 1;
           while n <= maxPage
             li.page-item
-              a.page-link(href='http://localhost:3000/admin/spider/data/' + n) #{n++}
+              a.page-link(href='/admin/spider/data/' + n) #{n++}

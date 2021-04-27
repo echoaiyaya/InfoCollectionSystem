@@ -19,7 +19,7 @@ block content
             a(href='#') Admin
           li.breadcrumb-item.active Pictures Management
       hr
-      button.btn.btn-primary.mb-2(onclick="window.location.href='http://localhost:3000/admin/pictures/create'") Create New Picture  Data
+      button.btn.btn-primary.mb-2(onclick="window.location.href='/admin/pictures/create'") Create New Picture  Data
       table.table
         thead.thead-dark
           tr
@@ -42,11 +42,11 @@ block content
               td #{c.publicTime.toDateString()}
               td #{c.insertTime.toDateString()}
               td
-                a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/pictures/" + c._id) edit
+                a.btn.btn-sm.btn-warning.mr-2(href="/admin/pictures/" + c._id) edit
                 a.btn.btn-sm.btn-danger(onclick="deletePictures('"+ c._id + "')") delete
       nav(aria-label='Page navigation example')
         ul.pagination.justify-content-end
           - var n = 1;
           while n <= maxPage
             li.page-item
-              a.page-link(href='http://localhost:3000/admin/pictures/data/' + n) #{n++} 
+              a.page-link(href='/admin/pictures/data/' + n) #{n++} 

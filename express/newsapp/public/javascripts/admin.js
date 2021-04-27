@@ -81,7 +81,7 @@ function postFeedBack() {
 
 function deleteSpider(sid) {
     
-    fetch("http://localhost:3000/admin/spider/" + sid, {
+    fetch("/admin/spider/" + sid, {
         method: 'DELETE',
     })
     .then((res) => {return res.json();})
@@ -96,7 +96,7 @@ function deleteSpider(sid) {
 
 function runSpider(sid) {
     
-    fetch("http://localhost:3000/admin/spider/run/" + sid, {
+    fetch("/admin/spider/run/" + sid, {
         method: 'GET',
     })
     .then((res) => {return res.json();})
@@ -130,11 +130,11 @@ function createSpider() {
             let contentS = document.querySelector("#spidersCS");
             let type = document.querySelector("#spidersType");
             let id = createBtn.getAttribute("sid");
-            let url = "http://localhost:3000/admin/spider/create";
+            let url = "/admin/spider/create";
             let method = "POST";
             if (id) {
                 console.log(1);
-                url = "http://localhost:3000/admin/spider/" + id;
+                url = "/admin/spider/" + id;
                 method = "PUT";
             }
             let data = {
@@ -165,7 +165,7 @@ function createSpider() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/spider/data";
+                    window.location.href = "/admin/spider/data";
                 } else {
                     alert(result.message);
                 }
@@ -177,7 +177,7 @@ function createSpider() {
 
 function deleteCate(cid) {
     
-    fetch("http://localhost:3000/admin/category/" + cid, {
+    fetch("/admin/category/" + cid, {
         method: 'DELETE',
     })
     .then((res) => {return res.json();})
@@ -200,11 +200,11 @@ function createCate() {
             let actived = document.querySelector("#inputCategoryActived");
             let level = document.querySelector("#inputLevel");
             let id = createBtn.getAttribute("cid");
-            let url = "http://localhost:3000/admin/category/create";
+            let url = "/admin/category/create";
             let method = "POST";
             if (id) {
                 console.log(1);
-                url = "http://localhost:3000/admin/category/" + id;
+                url = "/admin/category/" + id;
                 method = "PUT";
             }
             let data = {
@@ -221,7 +221,7 @@ function createCate() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/category/data";
+                    window.location.href = "/admin/category/data";
                 } else {
                     alert(result.message);
                 }
@@ -234,7 +234,7 @@ function createCate() {
 
 function deleteTag(tid) {
     
-    fetch("http://localhost:3000/admin/tag/" + tid, {
+    fetch("/admin/tag/" + tid, {
         method: 'DELETE',
     })
     .then((res) => {return res.json();})
@@ -260,11 +260,11 @@ function createTag() {
             let actived = document.querySelector("#inputTagActived");
             // let level = document.querySelector("#inputLevel");
             let id = createBtn.getAttribute("tid");
-            let url = "http://localhost:3000/admin/tag/create";
+            let url = "/admin/tag/create";
             let method = "POST";
             if (id) {
                 console.log(1);
-                url = "http://localhost:3000/admin/tag/" + id;
+                url = "/admin/tag/" + id;
                 method = "PUT";
             }
             let data = {
@@ -281,7 +281,7 @@ function createTag() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/tag/data";
+                    window.location.href = "/admin/tag/data";
                 } else {
                     alert(result.message);
                 }
@@ -294,7 +294,7 @@ function createTag() {
 
 function deleteNews(nid) {
     
-    fetch("http://localhost:3000/admin/news/" + nid, {
+    fetch("/admin/news/" + nid, {
         method: 'DELETE',
     })
     .then((res) => {return res.json();})
@@ -333,11 +333,11 @@ function createNews() {
             
 
             let id = createBtn.getAttribute("nid");
-            let url = "http://localhost:3000/admin/news/create";
+            let url = "/admin/news/create";
             let method = "POST";
             if (id) {
                 console.log(1);
-                url = "http://localhost:3000/admin/news/" + id;
+                url = "/admin/news/" + id;
                 method = "PUT";
             }
             let data = {
@@ -360,7 +360,7 @@ function createNews() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/news/data";
+                    window.location.href = "/admin/news/data";
                 } else {
                     alert(result.message);
                 }
@@ -374,7 +374,7 @@ function createNews() {
 
 function deleteVideos(vid) {
     
-    fetch("http://localhost:3000/admin/videos/" + vid, {
+    fetch("/admin/videos/" + vid, {
         method: 'DELETE',
     })
     .then((res) => {return res.json();})
@@ -402,11 +402,11 @@ function createVideos() {
             let actived = document.querySelector("#videosActived");
             let intro = document.querySelector("#videosIntro");         
             let id = createBtn.getAttribute("vid");
-            let url = "http://localhost:3000/admin/videos/create";
+            let url = "/admin/videos/create";
             let method = "POST";
             if (id) {
                 console.log(1);
-                url = "http://localhost:3000/admin/videos/" + id;
+                url = "/admin/videos/" + id;
                 method = "PUT";
             }
             let data = {
@@ -427,7 +427,7 @@ function createVideos() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/videos/data";
+                    window.location.href = "/admin/videos/data";
                 } else {
                     alert(result.message);
                 }
@@ -438,7 +438,7 @@ function createVideos() {
 }
 function deletePictures(pid) {
     
-    fetch("http://localhost:3000/admin/pictures/" + pid, {
+    fetch("/admin/pictures/" + pid, {
         method: 'DELETE',
     })
     .then((res) => {return res.json();})
@@ -469,11 +469,11 @@ function createPictures() {
             
 
             let id = createBtn.getAttribute("pid");
-            let url = "http://localhost:3000/admin/pictures/create";
+            let url = "/admin/pictures/create";
             let method = "POST";
             if (id) {
                 console.log(1);
-                url = "http://localhost:3000/admin/pictures/" + id;
+                url = "/admin/pictures/" + id;
                 method = "PUT";
             }
             let data = {
@@ -497,7 +497,7 @@ function createPictures() {
             .then((result) => {
                 if(result.code == 200) {
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin/pictures/data";
+                    window.location.href = "/admin/pictures/data";
                 } else {
                     alert(result.message);
                 }
@@ -511,11 +511,11 @@ function signOut() {
     let logoutBtn = document.querySelector("#signOut");
     if (logoutBtn) {
         logoutBtn.onclick = () => {
-            fetch("http://localhost:3000/admin/signout")
+            fetch("/admin/signout")
             .then((res) => {return res.json();})
             .then((result) => {
                 if(result.code == 200) {
-                    window.location.href = "http://localhost:3000/admin/login";
+                    window.location.href = "/admin/login";
                 }
             });
         }
@@ -530,7 +530,7 @@ function login() {
     if (submitBtn) {
         submitBtn.onclick = () => {
             let data = {account: account.value, password: password.value};
-            fetch("http://localhost:3000/admin/login", {
+            fetch("/admin/login", {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: new Headers({'Content-Type': 'application/json'})
@@ -543,7 +543,7 @@ function login() {
                 if(result.code == 200) {
                     console.log(result.code);
                     alert(result.message);
-                    window.location.href = "http://localhost:3000/admin";
+                    window.location.href = "/admin";
                 } else {
                     alert(result.message);
                 }

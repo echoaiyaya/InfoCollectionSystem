@@ -125,7 +125,7 @@ const usersNewsPage = (req, res, next) => {
                             .exec((err, tNews) => {
                                 maxPage = Math.ceil(num / 5);
                                 currentC = '';
-                                res.render('news', { title: 'news', list: newsData, maxPage: maxPage, cates: categoriesData, cc: currentC, tNews: tNews });
+                                res.render('news', { title: 'news', list: newsData, maxPage: maxPage, cates: categoriesData, cid: currentC, tNews: tNews });
                             });
 
                     });

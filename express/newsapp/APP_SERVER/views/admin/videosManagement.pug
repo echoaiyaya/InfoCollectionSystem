@@ -19,7 +19,7 @@ block content
             a(href='#') Admin
           li.breadcrumb-item.active Videos Management
       hr
-      button.btn.btn-primary.mb-2(onclick="window.location.href='http://localhost:3000/admin/videos/create'") Create New Video Data
+      button.btn.btn-primary.mb-2(onclick="window.location.href='/admin/videos/create'") Create New Video Data
       table.table
         thead.thead-dark
           tr
@@ -44,11 +44,11 @@ block content
               td #{c.publicTime.toDateString()}
               td #{c.insertTime.toDateString()}
               td
-                a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/videos/" + c._id) edit
+                a.btn.btn-sm.btn-warning.mr-2(href="/admin/videos/" + c._id) edit
                 a.btn.btn-sm.btn-danger(onclick="deleteVideos('"+ c._id + "')") delete
       nav(aria-label='Page navigation example')
         ul.pagination.justify-content-end
           - var n = 1;
           while n <= maxPage
             li.page-item
-              a.page-link(href='http://localhost:3000/admin/videos/data/' + n) #{n++}  
+              a.page-link(href='/admin/videos/data/' + n) #{n++}  

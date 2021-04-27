@@ -58,9 +58,9 @@ block content
           while n <= maxPage
             li.page-item
               if cid == ""
-                a.page-link(href='http://localhost:3000/news/list/' + n) #{n++}
+                a.page-link(href='/news/list/' + n) #{n++}
               else
-                a.page-link(href='http://localhost:3000/news/category/' + cid + '/' + n) #{n++}
+                a.page-link(href='/news/category/' + cid + '/' + n) #{n++}
     .col-lg-3.col-md-4
       h1 Trending News
       hr

@@ -19,7 +19,7 @@ block content
             a(href="#") Admin
           li.breadcrumb-item.active Categories Management
       hr
-      button.btn.btn-primary.mb-2(onclick="window.location.href='http://localhost:3000/admin/category/create'") Create New Category
+      button.btn.btn-primary.mb-2(onclick="window.location.href='/admin/category/create'") Create New Category
       table.table
         thead.thead-dark
           tr
@@ -36,7 +36,7 @@ block content
               td #{c.actived}
               td #{c.level}
               td
-                a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/category/" + c._id) edit
+                a.btn.btn-sm.btn-warning.mr-2(href="/admin/category/" + c._id) edit
                 a.btn.btn-sm.btn-danger(onclick="deleteCate('"+ c._id + "')") delete
           
       nav(aria-label='Page navigation example')
@@ -44,4 +44,4 @@ block content
           - var n = 1;
           while n <= maxPage
             li.page-item
-              a.page-link(href='http://localhost:3000/admin/category/data/' + n) #{n++}
+              a.page-link(href='/admin/category/data/' + n) #{n++}

@@ -19,7 +19,7 @@ block content
             a(href='#') Admin
           li.breadcrumb-item.active Tags Management
       hr
-      button.btn.btn-primary.mb-2(onclick="window.location.href='http://localhost:3000/admin/tag/create'") Create New Tag
+      button.btn.btn-primary.mb-2(onclick="window.location.href='/admin/tag/create'") Create New Tag
       table.table
         thead.thead-dark
           tr
@@ -34,11 +34,11 @@ block content
               td #{c.name}
               td #{c.actived}
               td
-                a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/tag/" + c._id) edit
+                a.btn.btn-sm.btn-warning.mr-2(href="/admin/tag/" + c._id) edit
                 a.btn.btn-sm.btn-danger(onclick="deleteTag('"+ c._id + "')") delete
       nav(aria-label='Page navigation example')
         ul.pagination.justify-content-end
           - var n = 1;
           while n <= maxPage
             li.page-item
-              a.page-link(href='http://localhost:3000/admin/tag/data/' + n) #{n++}
+              a.page-link(href='/admin/tag/data/' + n) #{n++}

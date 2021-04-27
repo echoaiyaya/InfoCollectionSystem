@@ -19,7 +19,7 @@ block content
             a(href='#') Admin
           li.breadcrumb-item.active News Management
       hr
-      button.btn.btn-primary.mb-2(onclick="window.location.href='http://localhost:3000/admin/news/create'") Create New News Data
+      button.btn.btn-primary.mb-2(onclick="window.location.href='/admin/news/create'") Create New News Data
       table.table
         thead.thead-dark
           tr
@@ -44,7 +44,7 @@ block content
               td #{c.publicTime.toDateString()}
               td #{c.insertTime.toDateString()}
               td
-                a.btn.btn-sm.btn-warning.mr-2(href="http://localhost:3000/admin/news/" + c._id) edit
+                a.btn.btn-sm.btn-warning.mr-2(href="/admin/news/" + c._id) edit
                 a.btn.btn-sm.btn-danger(onclick="deleteNews('"+ c._id + "')") delete
           
       nav(aria-label='Page navigation example')
@@ -52,5 +52,5 @@ block content
           - var n = 1;
           while n <= maxPage
             li.page-item
-              a.page-link(href='http://localhost:3000/admin/news/data/' + n) #{n++}
+              a.page-link(href='/admin/news/data/' + n) #{n++}
                 
